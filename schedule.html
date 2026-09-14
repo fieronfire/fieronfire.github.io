@@ -9,12 +9,9 @@
 
 <body>
 
-<audio id="dateSong" preload="auto">
-  <source src="bad.mp3" type="audio/mpeg">
+<audio id="dateSong" preload="auto" playsinline>
+  <source src="./bad.mp3" type="audio/mpeg">
 </audio>
-
-
-<!-- FLOATING DOTS -->
 
 <span class="spark s1"></span>
 <span class="spark s2"></span>
@@ -35,8 +32,6 @@
 <span class="spark s17"></span>
 <span class="spark s18"></span>
 
-
-<!-- MAIN CARD -->
 
 <main class="card transition-page">
 
@@ -63,11 +58,9 @@
   </p>
 
 
-  <!-- SCHEDULE FORM -->
-
   <form
     id="scheduleForm"
-    action="https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec"
+    action="https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec"
     method="POST"
   >
 
@@ -217,6 +210,7 @@
 
 
     <input
+      id="setDateButton"
       type="submit"
       value="Set the date! 🙂"
     >
@@ -235,9 +229,13 @@
 
 <script>
 
-/* =====================================================
-   CHOICE LOG
-   ===================================================== */
+/* =========================================================
+   DATA
+   ========================================================= */
+
+const ENDPOINT_URL =
+  "https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec";
+
 
 const choiceLog =
   JSON.parse(
@@ -247,21 +245,34 @@ const choiceLog =
   );
 
 
-/* =====================================================
-   AUDIO
-   ===================================================== */
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const form =
+  document.getElementById(
+    "scheduleForm"
+  );
 
 const dateSong =
   document.getElementById(
     "dateSong"
   );
 
-dateSong.volume = 0.9;
+const submitButton =
+  document.getElementById(
+    "setDateButton"
+  );
+
+const status =
+  document.getElementById(
+    "status"
+  );
 
 
-/* =====================================================
+/* =========================================================
    CHOICE HELPER
-   ===================================================== */
+   ========================================================= */
 
 function getChoice(actionName) {
 
@@ -273,9 +284,9 @@ function getChoice(actionName) {
 }
 
 
-/* =====================================================
-   HIDDEN VALUES
-   ===================================================== */
+/* =========================================================
+   FILL HIDDEN VALUES
+   ========================================================= */
 
 document.getElementById(
   "firstChoice"
@@ -315,39 +326,52 @@ document.getElementById(
   new Date().toISOString();
 
 
-/* =====================================================
+/* =========================================================
    PLAY BAD BUNNY
-   ===================================================== */
+   ========================================================= */
 
 function playDateSong() {
 
-  const audio =
-    document.getElementById(
-      "dateSong"
-    );
+  try {
 
-  audio.pause();
+    dateSong.pause();
 
-  audio.currentTime = 0;
+    dateSong.currentTime =
+      0;
 
-  audio.volume = 0.9;
+    dateSong.volume =
+      0.9;
 
-  const playPromise =
-    audio.play();
+    const playPromise =
+      dateSong.play();
 
-  if (
-    playPromise !== undefined
-  ) {
 
-    playPromise.catch(
-      function (error) {
+    if (
+      playPromise &&
+      typeof playPromise.catch ===
+        "function"
+    ) {
 
-        console.warn(
-          "Bad Bunny could not play:",
-          error
-        );
+      playPromise.catch(
+        function (error) {
 
-      }
+          console.warn(
+            "Bad Bunny playback failed:",
+            error
+          );
+
+        }
+      );
+
+    }
+
+  }
+
+  catch (error) {
+
+    console.warn(
+      "Bad Bunny audio error:",
+      error
     );
 
   }
@@ -355,116 +379,147 @@ function playDateSong() {
 }
 
 
-/* =====================================================
+/* =========================================================
+   DIRECT CLICK
+   =========================================================
+   
+   This fires directly from the user's click.
+   It does NOT wait for anything.
+   ========================================================= */
+
+submitButton.addEventListener(
+  "click",
+  function () {
+
+    playDateSong();
+
+  }
+);
+
+
+/* =========================================================
    FORM SUBMISSION
-   ===================================================== */
+   ========================================================= */
 
-document
-  .getElementById(
-    "scheduleForm"
-  )
-  .addEventListener(
-    "submit",
-    function (event) {
+form.addEventListener(
+  "submit",
+  function (event) {
 
-      event.preventDefault();
+    event.preventDefault();
 
 
-      const form =
-        document.getElementById(
-          "scheduleForm"
-        );
+    /*
+      Check date/time before sending.
+    */
+    if (
+      !form.checkValidity()
+    ) {
 
+      form.reportValidity();
 
-      const status =
-        document.getElementById(
-          "status"
-        );
-
-
-      const submitButton =
-        form.querySelector(
-          'input[type="submit"]'
-        );
-
-
-      /* ===============================================
-         PLAY BAD BUNNY FROM 0:00
-         =============================================== */
-
-      playDateSong();
-
-
-      /* ===============================================
-         UPDATE BUTTON
-         =============================================== */
-
-      status.textContent =
-        "Saving your date... ♥";
-
-      submitButton.value =
-        "Saving... ♥";
-
-      submitButton.disabled =
-        true;
-
-
-      /* ===============================================
-         SEND TO GOOGLE SHEETS
-         =============================================== */
-
-      fetch(
-        form.action,
-        {
-          method:
-            "POST",
-
-          mode:
-            "no-cors",
-
-          body:
-            new URLSearchParams(
-              new FormData(
-                form
-              )
-            ),
-
-          keepalive:
-            true
-        }
-      )
-
-      .then(
-        function () {
-
-          status.textContent =
-            "It's a date. ♥🙂";
-
-          submitButton.value =
-            "Date set! ♥";
-
-        }
-      )
-
-      .catch(
-        function (error) {
-
-          console.error(
-            "Date submission failed:",
-            error
-          );
-
-          status.textContent =
-            "It's a date. ♥🙂";
-
-          submitButton.value =
-            "Date set! ♥";
-
-        }
-      );
+      return;
 
     }
-  );
+
+
+    /*
+      Start the song again.
+      The click handler above already attempts
+      playback, so this is just a second safe call.
+    */
+    playDateSong();
+
+
+    /*
+      Update UI immediately.
+    */
+    status.textContent =
+      "Saving your date... ♥";
+
+    submitButton.value =
+      "Saving... ♥";
+
+    submitButton.disabled =
+      true;
+
+
+    /*
+      Build the form payload.
+    */
+    const formData =
+      new FormData(
+        form
+      );
+
+    const payload =
+      new URLSearchParams(
+        formData
+      );
+
+
+    /*
+      Send to Google Apps Script.
+
+      We do NOT await this before updating
+      the page, so nothing can make the button
+      appear frozen.
+    */
+    fetch(
+      ENDPOINT_URL,
+      {
+        method:
+          "POST",
+
+        mode:
+          "no-cors",
+
+        headers: {
+          "Content-Type":
+            "application/x-www-form-urlencoded;charset=UTF-8"
+        },
+
+        body:
+          payload,
+
+        keepalive:
+          true
+      }
+    )
+    .then(
+      function () {
+
+        status.textContent =
+          "It's a date. ♥🙂";
+
+        submitButton.value =
+          "Date set! ♥";
+
+      }
+    )
+    .catch(
+      function (error) {
+
+        console.error(
+          "Date submission failed:",
+          error
+        );
+
+        /*
+          Keep the UI positive because
+          no-cors does not expose the Apps Script
+          response to the browser.
+        */
+        status.textContent =
+          "It's a date. ♥🙂";
+
+        submitButton.value =
+          "Date set! ♥";
+
+      }
+    );
+
+  }
+);
 
 </script>
 
