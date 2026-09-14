@@ -1,96 +1,291 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
 
+
 :root {
-  --pink: #f2d2d9;
-  --card: #f4f7ea;
-  --ink: #6b3945;
-  --muted: #80646b;
-  --accent: #cf7891;
-  --accent2: #df98aa;
-  --dark: #b9657e;
-  --line: #ba969e;
+
+  --pink:
+    #f2d2d9;
+
+  --card:
+    #f4f7ea;
+
+  --ink:
+    #6b3945;
+
+  --muted:
+    #80646b;
+
+  --accent:
+    #cf7891;
+
+  --accent2:
+    #df98aa;
+
+  --dark:
+    #b9657e;
+
+  --line:
+    #ba969e;
+
 }
 
+
+/* ========================================
+   BASE
+   ======================================== */
+
 * {
-  box-sizing: border-box;
+  box-sizing:
+    border-box;
 }
+
 
 html,
 body {
-  margin: 0;
-  min-height: 100%;
-  font-family: "DM Sans", system-ui, sans-serif;
-  color: var(--ink);
+
+  margin:
+    0;
+
+  min-height:
+    100%;
+
+  font-family:
+    "DM Sans",
+    system-ui,
+    sans-serif;
+
+  color:
+    var(--ink);
+
 }
 
+
 body {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  padding: 22px;
-  overflow: hidden;
-  position: relative;
-  background: var(--pink);
+
+  min-height:
+    100vh;
+
+  display:
+    grid;
+
+  place-items:
+    center;
+
+  padding:
+    22px;
+
+  overflow:
+    hidden;
+
+  position:
+    relative;
+
+  background:
+    var(--pink);
+
 }
+
+
+/* ========================================
+   PAGE LAYER
+   ======================================== */
+
+.page-layer {
+
+  position:
+    fixed;
+
+  inset:
+    0;
+
+  overflow:
+    hidden;
+
+  background:
+    var(--pink);
+
+  transform:
+    translate3d(
+      0,
+      0,
+      0
+    );
+
+  transform-origin:
+    center;
+
+  z-index:
+    1;
+
+  will-change:
+    transform,
+    opacity,
+    clip-path;
+
+}
+
 
 /* ========================================
    MAIN CARD
    ======================================== */
 
 .card {
-  width: min(730px, 94vw);
-  padding: 44px 50px 42px;
-  text-align: center;
-  background: rgba(244, 247, 234, 0.95);
-  border: 1px solid rgba(107, 57, 69, 0.11);
-  border-radius: 30px;
-  box-shadow: 0 28px 90px rgba(91, 53, 62, 0.19);
-  backdrop-filter: blur(10px);
-  transform-origin: center;
-  animation: popIn 0.72s cubic-bezier(.17,.84,.29,1.18);
-  position: relative;
-  z-index: 2;
+
+  width:
+    min(
+      730px,
+      94vw
+    );
+
+  padding:
+    44px
+    50px
+    42px;
+
+  text-align:
+    center;
+
+  background:
+    rgba(
+      244,
+      247,
+      234,
+      .95
+    );
+
+  border:
+    1px solid
+    rgba(
+      107,
+      57,
+      69,
+      .11
+    );
+
+  border-radius:
+    30px;
+
+  box-shadow:
+    0 28px
+    90px
+    rgba(
+      91,
+      53,
+      62,
+      .19
+    );
+
+  backdrop-filter:
+    blur(
+      10px
+    );
+
+  transform-origin:
+    center;
+
+  animation:
+    popIn
+    .72s
+    cubic-bezier(
+      .17,
+      .84,
+      .29,
+      1.18
+    );
+
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  top:
+    50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  z-index:
+    10;
+
 }
 
+
 @keyframes popIn {
+
   0% {
-    opacity: 0;
-    transform: scale(.72) translateY(30px);
+
+    opacity:
+      0;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        .72
+      )
+      translateY(
+        30px
+      );
+
   }
 
   65% {
-    opacity: 1;
-    transform: scale(1.035) translateY(-3px);
+
+    opacity:
+      1;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        1.035
+      )
+      translateY(
+        -3px
+      );
+
   }
 
   82% {
-    transform: scale(.985) translateY(1px);
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        .985
+      )
+      translateY(
+        1px
+      );
+
   }
 
   100% {
-    transform: scale(1) translateY(0);
-  }
-}
 
-.page-exit {
-  animation: popOut .48s cubic-bezier(.76,0,.24,1) forwards !important;
-}
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        1
+      )
+      translateY(
+        0
+      );
 
-@keyframes popOut {
-  0% {
-    opacity: 1;
-    transform: scale(1) rotate(0);
-  }
-
-  45% {
-    opacity: 1;
-    transform: scale(1.035) rotate(-.4deg);
   }
 
-  100% {
-    opacity: 0;
-    transform: scale(.82) rotate(1deg) translateY(-16px);
-  }
 }
 
 
@@ -99,27 +294,65 @@ body {
    ======================================== */
 
 .icon {
-  font-size: 43px;
-  line-height: 1;
-  margin: 0 auto 13px;
+
+  font-size:
+    43px;
+
+  line-height:
+    1;
+
+  margin:
+    0
+    auto
+    13px;
+
   animation:
     iconPop
     .8s
     .12s
     both
-    cubic-bezier(.17,.84,.29,1.25);
+    cubic-bezier(
+      .17,
+      .84,
+      .29,
+      1.25
+    );
+
 }
 
+
 @keyframes iconPop {
+
   from {
-    opacity: 0;
-    transform: scale(.4) rotate(-12deg);
+
+    opacity:
+      0;
+
+    transform:
+      scale(
+        .4
+      )
+      rotate(
+        -12deg
+      );
+
   }
 
   to {
-    opacity: 1;
-    transform: scale(1) rotate(0);
+
+    opacity:
+      1;
+
+    transform:
+      scale(
+        1
+      )
+      rotate(
+        0
+      );
+
   }
+
 }
 
 
@@ -128,16 +361,33 @@ body {
    ======================================== */
 
 .eyebrow {
-  margin: 0 0 9px;
-  text-transform: uppercase;
-  letter-spacing: .15em;
-  font-weight: 800;
-  color: var(--dark);
-  font-size: .75rem;
+
+  margin:
+    0
+    0
+    9px;
+
+  text-transform:
+    uppercase;
+
+  letter-spacing:
+    .15em;
+
+  font-weight:
+    800;
+
+  color:
+    var(--dark);
+
+  font-size:
+    .75rem;
+
 }
+
 
 h1,
 h2 {
+
   font-family:
     "Playfair Display",
     Georgia,
@@ -145,9 +395,12 @@ h2 {
 
   color:
     var(--ink);
+
 }
 
+
 h1 {
+
   font-size:
     clamp(
       2rem,
@@ -159,23 +412,34 @@ h1 {
     1.07;
 
   margin:
-    0 auto 18px;
+    0
+    auto
+    18px;
+
 }
 
+
 h2 {
+
   font-size:
     2rem;
 
   margin:
-    7px 0;
+    7px
+    0;
+
 }
 
+
 p {
+
   max-width:
     600px;
 
   margin:
-    0 auto 21px;
+    0
+    auto
+    21px;
 
   color:
     var(--muted);
@@ -185,11 +449,15 @@ p {
 
   line-height:
     1.72;
+
 }
 
+
 .small {
+
   font-size:
     .92rem;
+
 }
 
 
@@ -198,6 +466,7 @@ p {
    ======================================== */
 
 .inline-emoji {
+
   display:
     inline-block;
 
@@ -206,34 +475,59 @@ p {
     2.8s
     ease-in-out
     infinite;
+
 }
+
 
 @keyframes wiggle {
 
   0%,
   84%,
   100% {
+
     transform:
-      rotate(0)
-      scale(1);
+      rotate(
+        0
+      )
+      scale(
+        1
+      );
+
   }
 
   88% {
+
     transform:
-      rotate(-8deg)
-      scale(1.06);
+      rotate(
+        -8deg
+      )
+      scale(
+        1.06
+      );
+
   }
 
   92% {
+
     transform:
-      rotate(8deg)
-      scale(1.08);
+      rotate(
+        8deg
+      )
+      scale(
+        1.08
+      );
+
   }
 
   96% {
+
     transform:
-      rotate(-4deg);
+      rotate(
+        -4deg
+      );
+
   }
+
 }
 
 
@@ -242,6 +536,7 @@ p {
    ======================================== */
 
 form {
+
   display:
     grid;
 
@@ -252,13 +547,18 @@ form {
     430px;
 
   margin:
-    24px auto 0;
+    24px
+    auto
+    0;
 
   text-align:
     left;
+
 }
 
+
 label {
+
   font-family:
     "Playfair Display",
     Georgia,
@@ -275,6 +575,7 @@ label {
 
   margin-top:
     3px;
+
 }
 
 
@@ -284,6 +585,7 @@ label {
 
 input[type="button"],
 input[type="submit"] {
+
   border:
     0;
 
@@ -291,7 +593,8 @@ input[type="submit"] {
     999px;
 
   padding:
-    14px 30px;
+    14px
+    30px;
 
   min-width:
     135px;
@@ -318,36 +621,63 @@ input[type="submit"] {
   box-shadow:
     0 9px
     22px
-    rgba(194,111,135,.19);
+    rgba(
+      194,
+      111,
+      135,
+      .19
+    );
 
   transition:
     transform .18s ease,
     box-shadow .18s ease,
     filter .18s ease;
+
 }
+
 
 input[type="button"]:hover,
 input[type="submit"]:hover {
+
   transform:
-    translateY(-3px)
-    scale(1.025);
+    translateY(
+      -3px
+    )
+    scale(
+      1.025
+    );
 
   box-shadow:
     0 14px
     28px
-    rgba(194,111,135,.24);
+    rgba(
+      194,
+      111,
+      135,
+      .24
+    );
 
   filter:
-    saturate(1.04);
+    saturate(
+      1.04
+    );
+
 }
+
 
 input[type="button"]:active,
 input[type="submit"]:active {
+
   transform:
-    scale(.97);
+    scale(
+      .97
+    );
+
 }
 
+
 input.secondary {
+
   background:
     #eadcdf;
 
@@ -356,11 +686,15 @@ input.secondary {
 
   box-shadow:
     none;
+
 }
 
+
 input.secondary:hover {
+
   background:
     #e3d1d6;
+
 }
 
 
@@ -369,6 +703,7 @@ input.secondary:hover {
    ======================================== */
 
 .choice-row {
+
   display:
     flex;
 
@@ -386,42 +721,68 @@ input.secondary:hover {
 
   margin-top:
     20px;
+
 }
 
 
 /* ========================================
-   GROWING YES BUTTON
+   GROWING YES
    ======================================== */
 
 .grow {
+
   animation:
     yesGrow
     .7s
-    cubic-bezier(.17,.84,.29,1.25)
+    cubic-bezier(
+      .17,
+      .84,
+      .29,
+      1.25
+    )
     forwards;
+
 }
+
 
 @keyframes yesGrow {
 
   0% {
+
     transform:
-      scale(1);
+      scale(
+        1
+      );
+
   }
 
   60% {
+
     transform:
-      scale(1.33);
+      scale(
+        1.33
+      );
+
   }
 
   78% {
+
     transform:
-      scale(1.22);
+      scale(
+        1.22
+      );
+
   }
 
   100% {
+
     transform:
-      scale(1.25);
+      scale(
+        1.25
+      );
+
   }
+
 }
 
 
@@ -430,40 +791,59 @@ input.secondary:hover {
    ======================================== */
 
 .hidden {
+
   display:
     none !important;
+
 }
 
 
 /* ========================================
-   CONFIRMATION PANEL
+   CONFIRM PANEL
    ======================================== */
 
 .confirm-panel {
+
   animation:
     confirmIn
     .48s
-    cubic-bezier(.17,.84,.29,1.15);
+    cubic-bezier(
+      .17,
+      .84,
+      .29,
+      1.15
+    );
+
 }
+
 
 @keyframes confirmIn {
 
   from {
+
     opacity:
       0;
 
     transform:
-      translateY(15px)
-      scale(.95);
+      translateY(
+        15px
+      )
+      scale(
+        .95
+      );
+
   }
 
   to {
+
     opacity:
       1;
 
     transform:
       none;
+
   }
+
 }
 
 
@@ -472,6 +852,7 @@ input.secondary:hover {
    ======================================== */
 
 .heart {
+
   display:
     inline-block;
 
@@ -480,34 +861,47 @@ input.secondary:hover {
     1.35s
     ease-in-out
     infinite;
+
 }
+
 
 @keyframes heartPulse {
 
   0%,
   100% {
+
     transform:
-      scale(1);
+      scale(
+        1
+      );
+
   }
 
   50% {
+
     transform:
-      scale(1.16);
+      scale(
+        1.16
+      );
+
   }
+
 }
 
 
 /* ========================================
-   DATE + TIME
+   DATE / TIME
    ======================================== */
 
 input[type="date"],
 select {
+
   width:
     100%;
 
   padding:
-    14px 15px;
+    14px
+    15px;
 
   border:
     1px solid
@@ -517,7 +911,12 @@ select {
     10px;
 
   background:
-    rgba(255,255,255,.5);
+    rgba(
+      255,
+      255,
+      255,
+      .5
+    );
 
   color:
     var(--ink);
@@ -532,10 +931,13 @@ select {
     border-color .18s ease,
     box-shadow .18s ease,
     background .18s ease;
+
 }
+
 
 input[type="date"]:focus,
 select:focus {
+
   border-color:
     var(--dark);
 
@@ -544,15 +946,24 @@ select:focus {
 
   box-shadow:
     0 0 0 3px
-    rgba(217,140,159,.16);
+    rgba(
+      217,
+      140,
+      159,
+      .16
+    );
+
 }
 
+
 form input[type="submit"] {
+
   width:
     100%;
 
   margin-top:
     8px;
+
 }
 
 
@@ -561,6 +972,7 @@ form input[type="submit"] {
    ======================================== */
 
 .status {
+
   margin-top:
     18px;
 
@@ -569,6 +981,7 @@ form input[type="submit"] {
 
   color:
     var(--muted);
+
 }
 
 
@@ -577,31 +990,52 @@ form input[type="submit"] {
    ======================================== */
 
 .goodbye {
+
   animation:
     goodbyeIn
     .75s
-    cubic-bezier(.17,.84,.29,1.15);
+    cubic-bezier(
+      .17,
+      .84,
+      .29,
+      1.15
+    );
+
 }
+
 
 @keyframes goodbyeIn {
 
   from {
+
     opacity:
       0;
 
     transform:
-      scale(.75)
-      rotate(-3deg);
+      scale(
+        .75
+      )
+      rotate(
+        -3deg
+      );
+
   }
 
   to {
+
     opacity:
       1;
 
     transform:
-      scale(1)
-      rotate(0);
+      scale(
+        1
+      )
+      rotate(
+        0
+      );
+
   }
+
 }
 
 
@@ -610,8 +1044,11 @@ form input[type="submit"] {
    ======================================== */
 
 .meetup {
+
   margin:
-    -6px auto 22px;
+    -6px
+    auto
+    22px;
 
   font-family:
     "Playfair Display",
@@ -626,52 +1063,78 @@ form input[type="submit"] {
 
   letter-spacing:
     .01em;
+
 }
 
+
 .meetup span {
+
   display:
     inline-block;
 
   padding:
-    8px 16px;
+    8px
+    16px;
 
   border-radius:
     999px;
 
   background:
-    rgba(255,255,255,.36);
+    rgba(
+      255,
+      255,
+      255,
+      .36
+    );
 
   border:
     1px solid
-    rgba(107,57,69,.08);
+    rgba(
+      107,
+      57,
+      69,
+      .08
+    );
 
   animation:
     softFloat
     2.6s
     ease-in-out
     infinite;
+
 }
+
 
 @keyframes softFloat {
 
   0%,
   100% {
+
     transform:
-      translateY(0);
+      translateY(
+        0
+      );
+
   }
 
   50% {
+
     transform:
-      translateY(-2px);
+      translateY(
+        -2px
+      );
+
   }
+
 }
 
 
 /* ========================================
-   MOVING MULTILINGUAL BACKGROUND
+   MOVING "HEY PRETTY" BACKGROUND
    ======================================== */
 
 .background-phrases {
+
   position:
     fixed;
 
@@ -686,9 +1149,12 @@ form input[type="submit"] {
 
   overflow:
     hidden;
+
 }
 
+
 .background-phrases .phrase {
+
   position:
     absolute;
 
@@ -716,11 +1182,6 @@ form input[type="submit"] {
   letter-spacing:
     .01em;
 
-  /*
-    Dark enough to be clearly visible.
-    Still lighter than the main card text.
-  */
-
   color:
     rgba(
       107,
@@ -731,11 +1192,12 @@ form input[type="submit"] {
 
   opacity:
     1 !important;
+
 }
 
 
 /* ========================================
-   INDIVIDUAL PHRASE POSITIONS
+   PHRASE POSITIONS
    ======================================== */
 
 .ph1 {
@@ -999,36 +1461,48 @@ form input[type="submit"] {
 }
 
 
-/* ========================================
-   PHRASE MOVEMENT
-   ======================================== */
-
 @keyframes phraseFloat {
 
   0%,
   100% {
+
     transform:
-      translate3d(0,0,0)
-      rotate(var(--r));
+      translate3d(
+        0,
+        0,
+        0
+      )
+      rotate(
+        var(--r)
+      );
+
   }
 
   50% {
+
     transform:
-      translate3d(12px,-7px,0)
+      translate3d(
+        12px,
+        -7px,
+        0
+      )
       rotate(
         calc(
           var(--r) + 2deg
         )
       );
+
   }
+
 }
 
 
 /* ========================================
-   WHITE FLOATING DOTS
+   WHITE DOTS
    ======================================== */
 
 .spark {
+
   position:
     fixed;
 
@@ -1054,351 +1528,164 @@ form input[type="submit"] {
     7s
     ease-in-out
     infinite;
+
 }
 
+
 .spark.s1 {
-  top:
-    13%;
-
-  left:
-    23%;
-
-  width:
-    8px;
-
-  height:
-    8px;
+  top: 13%;
+  left: 23%;
+  width: 8px;
+  height: 8px;
 }
 
 .spark.s2 {
-  top:
-    31%;
-
-  left:
-    78%;
-
-  width:
-    13px;
-
-  height:
-    13px;
-
-  animation-delay:
-    -4s;
+  top: 31%;
+  left: 78%;
+  width: 13px;
+  height: 13px;
+  animation-delay: -4s;
 }
 
 .spark.s3 {
-  top:
-    78%;
-
-  left:
-    11%;
-
-  width:
-    6px;
-
-  height:
-    6px;
-
-  animation-delay:
-    -2s;
+  top: 78%;
+  left: 11%;
+  width: 6px;
+  height: 6px;
+  animation-delay: -2s;
 }
 
 .spark.s4 {
-  top:
-    68%;
-
-  left:
-    86%;
-
-  width:
-    9px;
-
-  height:
-    9px;
-
-  animation-delay:
-    -5s;
+  top: 68%;
+  left: 86%;
+  width: 9px;
+  height: 9px;
+  animation-delay: -5s;
 }
 
 .spark.s5 {
-  top:
-    19%;
-
-  left:
-    60%;
-
-  width:
-    5px;
-
-  height:
-    5px;
-
-  animation-delay:
-    -3s;
+  top: 19%;
+  left: 60%;
+  width: 5px;
+  height: 5px;
+  animation-delay: -3s;
 }
 
-
-/* Extra dots */
-
 .spark.s6 {
-  top:
-    8%;
-
-  left:
-    34%;
-
-  width:
-    5px;
-
-  height:
-    5px;
-
-  animation-duration:
-    8s;
-
-  animation-delay:
-    -2s;
+  top: 8%;
+  left: 34%;
+  width: 5px;
+  height: 5px;
+  animation-duration: 8s;
+  animation-delay: -2s;
 }
 
 .spark.s7 {
-  top:
-    18%;
-
-  left:
-    88%;
-
-  width:
-    7px;
-
-  height:
-    7px;
-
-  animation-duration:
-    10s;
-
-  animation-delay:
-    -6s;
+  top: 18%;
+  left: 88%;
+  width: 7px;
+  height: 7px;
+  animation-duration: 10s;
+  animation-delay: -6s;
 }
 
 .spark.s8 {
-  top:
-    27%;
-
-  left:
-    26%;
-
-  width:
-    4px;
-
-  height:
-    4px;
-
-  animation-duration:
-    6s;
-
-  animation-delay:
-    -1s;
+  top: 27%;
+  left: 26%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 6s;
+  animation-delay: -1s;
 }
 
 .spark.s9 {
-  top:
-    44%;
-
-  left:
-    4%;
-
-  width:
-    7px;
-
-  height:
-    7px;
-
-  animation-duration:
-    9s;
-
-  animation-delay:
-    -5s;
+  top: 44%;
+  left: 4%;
+  width: 7px;
+  height: 7px;
+  animation-duration: 9s;
+  animation-delay: -5s;
 }
 
 .spark.s10 {
-  top:
-    48%;
-
-  left:
-    92%;
-
-  width:
-    5px;
-
-  height:
-    5px;
-
-  animation-duration:
-    7s;
-
-  animation-delay:
-    -3s;
+  top: 48%;
+  left: 92%;
+  width: 5px;
+  height: 5px;
+  animation-duration: 7s;
+  animation-delay: -3s;
 }
 
 .spark.s11 {
-  top:
-    61%;
-
-  left:
-    20%;
-
-  width:
-    4px;
-
-  height:
-    4px;
-
-  animation-duration:
-    11s;
-
-  animation-delay:
-    -7s;
+  top: 61%;
+  left: 20%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 11s;
+  animation-delay: -7s;
 }
 
 .spark.s12 {
-  top:
-    73%;
-
-  left:
-    74%;
-
-  width:
-    8px;
-
-  height:
-    8px;
-
-  animation-duration:
-    8s;
-
-  animation-delay:
-    -4s;
+  top: 73%;
+  left: 74%;
+  width: 8px;
+  height: 8px;
+  animation-duration: 8s;
+  animation-delay: -4s;
 }
 
 .spark.s13 {
-  top:
-    84%;
-
-  left:
-    54%;
-
-  width:
-    5px;
-
-  height:
-    5px;
-
-  animation-duration:
-    10s;
-
-  animation-delay:
-    -8s;
+  top: 84%;
+  left: 54%;
+  width: 5px;
+  height: 5px;
+  animation-duration: 10s;
+  animation-delay: -8s;
 }
 
 .spark.s14 {
-  top:
-    92%;
-
-  left:
-    82%;
-
-  width:
-    4px;
-
-  height:
-    4px;
-
-  animation-duration:
-    7s;
-
-  animation-delay:
-    -2s;
+  top: 92%;
+  left: 82%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 7s;
+  animation-delay: -2s;
 }
 
 .spark.s15 {
-  top:
-    11%;
-
-  left:
-    70%;
-
-  width:
-    6px;
-
-  height:
-    6px;
-
-  animation-duration:
-    9s;
-
-  animation-delay:
-    -5s;
+  top: 11%;
+  left: 70%;
+  width: 6px;
+  height: 6px;
+  animation-duration: 9s;
+  animation-delay: -5s;
 }
 
 .spark.s16 {
-  top:
-    38%;
-
-  left:
-    83%;
-
-  width:
-    4px;
-
-  height:
-    4px;
-
-  animation-duration:
-    12s;
-
-  animation-delay:
-    -9s;
+  top: 38%;
+  left: 83%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 12s;
+  animation-delay: -9s;
 }
 
 .spark.s17 {
-  top:
-    77%;
-
-  left:
-    4%;
-
-  width:
-    6px;
-
-  height:
-    6px;
-
-  animation-duration:
-    8s;
-
-  animation-delay:
-    -6s;
+  top: 77%;
+  left: 4%;
+  width: 6px;
+  height: 6px;
+  animation-duration: 8s;
+  animation-delay: -6s;
 }
 
 .spark.s18 {
-  top:
-    56%;
-
-  left:
-    58%;
-
-  width:
-    4px;
-
-  height:
-    4px;
-
-  animation-duration:
-    10s;
-
-  animation-delay:
-    -3s;
+  top: 56%;
+  left: 58%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 10s;
+  animation-delay: -3s;
 }
 
 
@@ -1406,71 +1693,738 @@ form input[type="submit"] {
 
   0%,
   100% {
+
     transform:
-      translateY(0)
-      scale(1);
+      translateY(
+        0
+      )
+      scale(
+        1
+      );
 
     opacity:
       .45;
+
   }
 
   50% {
+
     transform:
-      translateY(-16px)
-      scale(1.18);
+      translateY(
+        -16px
+      )
+      scale(
+        1.18
+      );
 
     opacity:
       .9;
+
   }
+
 }
 
 
 /* ========================================
-   2D PAGE-STACK PULL SYSTEM
+   NORMAL CARD EXIT
    ======================================== */
 
-/*
-  question.html wraps the current page in
-  .page-layer. That entire wrapper becomes
-  the sheet that the airplane pulls away.
-*/
+.page-exit {
 
-.page-layer {
+  animation:
+    popOut
+    .48s
+    cubic-bezier(
+      .76,
+      0,
+      .24,
+      1
+    )
+    forwards !important;
+
+}
+
+
+@keyframes popOut {
+
+  0% {
+
+    opacity:
+      1;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        1
+      )
+      rotate(
+        0
+      );
+
+  }
+
+  45% {
+
+    opacity:
+      1;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        1.035
+      )
+      rotate(
+        -.4deg
+      );
+
+  }
+
+  100% {
+
+    opacity:
+      0;
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        .82
+      )
+      rotate(
+        1deg
+      )
+      translateY(
+        -16px
+      );
+
+  }
+
+}
+
+
+/* ========================================
+   ========================================
+   CRAZY PAGE SWITCH
+   ========================================
+   ======================================== */
+
+.page-switch {
+
   position:
     fixed;
 
   inset:
     0;
 
+  z-index:
+    999;
+
+  pointer-events:
+    none;
+
+  visibility:
+    hidden;
+
   overflow:
     hidden;
 
-  background:
-    var(--pink);
+}
+
+
+.page-switch.active {
+
+  visibility:
+    visible;
+
+}
+
+
+/* ========================================
+   DIAGONAL SHEETS
+   ======================================== */
+
+.switch-sheet {
+
+  position:
+    absolute;
+
+  inset:
+    -50%;
 
   transform:
-    translate3d(0,0,0);
-
-  transform-origin:
-    50% 50%;
-
-  z-index:
-    1;
+    translate(
+      120%,
+      120%
+    );
 
   will-change:
-    transform,
-    clip-path;
+    transform;
+
 }
 
 
 /*
-  Keep the card centered inside the full-screen
-  sheet instead of centering the sheet itself.
+   First sheet:
+   soft pink/cream.
 */
 
-.page-layer .card {
+.sheet-one {
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7e8eb 0%,
+      #edccd5 46%,
+      #cf91a0 100%
+    );
+
+  clip-path:
+    polygon(
+      100% 29%,
+      100% 49%,
+      0 100%,
+      0 84%
+    );
+
+}
+
+
+/*
+   Second sheet:
+   brighter layer.
+*/
+
+.sheet-two {
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffafd 0%,
+      #f8e5ea 48%,
+      #e6bbc7 100%
+    );
+
+  clip-path:
+    polygon(
+      100% 38%,
+      100% 58%,
+      0 100%,
+      0 82%
+    );
+
+}
+
+
+/*
+   Third sheet:
+   thin high-contrast edge.
+*/
+
+.sheet-three {
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .94
+    );
+
+  clip-path:
+    polygon(
+      100% 47%,
+      100% 52%,
+      0 100%,
+      0 96%
+    );
+
+}
+
+
+/* ========================================
+   SHEET MOVEMENT
+   ======================================== */
+
+.page-switch.active
+.sheet-one {
+
+  animation:
+    sheetOneSweep
+    1.75s
+    cubic-bezier(
+      .45,
+      .02,
+      .18,
+      1
+    )
+    forwards;
+
+}
+
+
+@keyframes sheetOneSweep {
+
+  0% {
+
+    transform:
+      translate(
+        120%,
+        120%
+      )
+      rotate(
+        0
+      );
+
+  }
+
+  31% {
+
+    transform:
+      translate(
+        76%,
+        76%
+      )
+      rotate(
+        -.4deg
+      );
+
+  }
+
+  57% {
+
+    transform:
+      translate(
+        16%,
+        16%
+      )
+      rotate(
+        -.8deg
+      );
+
+  }
+
+  78% {
+
+    transform:
+      translate(
+        -55%,
+        -55%
+      )
+      rotate(
+        -1.3deg
+      );
+
+  }
+
+  100% {
+
+    transform:
+      translate(
+        -125%,
+        -125%
+      )
+      rotate(
+        -2deg
+      );
+
+  }
+
+}
+
+
+.page-switch.active
+.sheet-two {
+
+  animation:
+    sheetTwoSweep
+    1.75s
+    cubic-bezier(
+      .45,
+      .02,
+      .18,
+      1
+    )
+    forwards;
+
+}
+
+
+@keyframes sheetTwoSweep {
+
+  0% {
+
+    transform:
+      translate(
+        125%,
+        125%
+      )
+      rotate(
+        0
+      );
+
+  }
+
+  36% {
+
+    transform:
+      translate(
+        84%,
+        84%
+      )
+      rotate(
+        .25deg
+      );
+
+  }
+
+  58% {
+
+    transform:
+      translate(
+        25%,
+        25%
+      )
+      rotate(
+        .7deg
+      );
+
+  }
+
+  80% {
+
+    transform:
+      translate(
+        -49%,
+        -49%
+      )
+      rotate(
+        1.1deg
+      );
+
+  }
+
+  100% {
+
+    transform:
+      translate(
+        -127%,
+        -127%
+      )
+      rotate(
+        1.9deg
+      );
+
+  }
+
+}
+
+
+.page-switch.active
+.sheet-three {
+
+  animation:
+    sheetThreeSweep
+    1.75s
+    cubic-bezier(
+      .45,
+      .02,
+      .18,
+      1
+    )
+    forwards;
+
+}
+
+
+@keyframes sheetThreeSweep {
+
+  0% {
+
+    transform:
+      translate(
+        125%,
+        125%
+      );
+
+    opacity:
+      0;
+
+  }
+
+  32% {
+
+    opacity:
+      0;
+
+  }
+
+  43% {
+
+    opacity:
+      1;
+
+  }
+
+  56% {
+
+    transform:
+      translate(
+        0,
+        0
+      );
+
+    opacity:
+      1;
+
+  }
+
+  100% {
+
+    transform:
+      translate(
+        -130%,
+        -130%
+      );
+
+    opacity:
+      0;
+
+  }
+
+}
+
+
+/* ========================================
+   EXISTING PAGE DISTORTION
+   ======================================== */
+
+.page-layer.switching {
+
+  animation:
+    pageWarp
+    1.75s
+    cubic-bezier(
+      .48,
+      0,
+      .2,
+      1
+    )
+    forwards;
+
+}
+
+
+@keyframes pageWarp {
+
+  0% {
+
+    transform:
+      translate3d(
+        0,
+        0,
+        0
+      )
+      scale(
+        1
+      )
+      rotate(
+        0
+      );
+
+    opacity:
+      1;
+
+  }
+
+  23% {
+
+    transform:
+      translate3d(
+        0,
+        0,
+        0
+      )
+      scale(
+        1.008
+      )
+      rotate(
+        .15deg
+      );
+
+    opacity:
+      1;
+
+  }
+
+  43% {
+
+    transform:
+      translate3d(
+        -1vw,
+        -1vh,
+        0
+      )
+      scale(
+        1.025
+      )
+      rotate(
+        .7deg
+      );
+
+    opacity:
+      .96;
+
+  }
+
+  61% {
+
+    transform:
+      translate3d(
+        -12vw,
+        -12vh,
+        0
+      )
+      scale(
+        1.06
+      )
+      rotate(
+        2.2deg
+      );
+
+    opacity:
+      .72;
+
+  }
+
+  79% {
+
+    transform:
+      translate3d(
+        -49vw,
+        -49vh,
+        0
+      )
+      scale(
+        1.11
+      )
+      rotate(
+        4.5deg
+      );
+
+    opacity:
+      .35;
+
+  }
+
+  100% {
+
+    transform:
+      translate3d(
+        -125vw,
+        -125vh,
+        0
+      )
+      scale(
+        1.16
+      )
+      rotate(
+        7deg
+      );
+
+    opacity:
+      0;
+
+  }
+
+}
+
+
+/* ========================================
+   YES CLICK IMPACT
+   ======================================== */
+
+.card.switch-impact {
+
+  animation:
+    switchImpact
+    .32s
+    cubic-bezier(
+      .17,
+      .84,
+      .29,
+      1.2
+    )
+    both;
+
+}
+
+
+@keyframes switchImpact {
+
+  0% {
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        1
+      );
+
+  }
+
+  55% {
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        1.025
+      );
+
+  }
+
+  100% {
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        1
+      );
+
+  }
+
+}
+
+
+/* ========================================
+   CENTRAL FLASH
+   ======================================== */
+
+.switch-flash {
+
   position:
     absolute;
+
+  width:
+    30vw;
+
+  height:
+    30vw;
 
   left:
     50%;
@@ -1482,153 +2436,12 @@ form input[type="submit"] {
     translate(
       -50%,
       -50%
+    )
+    scale(
+      0
     );
-}
 
-
-/*
-  Because the card now uses translate(-50%, -50%)
-  for centering, use a matching pop-in animation.
-*/
-
-.page-layer .card {
-  animation-name:
-    popInPage;
-}
-
-
-@keyframes popInPage {
-
-  0% {
-    opacity:
-      0;
-
-    transform:
-      translate(-50%,-50%)
-      scale(.72)
-      translateY(30px);
-  }
-
-  65% {
-    opacity:
-      1;
-
-    transform:
-      translate(-50%,-50%)
-      scale(1.035)
-      translateY(-3px);
-  }
-
-  82% {
-    transform:
-      translate(-50%,-50%)
-      scale(.985)
-      translateY(1px);
-  }
-
-  100% {
-    transform:
-      translate(-50%,-50%)
-      scale(1)
-      translateY(0);
-  }
-}
-
-
-.page-layer .card.page-exit {
-  animation:
-    popOutPage
-    .48s
-    cubic-bezier(.76,0,.24,1)
-    forwards !important;
-}
-
-
-@keyframes popOutPage {
-
-  0% {
-    opacity:
-      1;
-
-    transform:
-      translate(-50%,-50%)
-      scale(1)
-      rotate(0);
-  }
-
-  45% {
-    opacity:
-      1;
-
-    transform:
-      translate(-50%,-50%)
-      scale(1.035)
-      rotate(-.4deg);
-  }
-
-  100% {
-    opacity:
-      0;
-
-    transform:
-      translate(-50%,-50%)
-      scale(.82)
-      rotate(1deg)
-      translateY(-16px);
-  }
-}
-
-
-/* ========================================
-   AIRPLANE / SLIDE-OUT TRANSITION
-   ======================================== */
-
-.plane-transition {
-  position:
-    fixed;
-
-  inset:
-    0;
-
-  z-index:
-    1000;
-
-  pointer-events:
-    none;
-
-  visibility:
-    hidden;
-
-  overflow:
-    hidden;
-}
-
-.plane-transition.active {
-  visibility:
-    visible;
-}
-
-
-/*
-  Bright diagonal clipping line.
-  This is where the airplane appears to
-  "catch" the sheet.
-*/
-
-.clip-line {
-  position:
-    absolute;
-
-  width:
-    170vw;
-
-  height:
-    5px;
-
-  left:
-    -35vw;
-
-  top:
+  border-radius:
     50%;
 
   background:
@@ -1639,631 +2452,495 @@ form input[type="submit"] {
       .92
     );
 
-  box-shadow:
-    0 0
-    18px
-    rgba(
-      255,
-      255,
-      255,
-      .75
+  filter:
+    blur(
+      6px
     );
-
-  transform:
-    translate(
-      120vw,
-      120vh
-    )
-    rotate(-34deg);
 
   opacity:
     0;
+
 }
 
 
-/*
-  Small shadow under the pulled sheet.
-*/
-
-.page-edge-shadow {
-  position:
-    absolute;
-
-  width:
-    180vw;
-
-  height:
-    12px;
-
-  left:
-    -40vw;
-
-  top:
-    50%;
-
-  background:
-    rgba(
-      91,
-      53,
-      62,
-      .18
-    );
-
-  filter:
-    blur(6px);
-
-  transform:
-    translate(
-      120vw,
-      120vh
-    )
-    rotate(-34deg);
-
-  opacity:
-    0;
-}
-
-
-/* ========================================
-   AIRPLANE
-   ======================================== */
-
-.plane {
-  position:
-    absolute;
-
-  left:
-    0;
-
-  top:
-    0;
-
-  width:
-    78px;
-
-  height:
-    78px;
-
-  transform:
-    translate(
-      110vw,
-      110vh
-    )
-    rotate(-35deg)
-    scale(.82);
-
-  will-change:
-    transform;
-
-  filter:
-    drop-shadow(
-      0 10px
-      13px
-      rgba(
-        91,
-        53,
-        62,
-        .28
-      )
-    );
-}
-
-
-.plane-icon {
-  position:
-    absolute;
-
-  inset:
-    0;
-
-  display:
-    grid;
-
-  place-items:
-    center;
-
-  font-size:
-    60px;
-
-  line-height:
-    1;
-}
-
-
-.plane-trail {
-  position:
-    absolute;
-
-  width:
-    185px;
-
-  height:
-    6px;
-
-  right:
-    53px;
-
-  top:
-    39px;
-
-  border-radius:
-    999px;
-
-  background:
-    linear-gradient(
-      90deg,
-      rgba(
-        255,
-        255,
-        255,
-        0
-      ),
-      rgba(
-        255,
-        255,
-        255,
-        .88
-      )
-    );
-
-  filter:
-    blur(1px);
-}
-
-
-/* ========================================
-   LITTLE HOOK MOMENT
-   ======================================== */
-
-.plane-clicked {
-  animation:
-    tinyHook
-    .34s
-    ease-out
-    both !important;
-}
-
-
-@keyframes tinyHook {
-
-  0% {
-    transform:
-      translate(-50%,-50%)
-      scale(1);
-  }
-
-  60% {
-    transform:
-      translate(-50%,-50%)
-      scale(1.018);
-  }
-
-  100% {
-    transform:
-      translate(-50%,-50%)
-      scale(1);
-  }
-}
-
-
-/* ========================================
-   ACTUAL PAGE PULL
-   ======================================== */
-
-.page-layer.being-pulled {
-  animation:
-    sheetPull
-    2.15s
-    cubic-bezier(.45,0,.16,1)
-    forwards;
-}
-
-
-/*
-  0-40%:
-  Nothing happens to the page.
-
-  48-55%:
-  The diagonal clipping edge begins.
-
-  55-82%:
-  The page starts moving with the plane.
-
-  100%:
-  The entire sheet has been dragged
-  beyond the top-left corner.
-*/
-
-@keyframes sheetPull {
-
-  0% {
-
-    transform:
-      translate3d(0,0,0)
-      rotate(0deg)
-      scale(1);
-
-    clip-path:
-      polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        0 100%
-      );
-  }
-
-  40% {
-
-    transform:
-      translate3d(0,0,0)
-      rotate(0deg)
-      scale(1);
-
-    clip-path:
-      polygon(
-        0 0,
-        100% 0,
-        100% 100%,
-        0 100%
-      );
-  }
-
-  48% {
-
-    transform:
-      translate3d(0,0,0)
-      rotate(0deg)
-      scale(1);
-
-    clip-path:
-      polygon(
-        22% 0,
-        100% 0,
-        100% 100%,
-        0 100%
-      );
-  }
-
-  55% {
-
-    transform:
-      translate3d(
-        -3vw,
-        -3vh,
-        0
-      )
-      rotate(-1deg)
-      scale(1.005);
-
-    clip-path:
-      polygon(
-        42% 0,
-        100% 0,
-        100% 100%,
-        0 100%
-      );
-  }
-
-  68% {
-
-    transform:
-      translate3d(
-        -18vw,
-        -18vh,
-        0
-      )
-      rotate(-2.2deg)
-      scale(1.015);
-
-    clip-path:
-      polygon(
-        65% 0,
-        100% 0,
-        100% 100%,
-        0 100%
-      );
-  }
-
-  82% {
-
-    transform:
-      translate3d(
-        -55vw,
-        -55vh,
-        0
-      )
-      rotate(-3.4deg)
-      scale(1.04);
-
-    clip-path:
-      polygon(
-        88% 0,
-        100% 0,
-        100% 100%,
-        0 100%
-      );
-  }
-
-  100% {
-
-    transform:
-      translate3d(
-        -125vw,
-        -125vh,
-        0
-      )
-      rotate(-5deg)
-      scale(1.08);
-
-    clip-path:
-      polygon(
-        100% 0,
-        100% 0,
-        100% 100%,
-        100% 100%
-      );
-  }
-}
-
-
-/* ========================================
-   PLANE MOVEMENT
-   ======================================== */
-
-.plane-transition.active .plane {
+.page-switch.active
+.switch-flash {
 
   animation:
-    planePull
-    2.15s
+    flashBurst
+    1.75s
     cubic-bezier(
-      .28,
-      .08,
-      .16,
+      .4,
+      0,
+      .2,
       1
     )
     forwards;
+
 }
 
 
-@keyframes planePull {
-
-  0% {
-
-    transform:
-      translate(
-        110vw,
-        110vh
-      )
-      rotate(-35deg)
-      scale(.82);
-  }
-
-  30% {
-
-    transform:
-      translate(
-        76vw,
-        76vh
-      )
-      rotate(-35deg)
-      scale(.88);
-  }
-
-  /*
-    Plane reaches the page around here.
-  */
-
-  43% {
-
-    transform:
-      translate(
-        57vw,
-        57vh
-      )
-      rotate(-35deg)
-      scale(.94);
-  }
-
-  47% {
-
-    transform:
-      translate(
-        51vw,
-        51vh
-      )
-      rotate(-35deg)
-      scale(1.02);
-  }
-
-  /*
-    Hook point.
-  */
-
-  51% {
-
-    transform:
-      translate(
-        48vw,
-        48vh
-      )
-      rotate(-35deg)
-      scale(1.08);
-  }
-
-  /*
-    Now it drags the sheet.
-  */
-
-  67% {
-
-    transform:
-      translate(
-        22vw,
-        22vh
-      )
-      rotate(-35deg)
-      scale(1.08);
-  }
-
-  83% {
-
-    transform:
-      translate(
-        -18vw,
-        -18vh
-      )
-      rotate(-35deg)
-      scale(1.10);
-  }
-
-  100% {
-
-    transform:
-      translate(
-        -16vw,
-        -16vh
-      )
-      rotate(-35deg)
-      scale(1.12);
-  }
-}
-
-
-/* ========================================
-   CLIP LINE
-   ======================================== */
-
-.plane-transition.active .clip-line {
-
-  animation:
-    clipLineMove
-    2.15s
-    cubic-bezier(
-      .28,
-      .08,
-      .16,
-      1
-    )
-    forwards;
-}
-
-
-@keyframes clipLineMove {
+@keyframes flashBurst {
 
   0%,
-  42% {
+  35% {
 
     transform:
       translate(
-        110vw,
-        110vh
+        -50%,
+        -50%
       )
-      rotate(-34deg);
+      scale(
+        0
+      );
 
     opacity:
       0;
+
   }
 
   46% {
 
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        .45
+      );
+
     opacity:
-      1;
+      .9;
+
   }
 
-  52% {
+  53% {
 
     transform:
       translate(
-        0,
-        0
+        -50%,
+        -50%
       )
-      rotate(-34deg);
+      scale(
+        3
+      );
 
     opacity:
-      1;
+      .75;
+
+  }
+
+  65% {
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        9
+      );
+
+    opacity:
+      .26;
+
   }
 
   100% {
 
     transform:
       translate(
-        -115vw,
-        -115vh
+        -50%,
+        -50%
       )
-      rotate(-34deg);
+      scale(
+        18
+      );
 
     opacity:
       0;
+
   }
+
 }
 
 
 /* ========================================
-   PAGE EDGE SHADOW
+   SPINNING RINGS
    ======================================== */
 
-.plane-transition.active .page-edge-shadow {
+.switch-ring {
 
-  animation:
-    edgeShadowMove
-    2.15s
-    cubic-bezier(
-      .28,
-      .08,
-      .16,
-      1
+  position:
+    absolute;
+
+  left:
+    50%;
+
+  top:
+    50%;
+
+  border:
+    2px solid
+    rgba(
+      255,
+      255,
+      255,
+      .65
+    );
+
+  border-radius:
+    50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
     )
-    forwards;
+    scale(
+      0
+    );
+
+  opacity:
+    0;
+
 }
 
 
-@keyframes edgeShadowMove {
+.ring-one {
+
+  width:
+    30vw;
+
+  height:
+    30vw;
+
+}
+
+
+.ring-two {
+
+  width:
+    18vw;
+
+  height:
+    18vw;
+
+  border-width:
+    1px;
+
+}
+
+
+.page-switch.active
+.ring-one {
+
+  animation:
+    ringBurstOne
+    1.75s
+    cubic-bezier(
+      .3,
+      0,
+      .18,
+      1
+    )
+    forwards;
+
+}
+
+
+@keyframes ringBurstOne {
+
+  0%,
+  35% {
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        0
+      )
+      rotate(
+        0
+      );
+
+    opacity:
+      0;
+
+  }
+
+  47% {
+
+    opacity:
+      .85;
+
+  }
+
+  75% {
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        2.7
+      )
+      rotate(
+        120deg
+      );
+
+    opacity:
+      .45;
+
+  }
+
+  100% {
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        7
+      )
+      rotate(
+        280deg
+      );
+
+    opacity:
+      0;
+
+  }
+
+}
+
+
+.page-switch.active
+.ring-two {
+
+  animation:
+    ringBurstTwo
+    1.75s
+    cubic-bezier(
+      .3,
+      0,
+      .18,
+      1
+    )
+    forwards;
+
+}
+
+
+@keyframes ringBurstTwo {
 
   0%,
   42% {
 
     transform:
       translate(
-        110vw,
-        110vh
+        -50%,
+        -50%
       )
-      rotate(-34deg);
+      scale(
+        0
+      )
+      rotate(
+        0
+      );
 
     opacity:
       0;
-  }
 
-  47% {
-
-    opacity:
-      .75;
   }
 
   52% {
 
-    transform:
-      translate(
-        0,
-        0
-      )
-      rotate(-34deg);
-
     opacity:
       .8;
+
   }
 
   100% {
 
     transform:
       translate(
-        -115vw,
-        -115vh
+        -50%,
+        -50%
       )
-      rotate(-34deg);
+      scale(
+        8
+      )
+      rotate(
+        -220deg
+      );
 
     opacity:
       0;
+
   }
+
+}
+
+
+/* ========================================
+   SWITCH PARTICLES
+   ======================================== */
+
+.switch-dot {
+
+  position:
+    absolute;
+
+  width:
+    7px;
+
+  height:
+    7px;
+
+  border-radius:
+    50%;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      .9
+    );
+
+  left:
+    50%;
+
+  top:
+    50%;
+
+  opacity:
+    0;
+
+}
+
+
+.page-switch.active
+.switch-dot {
+
+  animation:
+    particleBurst
+    1.45s
+    cubic-bezier(
+      .2,
+      .7,
+      .15,
+      1
+    )
+    forwards;
+
+}
+
+
+.d1 {
+  --x:
+    -38vw;
+  --y:
+    -18vh;
+}
+
+.d2 {
+  --x:
+    28vw;
+  --y:
+    -25vh;
+}
+
+.d3 {
+  --x:
+    -24vw;
+  --y:
+    28vh;
+}
+
+.d4 {
+  --x:
+    34vw;
+  --y:
+    22vh;
+}
+
+.d5 {
+  --x:
+    -12vw;
+  --y:
+    -35vh;
+}
+
+.d6 {
+  --x:
+    15vw;
+  --y:
+    36vh;
+}
+
+.d7 {
+  --x:
+    -42vw;
+  --y:
+    15vh;
+}
+
+.d8 {
+  --x:
+    42vw;
+  --y:
+    -13vh;
+}
+
+
+@keyframes particleBurst {
+
+  0% {
+
+    transform:
+      translate(
+        -50%,
+        -50%
+      )
+      scale(
+        .3
+      );
+
+    opacity:
+      0;
+
+  }
+
+  35% {
+
+    opacity:
+      1;
+
+  }
+
+  100% {
+
+    transform:
+      translate(
+        var(--x),
+        var(--y)
+      )
+      scale(
+        .15
+      );
+
+    opacity:
+      0;
+
+  }
+
 }
 
 
@@ -2271,14 +2948,20 @@ form input[type="submit"] {
    MOBILE
    ======================================== */
 
-@media (max-width: 600px) {
+@media (
+  max-width: 600px
+) {
 
   body {
+
     padding:
       16px;
+
   }
 
+
   .card {
+
     padding:
       34px
       24px
@@ -2286,12 +2969,17 @@ form input[type="submit"] {
 
     border-radius:
       24px;
+
   }
 
+
   h1 {
+
     font-size:
       2rem;
+
   }
+
 
   .background-phrases .phrase {
 
@@ -2311,26 +2999,29 @@ form input[type="submit"] {
 
     opacity:
       1 !important;
+
   }
 
-  .plane {
+
+  .switch-ring.ring-one {
+
     width:
-      64px;
+      45vw;
 
     height:
-      64px;
+      45vw;
+
   }
 
-  .plane-icon {
-    font-size:
-      49px;
-  }
 
-  .plane-trail {
+  .switch-ring.ring-two {
+
     width:
-      145px;
+      28vw;
 
-    right:
-      43px;
+    height:
+      28vw;
+
   }
+
 }
