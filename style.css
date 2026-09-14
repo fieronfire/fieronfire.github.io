@@ -64,6 +64,809 @@ body {
 
 
 /* ========================================
+   MOVING BACKGROUND PHRASES
+   ======================================== */
+
+.background-phrases {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+}
+
+
+/* ========================================
+   PHRASE BASE STYLE
+   ======================================== */
+
+.background-phrases .phrase {
+
+  position: absolute;
+
+  display: block;
+
+  white-space: nowrap;
+
+  font-family:
+    "Playfair Display",
+    Georgia,
+    serif;
+
+  font-size:
+    clamp(
+      0.72rem,
+      1vw,
+      0.98rem
+    );
+
+  font-weight: 600;
+
+  letter-spacing: 0.015em;
+
+  color:
+    rgba(
+      107,
+      57,
+      69,
+      0.58
+    ) !important;
+
+  opacity: 1 !important;
+
+  text-shadow:
+    0 1px 2px
+    rgba(
+      107,
+      57,
+      69,
+      0.08
+    );
+
+}
+
+
+/* ========================================
+   EACH PHRASE GETS ITS OWN MOVEMENT
+   ======================================== */
+
+/*
+   The different animations make the background
+   feel organic instead of everything moving together.
+*/
+
+
+.ph1 {
+
+  top: 7%;
+  left: 7%;
+
+  animation:
+    drift1
+    11s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph2 {
+
+  top: 15%;
+  right: 7%;
+
+  animation:
+    drift2
+    14s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph3 {
+
+  top: 29%;
+  left: 12%;
+
+  animation:
+    drift3
+    12s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph4 {
+
+  top: 39%;
+  right: 9%;
+
+  animation:
+    drift4
+    15s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph5 {
+
+  top: 54%;
+  left: 5%;
+
+  animation:
+    drift5
+    13s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph6 {
+
+  top: 67%;
+  right: 11%;
+
+  animation:
+    drift6
+    16s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph7 {
+
+  top: 82%;
+  left: 9%;
+
+  animation:
+    drift7
+    12s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph8 {
+
+  bottom: 6%;
+  right: 8%;
+
+  animation:
+    drift8
+    17s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph9 {
+
+  top: 8%;
+  left: 43%;
+
+  animation:
+    drift9
+    13s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph10 {
+
+  top: 23%;
+  right: 34%;
+
+  animation:
+    drift10
+    15s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph11 {
+
+  top: 47%;
+  left: 38%;
+
+  animation:
+    drift11
+    14s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph12 {
+
+  top: 72%;
+  left: 40%;
+
+  animation:
+    drift12
+    16s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph13 {
+
+  top: 35%;
+  left: 50%;
+
+  animation:
+    drift13
+    12s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph14 {
+
+  top: 87%;
+  right: 26%;
+
+  animation:
+    drift14
+    18s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph15 {
+
+  top: 5%;
+  right: 27%;
+
+  animation:
+    drift15
+    14s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph16 {
+
+  top: 93%;
+  left: 26%;
+
+  animation:
+    drift16
+    17s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph17 {
+
+  top: 58%;
+  right: 27%;
+
+  animation:
+    drift17
+    13s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph18 {
+
+  top: 32%;
+  left: 2%;
+
+  animation:
+    drift18
+    15s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph19 {
+
+  top: 13%;
+  left: 25%;
+
+  animation:
+    drift19
+    16s
+    ease-in-out
+    infinite;
+
+}
+
+
+.ph20 {
+
+  top: 64%;
+  left: 3%;
+
+  animation:
+    drift20
+    14s
+    ease-in-out
+    infinite;
+
+}
+
+
+/* ========================================
+   DRIFT ANIMATIONS
+   ======================================== */
+
+@keyframes drift1 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-8deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(18px, -10px)
+      rotate(-4deg);
+
+  }
+
+}
+
+
+@keyframes drift2 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(6deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-22px, 12px)
+      rotate(10deg);
+
+  }
+
+}
+
+
+@keyframes drift3 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(4deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(14px, 15px)
+      rotate(1deg);
+
+  }
+
+}
+
+
+@keyframes drift4 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-6deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-17px, -13px)
+      rotate(-10deg);
+
+  }
+
+}
+
+
+@keyframes drift5 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(7deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(21px, -15px)
+      rotate(3deg);
+
+  }
+
+}
+
+
+@keyframes drift6 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-5deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-16px, 18px)
+      rotate(-1deg);
+
+  }
+
+}
+
+
+@keyframes drift7 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-7deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(19px, -12px)
+      rotate(-11deg);
+
+  }
+
+}
+
+
+@keyframes drift8 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(6deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-24px, -9px)
+      rotate(2deg);
+
+  }
+
+}
+
+
+@keyframes drift9 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-3deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(13px, 12px)
+      rotate(2deg);
+
+  }
+
+}
+
+
+@keyframes drift10 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(4deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-18px, -15px)
+      rotate(8deg);
+
+  }
+
+}
+
+
+@keyframes drift11 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-6deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(20px, 10px)
+      rotate(-2deg);
+
+  }
+
+}
+
+
+@keyframes drift12 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(3deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-15px, 17px)
+      rotate(7deg);
+
+  }
+
+}
+
+
+@keyframes drift13 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(5deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(17px, -16px)
+      rotate(1deg);
+
+  }
+
+}
+
+
+@keyframes drift14 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-5deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-20px, 12px)
+      rotate(-9deg);
+
+  }
+
+}
+
+
+@keyframes drift15 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(5deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(16px, 14px)
+      rotate(9deg);
+
+  }
+
+}
+
+
+@keyframes drift16 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-4deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-19px, -11px)
+      rotate(-1deg);
+
+  }
+
+}
+
+
+@keyframes drift17 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(6deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(18px, -14px)
+      rotate(2deg);
+
+  }
+
+}
+
+
+@keyframes drift18 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-5deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(20px, 11px)
+      rotate(-1deg);
+
+  }
+
+}
+
+
+@keyframes drift19 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(7deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(-15px, 14px)
+      rotate(3deg);
+
+  }
+
+}
+
+
+@keyframes drift20 {
+
+  0%,
+  100% {
+
+    transform:
+      translate(0, 0)
+      rotate(-7deg);
+
+  }
+
+  50% {
+
+    transform:
+      translate(22px, -13px)
+      rotate(-3deg);
+
+  }
+
+}
+
+
+/* ========================================
    MAIN CARD
    ======================================== */
 
@@ -170,7 +973,7 @@ body {
 
 
 /* ========================================
-   PAGE TRANSITION
+   PAGE EXIT
    ======================================== */
 
 .page-exit {
@@ -234,6 +1037,7 @@ body {
   position: fixed;
 
   width: 8px;
+
   height: 8px;
 
   border-radius: 50%;
@@ -339,349 +1143,6 @@ body {
       scale(1.18);
 
     opacity: 0.85;
-
-  }
-
-}
-
-
-/* ========================================
-   MULTILINGUAL BACKGROUND TEXT
-   ======================================== */
-
-.background-phrases {
-
-  position: fixed;
-
-  inset: 0;
-
-  z-index: 1;
-
-  pointer-events: none;
-
-  overflow: hidden;
-
-}
-
-
-/*
-   IMPORTANT:
-
-   These are deliberately darker and more visible.
-   They are still lighter than the main card text,
-   but they should now immediately catch your eye.
-*/
-
-.background-phrases .phrase {
-
-  position: absolute;
-
-  white-space: nowrap;
-
-  font-family:
-    "Playfair Display",
-    Georgia,
-    serif;
-
-  font-size:
-    clamp(
-      0.72rem,
-      1vw,
-      0.98rem
-    );
-
-  font-weight: 600;
-
-  letter-spacing: 0.015em;
-
-  color:
-    rgba(
-      107,
-      57,
-      69,
-      0.62
-    );
-
-  opacity: 0.92;
-
-  text-shadow:
-    0 1px 2px
-    rgba(
-      107,
-      57,
-      69,
-      0.06
-    );
-
-  animation:
-    phraseFloat
-    7s
-    ease-in-out
-    infinite;
-
-}
-
-
-/* ========================================
-   INDIVIDUAL SCATTERED POSITIONS
-   ======================================== */
-
-.ph1 {
-
-  top: 7%;
-  left: 7%;
-
-  transform: rotate(-8deg);
-
-  animation-delay: -1s;
-
-}
-
-
-.ph2 {
-
-  top: 15%;
-  right: 7%;
-
-  transform: rotate(6deg);
-
-  animation-delay: -4s;
-
-}
-
-
-.ph3 {
-
-  top: 29%;
-  left: 12%;
-
-  transform: rotate(4deg);
-
-  animation-delay: -2s;
-
-}
-
-
-.ph4 {
-
-  top: 39%;
-  right: 9%;
-
-  transform: rotate(-6deg);
-
-  animation-delay: -6s;
-
-}
-
-
-.ph5 {
-
-  top: 54%;
-  left: 5%;
-
-  transform: rotate(7deg);
-
-  animation-delay: -3s;
-
-}
-
-
-.ph6 {
-
-  top: 67%;
-  right: 11%;
-
-  transform: rotate(-5deg);
-
-  animation-delay: -5s;
-
-}
-
-
-.ph7 {
-
-  top: 82%;
-  left: 9%;
-
-  transform: rotate(-7deg);
-
-  animation-delay: -2.5s;
-
-}
-
-
-.ph8 {
-
-  bottom: 6%;
-  right: 8%;
-
-  transform: rotate(6deg);
-
-  animation-delay: -4.5s;
-
-}
-
-
-.ph9 {
-
-  top: 8%;
-  left: 43%;
-
-  transform: rotate(-3deg);
-
-  animation-delay: -5.5s;
-
-}
-
-
-.ph10 {
-
-  top: 23%;
-  right: 34%;
-
-  transform: rotate(4deg);
-
-  animation-delay: -7s;
-
-}
-
-
-.ph11 {
-
-  top: 47%;
-  left: 38%;
-
-  transform: rotate(-6deg);
-
-  animation-delay: -6.5s;
-
-}
-
-
-.ph12 {
-
-  top: 72%;
-  left: 40%;
-
-  transform: rotate(3deg);
-
-  animation-delay: -3.5s;
-
-}
-
-
-.ph13 {
-
-  top: 35%;
-  left: 50%;
-
-  transform: rotate(5deg);
-
-  animation-delay: -7.5s;
-
-}
-
-
-.ph14 {
-
-  top: 87%;
-  right: 26%;
-
-  transform: rotate(-5deg);
-
-  animation-delay: -4s;
-
-}
-
-
-.ph15 {
-
-  top: 5%;
-  right: 27%;
-
-  transform: rotate(5deg);
-
-  animation-delay: -2s;
-
-}
-
-
-.ph16 {
-
-  top: 93%;
-  left: 26%;
-
-  transform: rotate(-4deg);
-
-  animation-delay: -5s;
-
-}
-
-
-.ph17 {
-
-  top: 58%;
-  right: 27%;
-
-  transform: rotate(6deg);
-
-  animation-delay: -3s;
-
-}
-
-
-.ph18 {
-
-  top: 32%;
-  left: 2%;
-
-  transform: rotate(-5deg);
-
-  animation-delay: -1.5s;
-
-}
-
-
-.ph19 {
-
-  top: 13%;
-  left: 25%;
-
-  transform: rotate(7deg);
-
-  animation-delay: -6s;
-
-}
-
-
-.ph20 {
-
-  top: 64%;
-  left: 3%;
-
-  transform: rotate(-7deg);
-
-  animation-delay: -7.5s;
-
-}
-
-
-/* ========================================
-   PHRASE ANIMATION
-   ======================================== */
-
-@keyframes phraseFloat {
-
-  0%,
-  100% {
-
-    opacity: 0.88;
-
-  }
-
-  50% {
-
-    opacity: 1;
 
   }
 
@@ -1396,9 +1857,9 @@ form input[type="submit"] {
         57,
         69,
         0.52
-      );
+      ) !important;
 
-    opacity: 0.9;
+    opacity: 1 !important;
 
   }
 
