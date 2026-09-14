@@ -1,221 +1,693 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>One question</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>One question</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 </head>
+
 <body>
 
-<span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
-<span class="spark s4"></span><span class="spark s5"></span>
-<span class="spark s6"></span><span class="spark s7"></span><span class="spark s8"></span>
-<span class="spark s9"></span><span class="spark s10"></span><span class="spark s11"></span>
-<span class="spark s12"></span><span class="spark s13"></span><span class="spark s14"></span>
-<span class="spark s15"></span><span class="spark s16"></span><span class="spark s17"></span><span class="spark s18"></span>
+  <!-- ========================================
+       PAGE CONTENT
+       ======================================== -->
 
-<!-- Diagonal paper-fold transition. It stays hidden until a Yes is clicked. -->
-<div class="page-fold-transition" id="pageFoldTransition" aria-hidden="true">
-  <div class="fold-back"></div>
-  <div class="fold-front"></div>
-  <div class="fold-crease"></div>
-  <div class="fold-glow"></div>
+  <div
+    class="page-layer"
+    id="pageLayer"
+  >
 
-  <div class="paper-plane" id="paperPlane">
-    <span class="plane-icon">✈</span>
-    <span class="plane-trail"></span>
+    <!-- White floating dots -->
+
+    <span class="spark s1"></span>
+    <span class="spark s2"></span>
+    <span class="spark s3"></span>
+    <span class="spark s4"></span>
+    <span class="spark s5"></span>
+    <span class="spark s6"></span>
+    <span class="spark s7"></span>
+    <span class="spark s8"></span>
+    <span class="spark s9"></span>
+    <span class="spark s10"></span>
+    <span class="spark s11"></span>
+    <span class="spark s12"></span>
+    <span class="spark s13"></span>
+    <span class="spark s14"></span>
+    <span class="spark s15"></span>
+    <span class="spark s16"></span>
+    <span class="spark s17"></span>
+    <span class="spark s18"></span>
+
+
+    <!-- Main card -->
+
+    <main
+      class="card transition-page"
+      id="card"
+    >
+
+      <div class="icon">
+        🙂💬
+      </div>
+
+      <p class="eyebrow">
+        One question
+      </p>
+
+      <h1>
+        Dude, I think you're a cool person and you think I'm a creep. 😭
+      </h1>
+
+      <p>
+        But that's the thing — we don't know whether either of us is correct.
+        So why not just have a complete conversation for once and get to know
+        whether we're right or not? 🙂
+      </p>
+
+      <p class="small">
+        You can refuse if you want to, and I won't contact you ever after that. 👍
+      </p>
+
+
+      <!-- First choice -->
+
+      <div
+        class="choice-row"
+        id="choices"
+      >
+
+        <input
+          type="button"
+          id="yes1"
+          value="Yes 🙂"
+        >
+
+        <input
+          type="button"
+          id="no1"
+          value="No"
+          class="secondary"
+        >
+
+      </div>
+
+
+      <!-- Confirmation -->
+
+      <div
+        class="confirm-panel hidden"
+        id="confirmPanel"
+      >
+
+        <div class="icon">
+          🙂💭
+        </div>
+
+        <h2>
+          Please?
+        </h2>
+
+        <p class="small">
+          Please? I'd genuinely like to talk. 🙂
+        </p>
+
+        <div class="choice-row">
+
+          <input
+            type="button"
+            id="yes2"
+            value="Yes 🙂"
+          >
+
+          <input
+            type="button"
+            id="no2"
+            value="No"
+            class="secondary"
+          >
+
+        </div>
+
+      </div>
+
+    </main>
+
   </div>
-</div>
 
-<main class="card transition-page" id="card">
 
-  <div class="icon">🙂💬</div>
-  <p class="eyebrow">One question</p>
+  <!-- ========================================
+       CRAZY PAGE SWITCH
+       ======================================== -->
 
-  <h1>
-    Dude, I think you're a cool person and you think I'm a creep. 😭
-  </h1>
+  <div
+    class="page-switch"
+    id="pageSwitch"
+    aria-hidden="true"
+  >
 
-  <p>
-    But that's the thing — we don't know whether either of us is correct.
-    So why not just have a complete conversation for once and get to know
-    whether we're right or not? 🙂
-  </p>
+    <!-- giant diagonal sweep -->
 
-  <p class="small">
-    You can refuse if you want to, and I won't contact you ever after that. 👍
-  </p>
+    <div class="switch-sheet sheet-one"></div>
 
-  <div class="choice-row" id="choices">
-    <input type="button" id="yes1" value="Yes 🙂">
-    <input type="button" id="no1" class="secondary" value="No">
+    <div class="switch-sheet sheet-two"></div>
+
+    <div class="switch-sheet sheet-three"></div>
+
+
+    <!-- center flash -->
+
+    <div class="switch-flash"></div>
+
+
+    <!-- spinning rings -->
+
+    <div class="switch-ring ring-one"></div>
+
+    <div class="switch-ring ring-two"></div>
+
+
+    <!-- little particles -->
+
+    <span class="switch-dot d1"></span>
+    <span class="switch-dot d2"></span>
+    <span class="switch-dot d3"></span>
+    <span class="switch-dot d4"></span>
+    <span class="switch-dot d5"></span>
+    <span class="switch-dot d6"></span>
+    <span class="switch-dot d7"></span>
+    <span class="switch-dot d8"></span>
+
   </div>
 
-  <div class="confirm-panel hidden" id="confirmPanel">
-    <div class="icon">🙂💭</div>
-    <h2>Please?</h2>
 
-    <p class="small">
-      Please? I'd genuinely like to talk. 🙂
-    </p>
+  <script>
 
-    <div class="choice-row">
-      <input type="button" id="yes2" value="Yes 🙂">
-      <input type="button" id="no2" class="secondary" value="No">
-    </div>
-  </div>
+    /* ========================================
+       GOOGLE SHEETS ENDPOINT
+       ======================================== */
 
-</main>
+    const ENDPOINT_URL =
+      "https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec";
 
-<script>
-const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec";
-const log = [];
 
-function saveLog() {
-  localStorage.setItem(
-    "conversation_choice_log",
-    JSON.stringify(log)
-  );
-}
+    /* ========================================
+       CHOICE LOG
+       ======================================== */
 
-function record(action) {
-  log.push({
-    action: action,
-    time: new Date().toISOString()
-  });
-  saveLog();
-}
+    const log = [];
 
-function firstChoiceValue() {
-  return log.some(item => item.action === "first_yes")
-    ? "Yes"
-    : (log.some(item => item.action === "first_no") ? "No" : "");
-}
 
-function secondChoiceValue() {
-  return log.some(item => item.action === "second_yes")
-    ? "Yes"
-    : (log.some(item => item.action === "second_no") ? "No" : "");
-}
+    function saveLog() {
 
-function makePayload() {
-  return JSON.stringify({
-    timestamp: new Date().toISOString(),
-    first_choice: firstChoiceValue(),
-    second_choice: secondChoiceValue(),
-    date: "",
-    time: "",
-    place: "",
-    choice_log: JSON.stringify(log)
-  });
-}
+      localStorage.setItem(
+        "conversation_choice_log",
+        JSON.stringify(log)
+      );
 
-function sendNoNo() {
-  const payload = makePayload();
-  const blob = new Blob([payload], { type: "text/plain;charset=utf-8" });
+    }
 
-  if (navigator.sendBeacon) {
-    const sent = navigator.sendBeacon(ENDPOINT_URL, blob);
-    if (sent) return Promise.resolve(true);
-  }
 
-  return fetch(ENDPOINT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: payload,
-    keepalive: true
-  })
-  .then(() => true)
-  .catch((error) => {
-    console.error("No/No submission failed:", error);
-    return false;
-  });
-}
+    function record(action) {
 
-/*
- * The Yes transition is intentionally self-contained:
- * 1. Freeze the current card visually.
- * 2. Bring in two large diagonal paper sheets.
- * 3. Move the airplane along the exact same bottom-right -> top-left diagonal.
- * 4. Fade/scale the old card behind the fold.
- * 5. Navigate only after the 2.25s animation has completed.
- */
-function goWithPlane(url) {
-  if (document.body.classList.contains("plane-transition-running")) return;
+      log.push({
 
-  document.body.classList.add("plane-transition-running");
-  document.getElementById("card").classList.add("under-fold");
-  document.getElementById("pageFoldTransition").classList.add("play");
+        action:
+          action,
 
-  window.setTimeout(function () {
-    window.location.href = url;
-  }, 2250);
-}
+        time:
+          new Date().toISOString()
 
-function go(url) {
-  document.getElementById("card")
-    .classList
-    .add("page-exit");
+      });
 
-  setTimeout(function () {
-    window.location.href = url;
-  }, 400);
-}
+      saveLog();
 
-document.getElementById("yes1").addEventListener("click", function () {
-  record("first_yes");
-  goWithPlane("schedule.html");
-});
+    }
 
-document.getElementById("no1").addEventListener("click", function () {
-  record("first_no");
 
-  document.getElementById("choices")
-    .classList
-    .add("hidden");
+    function firstChoiceValue() {
 
-  document.getElementById("confirmPanel")
-    .classList
-    .remove("hidden");
+      return log.some(
+        item =>
+          item.action === "first_yes"
+      )
 
-  const yesButton = document.getElementById("yes2");
+        ? "Yes"
 
-  yesButton.classList.remove("grow");
-  void yesButton.offsetWidth;
-  yesButton.classList.add("grow");
-});
+        : (
+          log.some(
+            item =>
+              item.action === "first_no"
+          )
 
-document.getElementById("yes2").addEventListener("click", function () {
-  record("second_yes");
-  goWithPlane("schedule.html");
-});
+            ? "No"
 
-document.getElementById("no2").addEventListener("click", async function () {
-  record("second_no");
+            : ""
+        );
 
-  const button = document.getElementById("no2");
-  button.disabled = true;
-  button.value = "Sending...";
+    }
 
-  await sendNoNo();
 
-  const card = document.getElementById("card");
+    function secondChoiceValue() {
 
-  card.classList.add("page-exit");
+      return log.some(
+        item =>
+          item.action === "second_yes"
+      )
 
-  setTimeout(function () {
-    card.classList.remove("page-exit");
-    card.classList.add("goodbye");
+        ? "Yes"
 
-    card.innerHTML =
-      '<div class="icon">👋🙂</div>' +
-      '<p class="eyebrow">Okay.</p>' +
-      '<h1>Okay, bye-bye.</h1>' +
-      '<p>Take care. 🙂</p>';
-  }, 400);
-});
-</script>
+        : (
+          log.some(
+            item =>
+              item.action === "second_no"
+          )
+
+            ? "No"
+
+            : ""
+        );
+
+    }
+
+
+    /* ========================================
+       GOOGLE SHEETS PAYLOAD
+       ======================================== */
+
+    function makePayload() {
+
+      return JSON.stringify({
+
+        timestamp:
+          new Date().toISOString(),
+
+        first_choice:
+          firstChoiceValue(),
+
+        second_choice:
+          secondChoiceValue(),
+
+        date:
+          "",
+
+        time:
+          "",
+
+        place:
+          "",
+
+        choice_log:
+          JSON.stringify(log)
+
+      });
+
+    }
+
+
+    /* ========================================
+       NO / NO SUBMISSION
+       ======================================== */
+
+    function sendNoNo() {
+
+      const payload =
+        makePayload();
+
+      const blob =
+        new Blob(
+          [payload],
+          {
+            type:
+              "text/plain;charset=utf-8"
+          }
+        );
+
+
+      if (
+        navigator.sendBeacon
+      ) {
+
+        const sent =
+          navigator.sendBeacon(
+            ENDPOINT_URL,
+            blob
+          );
+
+
+        if (sent) {
+
+          return Promise.resolve(
+            true
+          );
+
+        }
+
+      }
+
+
+      return fetch(
+        ENDPOINT_URL,
+        {
+
+          method:
+            "POST",
+
+          mode:
+            "no-cors",
+
+          headers: {
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body:
+            payload,
+
+          keepalive:
+            true
+
+        }
+      )
+
+        .then(
+          () => true
+        )
+
+        .catch(
+          error => {
+
+            console.error(
+              "No/No submission failed:",
+              error
+            );
+
+            return false;
+
+          }
+        );
+
+    }
+
+
+    /* ========================================
+       CRAZY PAGE SWITCH
+       ======================================== */
+
+    function crazyPageSwitch(
+      destination
+    ) {
+
+      if (
+        document.body.classList.contains(
+          "switch-running"
+        )
+      ) {
+
+        return;
+
+      }
+
+
+      document.body.classList.add(
+        "switch-running"
+      );
+
+
+      const pageLayer =
+        document.getElementById(
+          "pageLayer"
+        );
+
+      const pageSwitch =
+        document.getElementById(
+          "pageSwitch"
+        );
+
+      const card =
+        document.getElementById(
+          "card"
+        );
+
+
+      /*
+        Tiny impact when Yes is pressed.
+      */
+
+      card.classList.add(
+        "switch-impact"
+      );
+
+
+      /*
+        Give the impact a fraction
+        of a second before the big
+        transition begins.
+      */
+
+      setTimeout(
+        function () {
+
+          pageSwitch.classList.add(
+            "active"
+          );
+
+          /*
+            Force browser repaint.
+          */
+
+          void pageSwitch.offsetWidth;
+
+          /*
+            Now distort the entire
+            existing page.
+          */
+
+          pageLayer.classList.add(
+            "switching"
+          );
+
+        },
+        80
+      );
+
+
+      /*
+        The schedule page appears only
+        after the visual transition is
+        completely finished.
+      */
+
+      setTimeout(
+        function () {
+
+          window.location.href =
+            destination;
+
+        },
+        1850
+      );
+
+    }
+
+
+    /* ========================================
+       NORMAL SMALL TRANSITION
+       ======================================== */
+
+    function go(url) {
+
+      document
+        .getElementById("card")
+        .classList
+        .add("page-exit");
+
+
+      setTimeout(
+        function () {
+
+          window.location.href =
+            url;
+
+        },
+        400
+      );
+
+    }
+
+
+    /* ========================================
+       FIRST YES
+       ======================================== */
+
+    document
+      .getElementById("yes1")
+      .addEventListener(
+        "click",
+        function () {
+
+          record(
+            "first_yes"
+          );
+
+          crazyPageSwitch(
+            "schedule.html"
+          );
+
+        }
+      );
+
+
+    /* ========================================
+       FIRST NO
+       ======================================== */
+
+    document
+      .getElementById("no1")
+      .addEventListener(
+        "click",
+        function () {
+
+          record(
+            "first_no"
+          );
+
+
+          document
+            .getElementById("choices")
+            .classList
+            .add("hidden");
+
+
+          document
+            .getElementById("confirmPanel")
+            .classList
+            .remove("hidden");
+
+
+          const yesButton =
+            document.getElementById(
+              "yes2"
+            );
+
+
+          yesButton.classList.remove(
+            "grow"
+          );
+
+
+          void yesButton.offsetWidth;
+
+
+          yesButton.classList.add(
+            "grow"
+          );
+
+        }
+      );
+
+
+    /* ========================================
+       SECOND YES
+       ======================================== */
+
+    document
+      .getElementById("yes2")
+      .addEventListener(
+        "click",
+        function () {
+
+          record(
+            "second_yes"
+          );
+
+          crazyPageSwitch(
+            "schedule.html"
+          );
+
+        }
+      );
+
+
+    /* ========================================
+       SECOND NO
+       ======================================== */
+
+    document
+      .getElementById("no2")
+      .addEventListener(
+        "click",
+        async function () {
+
+          record(
+            "second_no"
+          );
+
+
+          const button =
+            document.getElementById(
+              "no2"
+            );
+
+
+          button.disabled =
+            true;
+
+
+          button.value =
+            "Sending...";
+
+
+          await sendNoNo();
+
+
+          const card =
+            document.getElementById(
+              "card"
+            );
+
+
+          card.classList.add(
+            "page-exit"
+          );
+
+
+          setTimeout(
+            function () {
+
+              card.classList.remove(
+                "page-exit"
+              );
+
+
+              card.classList.add(
+                "goodbye"
+              );
+
+
+              card.innerHTML =
+                '<div class="icon">👋🙂</div>' +
+                '<p class="eyebrow">Okay.</p>' +
+                '<h1>Okay, bye-bye.</h1>' +
+                '<p>Take care. 🙂</p>';
+
+            },
+            400
+          );
+
+        }
+      );
+
+  </script>
+
 </body>
 </html>
