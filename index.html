@@ -1,15 +1,78 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Hello, what's up?</title><link rel="stylesheet" href="style.css"></head>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hello, what's up?</title>
+<link rel="stylesheet" href="style.css">
+</head>
 <body>
-<span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span><span class="spark s4"></span><span class="spark s5"></span>
+
+<span class="spark s1"></span>
+<span class="spark s2"></span>
+<span class="spark s3"></span>
+<span class="spark s4"></span>
+<span class="spark s5"></span>
+
+<div class="background-phrases" aria-hidden="true">
+  <span class="phrase ph1">Salut, jolie</span>
+  <span class="phrase ph2">Hola, bonita</span>
+  <span class="phrase ph3">Ciao, bella</span>
+  <span class="phrase ph4">Hallo, Schöne</span>
+  <span class="phrase ph5">Oi, bonita</span>
+  <span class="phrase ph6">ねえ、かわいいね</span>
+  <span class="phrase ph7">안녕, 예쁜아</span>
+  <span class="phrase ph8">مرحبًا يا جميلة</span>
+  <span class="phrase ph9">Привет, красавица</span>
+  <span class="phrase ph10">Selam, güzelim</span>
+  <span class="phrase ph11">Γεια σου, όμορφη</span>
+  <span class="phrase ph12">Hej, piękna</span>
+  <span class="phrase ph13">Hé, knapperd</span>
+  <span class="phrase ph14">Hei, vakre</span>
+  <span class="phrase ph15">Bună, frumoaso</span>
+  <span class="phrase ph16">Hej, vackra</span>
+  <span class="phrase ph17">สวัสดี คนสวย</span>
+  <span class="phrase ph18">Olá, linda</span>
+  <span class="phrase ph19">Ciao, carina</span>
+  <span class="phrase ph20">Salut, belle</span>
+</div>
+
 <main class="card transition-page">
-  <div class="icon">👋</div><p class="eyebrow">Hey.</p>
-  <h1>Hello, what's up? <span class="inline-emoji">🙂</span></h1>
-  <p>I wanted to say something to you, but you're reluctant to talk back, so I made this. Just have a look</p>
-  <form onsubmit="go('question.html');return false"><input type="submit" value="Take a look!!!"></form>
+
+  <div class="icon">👋🙂</div>
+
+  <p class="eyebrow">Hey.</p>
+
+  <h1>
+    Hello, what's up?
+    <span class="inline-emoji">🙂</span>
+  </h1>
+
+  <p>
+    I wanted to say something to you, but you're reluctant to talk back,
+    so I made this. 🙂
+  </p>
+
+  <form onsubmit="go('question.html'); return false;">
+    <input
+      type="submit"
+      value="Take a look! 👀"
+    >
+  </form>
+
 </main>
+
 <script>
-function go(u){document.querySelector('.transition-page').classList.add('page-exit');setTimeout(()=>location.href=u,400)}
+function go(url) {
+  document
+    .querySelector(".transition-page")
+    .classList.add("page-exit");
+
+  setTimeout(function () {
+    window.location.href = url;
+  }, 400);
+}
 </script>
-</body></html>
+
+</body>
+</html>
