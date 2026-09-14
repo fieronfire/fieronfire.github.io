@@ -26,26 +26,23 @@
     id="dateSong"
     preload="auto"
     playsinline
-  >
-    <source
-      src="./bad.mp3"
-      type="audio/mpeg"
-    >
-  </audio>
+  ></audio>
 
 
   <!-- ==================================================
-       HIDDEN IFRAME FOR GOOGLE SHEETS
+       HIDDEN IFRAME
+       Google Apps Script receives the form here
+       without leaving the page.
        ================================================== -->
 
   <iframe
     name="googleSheetFrame"
     id="googleSheetFrame"
     style="
-      display:none;
-      width:0;
-      height:0;
-      border:0;
+      display: none;
+      width: 0;
+      height: 0;
+      border: 0;
     "
   ></iframe>
 
@@ -84,17 +81,21 @@
       📅🙂
     </div>
 
+
     <p class="eyebrow">
       Your call
     </p>
+
 
     <h1>
       So... when are you free? 🙂
     </h1>
 
+
     <p>
       Pick whatever works for you. 👍
     </p>
+
 
     <p class="meetup">
       <span>
@@ -115,7 +116,9 @@
     >
 
 
-      <!-- Hidden values -->
+      <!-- ==================================================
+           HIDDEN GOOGLE SHEET DATA
+           ================================================== -->
 
       <input
         type="hidden"
@@ -157,6 +160,7 @@
         Pick a Day 🙂
       </label>
 
+
       <input
         id="date"
         name="date"
@@ -173,6 +177,7 @@
         What Time? 🕒
       </label>
 
+
       <select
         id="time"
         name="time"
@@ -186,86 +191,6 @@
         >
           Select a time...
         </option>
-
-        <option value="08:00">8:00 AM</option>
-        <option value="08:15">8:15 AM</option>
-        <option value="08:30">8:30 AM</option>
-        <option value="08:45">8:45 AM</option>
-
-        <option value="09:00">9:00 AM</option>
-        <option value="09:15">9:15 AM</option>
-        <option value="09:30">9:30 AM</option>
-        <option value="09:45">9:45 AM</option>
-
-        <option value="10:00">10:00 AM</option>
-        <option value="10:15">10:15 AM</option>
-        <option value="10:30">10:30 AM</option>
-        <option value="10:45">10:45 AM</option>
-
-        <option value="11:00">11:00 AM</option>
-        <option value="11:15">11:15 AM</option>
-        <option value="11:30">11:30 AM</option>
-        <option value="11:45">11:45 AM</option>
-
-        <option value="12:00">12:00 PM</option>
-        <option value="12:15">12:15 PM</option>
-        <option value="12:30">12:30 PM</option>
-        <option value="12:45">12:45 PM</option>
-
-        <option value="13:00">1:00 PM</option>
-        <option value="13:15">1:15 PM</option>
-        <option value="13:30">1:30 PM</option>
-        <option value="13:45">1:45 PM</option>
-
-        <option value="14:00">2:00 PM</option>
-        <option value="14:15">2:15 PM</option>
-        <option value="14:30">2:30 PM</option>
-        <option value="14:45">2:45 PM</option>
-
-        <option value="15:00">3:00 PM</option>
-        <option value="15:15">3:15 PM</option>
-        <option value="15:30">3:30 PM</option>
-        <option value="15:45">3:45 PM</option>
-
-        <option value="16:00">4:00 PM</option>
-        <option value="16:15">4:15 PM</option>
-        <option value="16:30">4:30 PM</option>
-        <option value="16:45">4:45 PM</option>
-
-        <option value="17:00">5:00 PM</option>
-        <option value="17:15">5:15 PM</option>
-        <option value="17:30">5:30 PM</option>
-        <option value="17:45">5:45 PM</option>
-
-        <option value="18:00">6:00 PM</option>
-        <option value="18:15">6:15 PM</option>
-        <option value="18:30">6:30 PM</option>
-        <option value="18:45">6:45 PM</option>
-
-        <option value="19:00">7:00 PM</option>
-        <option value="19:15">7:15 PM</option>
-        <option value="19:30">7:30 PM</option>
-        <option value="19:45">7:45 PM</option>
-
-        <option value="20:00">8:00 PM</option>
-        <option value="20:15">8:15 PM</option>
-        <option value="20:30">8:30 PM</option>
-        <option value="20:45">8:45 PM</option>
-
-        <option value="21:00">9:00 PM</option>
-        <option value="21:15">9:15 PM</option>
-        <option value="21:30">9:30 PM</option>
-        <option value="21:45">9:45 PM</option>
-
-        <option value="22:00">10:00 PM</option>
-        <option value="22:15">10:15 PM</option>
-        <option value="22:30">10:30 PM</option>
-        <option value="22:45">10:45 PM</option>
-
-        <option value="23:00">11:00 PM</option>
-        <option value="23:15">11:15 PM</option>
-        <option value="23:30">11:30 PM</option>
-        <option value="23:45">11:45 PM</option>
 
       </select>
 
@@ -289,6 +214,7 @@
       aria-live="polite"
     ></p>
 
+
   </main>
 
 
@@ -299,17 +225,15 @@
   <script>
 
 
-    /*
-      ==================================================
-      GET ELEMENTS
-      ==================================================
-    */
-
-    const dateSong =
-      document.getElementById("dateSong");
+    /* ==================================================
+       ELEMENTS
+       ================================================== */
 
     const form =
       document.getElementById("scheduleForm");
+
+    const dateSong =
+      document.getElementById("dateSong");
 
     const submitButton =
       document.getElementById("setDateButton");
@@ -317,31 +241,97 @@
     const status =
       document.getElementById("status");
 
+    const timeSelect =
+      document.getElementById("time");
 
-    /*
-      ==================================================
-      LOAD CHOICE LOG
-      ==================================================
-    */
+
+    /* ==================================================
+       GOOGLE APPS SCRIPT URL
+       ================================================== */
+
+    const ENDPOINT_URL =
+      "https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec";
+
+
+    /* ==================================================
+       GENERATE TIME OPTIONS
+       8:00 AM → 11:45 PM
+       ================================================== */
+
+    for (
+      let minutes = 8 * 60;
+      minutes <= 23 * 60 + 45;
+      minutes += 15
+    ) {
+
+      const hour24 =
+        Math.floor(minutes / 60);
+
+      const minute =
+        minutes % 60;
+
+      let hour12 =
+        hour24 % 12;
+
+      if (hour12 === 0) {
+        hour12 = 12;
+      }
+
+      const ampm =
+        hour24 < 12
+          ? "AM"
+          : "PM";
+
+      const value =
+        String(hour24).padStart(2, "0") +
+        ":" +
+        String(minute).padStart(2, "0");
+
+      const label =
+        hour12 +
+        ":" +
+        String(minute).padStart(2, "0") +
+        " " +
+        ampm;
+
+      const option =
+        document.createElement("option");
+
+      option.value = value;
+      option.textContent = label;
+
+      timeSelect.appendChild(option);
+    }
+
+
+    /* ==================================================
+       READ CONVERSATION LOG
+       ================================================== */
 
     let choiceLog = [];
 
     try {
 
-      choiceLog = JSON.parse(
+      const storedLog =
         localStorage.getItem(
           "conversation_choice_log"
-        ) || "[]"
-      );
+        );
 
-      if (!Array.isArray(choiceLog)) {
-        choiceLog = [];
+      if (storedLog) {
+
+        const parsed =
+          JSON.parse(storedLog);
+
+        if (Array.isArray(parsed)) {
+          choiceLog = parsed;
+        }
+
       }
 
     } catch (error) {
 
       console.error(
-        "Could not read choice log:",
+        "Could not read conversation choice log:",
         error
       );
 
@@ -350,18 +340,17 @@
     }
 
 
-    /*
-      ==================================================
-      CHECK CHOICE
-      ==================================================
-    */
+    /* ==================================================
+       CHECK WHETHER A CHOICE EXISTS
+       ================================================== */
 
-    function getChoice(actionName) {
+    function hasChoice(actionName) {
 
       return choiceLog.some(
         function(item) {
 
-          return item.action === actionName;
+          return item &&
+                 item.action === actionName;
 
         }
       );
@@ -369,30 +358,42 @@
     }
 
 
-    /*
-      ==================================================
-      PUT YES / NO INTO HIDDEN FIELDS
-      ==================================================
-    */
+    /* ==================================================
+       PREPARE HIDDEN FIELDS
+       ================================================== */
 
-    function updateChoiceFields() {
+    function prepareHiddenFields() {
 
       const firstChoice =
-        document.getElementById("firstChoice");
+        document.getElementById(
+          "firstChoice"
+        );
 
       const secondChoice =
-        document.getElementById("secondChoice");
+        document.getElementById(
+          "secondChoice"
+        );
+
+      const choiceLogField =
+        document.getElementById(
+          "choiceLog"
+        );
+
+      const timestampField =
+        document.getElementById(
+          "timestamp"
+        );
 
 
-      /*
-        First question
-      */
+      /* -----------------------------
+         FIRST QUESTION
+         ----------------------------- */
 
-      if (getChoice("first_yes")) {
+      if (hasChoice("first_yes")) {
 
         firstChoice.value = "Yes";
 
-      } else if (getChoice("first_no")) {
+      } else if (hasChoice("first_no")) {
 
         firstChoice.value = "No";
 
@@ -403,15 +404,15 @@
       }
 
 
-      /*
-        Second question
-      */
+      /* -----------------------------
+         SECOND QUESTION
+         ----------------------------- */
 
-      if (getChoice("second_yes")) {
+      if (hasChoice("second_yes")) {
 
         secondChoice.value = "Yes";
 
-      } else if (getChoice("second_no")) {
+      } else if (hasChoice("second_no")) {
 
         secondChoice.value = "No";
 
@@ -421,61 +422,95 @@
 
       }
 
-    }
 
+      /* -----------------------------
+         FULL CHOICE LOG
+         ----------------------------- */
 
-    /*
-      ==================================================
-      CHOICE LOG
-      ==================================================
-    */
-
-    function updateChoiceLog() {
-
-      document.getElementById(
-        "choiceLog"
-      ).value =
+      choiceLogField.value =
         JSON.stringify(choiceLog);
 
-    }
 
+      /* -----------------------------
+         TIMESTAMP
+         ----------------------------- */
 
-    /*
-      ==================================================
-      TIMESTAMP
-      ==================================================
-    */
-
-    function updateTimestamp() {
-
-      document.getElementById(
-        "timestamp"
-      ).value =
+      timestampField.value =
         new Date().toISOString();
 
     }
 
 
-    /*
-      ==================================================
-      INITIAL SETUP
-      ==================================================
-    */
+    /* ==================================================
+       INITIALIZE FORM DATA
+       ================================================== */
 
-    updateChoiceFields();
-
-    updateChoiceLog();
-
-    updateTimestamp();
+    prepareHiddenFields();
 
 
-    /*
-      ==================================================
-      AUTOPLAY SONG WHEN PAGE LOADS
-      ==================================================
+    /* ==================================================
+       FIND THE SONG
 
-      Always begin at 0:00.
-    */
+       First try:
+         audio/bad.mp3
+
+       If that fails, try:
+         bad.mp3
+       ================================================== */
+
+    const audioSources = [
+      "./audio/bad.mp3",
+      "./bad.mp3"
+    ];
+
+    let currentAudioSource = 0;
+
+
+    function loadNextAudioSource() {
+
+      if (
+        currentAudioSource >=
+        audioSources.length
+      ) {
+
+        console.error(
+          "Could not find bad.mp3"
+        );
+
+        return;
+
+      }
+
+
+      const source =
+        audioSources[currentAudioSource];
+
+
+      dateSong.src = source;
+
+      dateSong.load();
+
+    }
+
+
+    dateSong.addEventListener(
+      "error",
+      function() {
+
+        currentAudioSource++;
+
+        loadNextAudioSource();
+
+      }
+    );
+
+
+    loadNextAudioSource();
+
+
+    /* ==================================================
+       PLAY SONG FROM 0:00
+       ================================================== */
 
     function playSongFromBeginning() {
 
@@ -483,25 +518,38 @@
 
         dateSong.pause();
 
+        /*
+          Always reset to the beginning.
+        */
+
         dateSong.currentTime = 0;
 
         dateSong.volume = 0.9;
 
 
-        const promise =
+        const playPromise =
           dateSong.play();
 
 
         if (
-          promise &&
-          typeof promise.catch === "function"
+          playPromise &&
+          typeof playPromise.catch === "function"
         ) {
 
-          promise.catch(
+          playPromise.catch(
             function(error) {
 
+              /*
+                This usually means the browser's
+                autoplay policy blocked sound.
+
+                We don't show an error to the user
+                because Google Sheets submission
+                must remain completely independent.
+              */
+
               console.warn(
-                "Browser blocked audio autoplay:",
+                "Autoplay was blocked by the browser:",
                 error
               );
 
@@ -513,7 +561,7 @@
       } catch (error) {
 
         console.error(
-          "Could not play song:",
+          "Could not start song:",
           error
         );
 
@@ -522,44 +570,111 @@
     }
 
 
-    /*
-      ==================================================
-      START SONG AS SOON AS PAGE LOADS
-      ==================================================
-    */
+    /* ==================================================
+       TRY TO START MUSIC WHEN PAGE LOADS
+       ================================================== */
 
     window.addEventListener(
       "load",
       function() {
 
-        playSongFromBeginning();
+        /*
+          Give the audio element a moment to load.
+        */
+
+        setTimeout(
+          function() {
+
+            playSongFromBeginning();
+
+          },
+          100
+        );
 
       }
     );
 
 
-    /*
-      ==================================================
-      BUTTON = SEND DATA ONLY
-      ==================================================
+    /* ==================================================
+       AUTOPLAY FALLBACK
 
-      NO MUSIC HERE.
-      NO AUDIO LOGIC HERE.
-    */
+       Some browsers block sound until the visitor
+       interacts with the page.
+
+       So the first interaction anywhere on the page
+       will attempt to start the song.
+
+       THIS IS NOT CONNECTED TO THE SUBMIT BUTTON.
+       ================================================== */
+
+    let userInteractionHandled = false;
+
+
+    function resumeSongAfterInteraction() {
+
+      if (userInteractionHandled) {
+        return;
+      }
+
+      userInteractionHandled = true;
+
+      /*
+        Only try if the song isn't already playing.
+      */
+
+      if (dateSong.paused) {
+
+        playSongFromBeginning();
+
+      }
+
+    }
+
+
+    document.addEventListener(
+      "pointerdown",
+      resumeSongAfterInteraction,
+      {
+        once: true,
+        passive: true
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      resumeSongAfterInteraction,
+      {
+        once: true
+      }
+    );
+
+
+    /* ==================================================
+       FORM SUBMISSION
+       ==================================================
+
+       IMPORTANT:
+
+       The button does NOT control the music.
+
+       The button ONLY sends the form data.
+       ================================================== */
 
     form.addEventListener(
       "submit",
       function(event) {
 
+
         /*
-          Prevent the page from leaving.
+          Stop normal page navigation.
         */
 
         event.preventDefault();
 
 
         /*
-          Make sure date and time are selected.
+          Validate date and time.
         */
 
         if (!form.checkValidity()) {
@@ -572,36 +687,45 @@
 
 
         /*
-          Update all Google Sheet fields
-          immediately before submission.
+          Prepare the latest data.
         */
 
-        updateChoiceFields();
-
-        updateChoiceLog();
-
-        updateTimestamp();
+        prepareHiddenFields();
 
 
         /*
-          Update button/status.
+          Update UI.
         */
-
-        submitButton.disabled = true;
-
-        submitButton.value =
-          "Saving... ♥";
 
         status.textContent =
           "Saving your date... ♥";
 
+        submitButton.value =
+          "Saving... ♥";
+
+        submitButton.disabled =
+          true;
+
 
         /*
           ==================================================
-          NATIVE POST TO GOOGLE APPS SCRIPT
+          NATIVE FORM SUBMISSION
           ==================================================
 
-          This is the ONLY thing the button does.
+          This sends:
+
+          first_choice
+          second_choice
+          date
+          time
+          place
+          choice_log
+          timestamp
+
+          directly to Apps Script.
+
+          The hidden iframe means the current page
+          remains open.
         */
 
         HTMLFormElement.prototype.submit.call(
@@ -610,7 +734,8 @@
 
 
         /*
-          Change the UI after sending.
+          Update the message after the POST has
+          been initiated.
         */
 
         setTimeout(
@@ -632,5 +757,7 @@
 
   </script>
 
+
 </body>
+
 </html>
