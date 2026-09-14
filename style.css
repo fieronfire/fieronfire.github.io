@@ -1860,6 +1860,126 @@ form input[type="submit"] {
       ) !important;
 
     opacity: 1 !important;
+    /* ========================================
+   EXTRA WHITE FLOATING DOTS
+   ======================================== */
+
+.spark.s6 {
+  top: 8%;
+  left: 34%;
+  width: 5px;
+  height: 5px;
+  animation-duration: 8s;
+  animation-delay: -2s;
+}
+
+.spark.s7 {
+  top: 18%;
+  left: 88%;
+  width: 7px;
+  height: 7px;
+  animation-duration: 10s;
+  animation-delay: -6s;
+}
+
+.spark.s8 {
+  top: 27%;
+  left: 26%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 6s;
+  animation-delay: -1s;
+}
+
+.spark.s9 {
+  top: 44%;
+  left: 4%;
+  width: 7px;
+  height: 7px;
+  animation-duration: 9s;
+  animation-delay: -5s;
+}
+
+.spark.s10 {
+  top: 48%;
+  left: 92%;
+  width: 5px;
+  height: 5px;
+  animation-duration: 7s;
+  animation-delay: -3s;
+}
+
+.spark.s11 {
+  top: 61%;
+  left: 20%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 11s;
+  animation-delay: -7s;
+}
+
+.spark.s12 {
+  top: 73%;
+  left: 74%;
+  width: 8px;
+  height: 8px;
+  animation-duration: 8s;
+  animation-delay: -4s;
+}
+
+.spark.s13 {
+  top: 84%;
+  left: 54%;
+  width: 5px;
+  height: 5px;
+  animation-duration: 10s;
+  animation-delay: -8s;
+}
+
+.spark.s14 {
+  top: 92%;
+  left: 82%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 7s;
+  animation-delay: -2s;
+}
+
+.spark.s15 {
+  top: 11%;
+  left: 70%;
+  width: 6px;
+  height: 6px;
+  animation-duration: 9s;
+  animation-delay: -5s;
+}
+
+.spark.s16 {
+  top: 38%;
+  left: 83%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 12s;
+  animation-delay: -9s;
+}
+
+.spark.s17 {
+  top: 77%;
+  left: 4%;
+  width: 6px;
+  height: 6px;
+  animation-duration: 8s;
+  animation-delay: -6s;
+}
+
+.spark.s18 {
+  top: 56%;
+  left: 58%;
+  width: 4px;
+  height: 4px;
+  animation-duration: 10s;
+  animation-delay: -3s;
+}
 
   }
 
