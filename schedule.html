@@ -1,807 +1,551 @@
 <!doctype html>
 <html lang="en">
-
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>So... when are you free?</title>
 
-<meta charset="utf-8">
-
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1"
->
-
-<title>
-  So... when are you free?
-</title>
-
-<link
-  rel="stylesheet"
-  href="style.css"
->
-
+  <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     BAD BUNNY AUDIO
-     ===================================================== -->
-
-<audio
-  id="dateSong"
-  preload="auto"
->
-  <source
-    src="./bad.mp3"
-    type="audio/mpeg"
-  >
-</audio>
+  <!-- Bad Bunny song -->
+  <audio id="dateSong" preload="auto" playsinline>
+    <source src="./bad.mp3" type="audio/mpeg">
+  </audio>
 
 
-<!-- =====================================================
-     HIDDEN IFRAME
-     =====================================================
-
-     The Google Apps Script form POST happens inside
-     this iframe so the main page does not navigate away.
-     ===================================================== -->
-
-<iframe
-  name="googleSheetFrame"
-  id="googleSheetFrame"
-  style="
-    display:none;
-    width:0;
-    height:0;
-    border:0;
-  "
-></iframe>
+  <!-- Hidden iframe used for Google Apps Script submission -->
+  <iframe
+    name="googleSheetFrame"
+    id="googleSheetFrame"
+    style="display:none;width:0;height:0;border:0;"
+  ></iframe>
 
 
-<!-- =====================================================
-     FLOATING DOTS
-     ===================================================== -->
-
-<span class="spark s1"></span>
-<span class="spark s2"></span>
-<span class="spark s3"></span>
-<span class="spark s4"></span>
-<span class="spark s5"></span>
-<span class="spark s6"></span>
-<span class="spark s7"></span>
-<span class="spark s8"></span>
-<span class="spark s9"></span>
-<span class="spark s10"></span>
-<span class="spark s11"></span>
-<span class="spark s12"></span>
-<span class="spark s13"></span>
-<span class="spark s14"></span>
-<span class="spark s15"></span>
-<span class="spark s16"></span>
-<span class="spark s17"></span>
-<span class="spark s18"></span>
+  <!-- Floating background dots -->
+  <span class="spark s1"></span>
+  <span class="spark s2"></span>
+  <span class="spark s3"></span>
+  <span class="spark s4"></span>
+  <span class="spark s5"></span>
+  <span class="spark s6"></span>
+  <span class="spark s7"></span>
+  <span class="spark s8"></span>
+  <span class="spark s9"></span>
+  <span class="spark s10"></span>
+  <span class="spark s11"></span>
+  <span class="spark s12"></span>
+  <span class="spark s13"></span>
+  <span class="spark s14"></span>
+  <span class="spark s15"></span>
+  <span class="spark s16"></span>
+  <span class="spark s17"></span>
+  <span class="spark s18"></span>
 
 
-<!-- =====================================================
-     MAIN CARD
-     ===================================================== -->
+  <main class="card transition-page">
 
-<main class="card transition-page">
+    <div class="icon">📅🙂</div>
 
-  <div class="icon">
-    📅🙂
-  </div>
+    <p class="eyebrow">Your call</p>
 
+    <h1>
+      So... when are you free? 🙂
+    </h1>
 
-  <p class="eyebrow">
-    Your call
-  </p>
+    <p>
+      Pick whatever works for you. 👍
+    </p>
 
-
-  <h1>
-    So... when are you free? 🙂
-  </h1>
+    <p class="meetup">
+      <span>📍 Meet up in CCD</span>
+    </p>
 
 
-  <p>
-    Pick whatever works for you. 👍
-  </p>
-
-
-  <p class="meetup">
-    <span>
-      📍 Meet up in CCD
-    </span>
-  </p>
-
-
-  <!-- ===================================================
-       SCHEDULE FORM
-       =================================================== -->
-
-  <form
-    id="scheduleForm"
-    action="https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec"
-    method="POST"
-    target="googleSheetFrame"
-  >
-
-
-    <!-- -----------------------------------------------
-         FIRST CHOICE
-         ----------------------------------------------- -->
-
-    <input
-      type="hidden"
-      id="firstChoice"
-      name="first_choice"
+    <form
+      id="scheduleForm"
+      action="https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec"
+      method="POST"
+      target="googleSheetFrame"
     >
 
-
-    <!-- -----------------------------------------------
-         SECOND CHOICE
-         ----------------------------------------------- -->
-
-    <input
-      type="hidden"
-      id="secondChoice"
-      name="second_choice"
-    >
-
-
-    <!-- -----------------------------------------------
-         PLACE
-         ----------------------------------------------- -->
-
-    <input
-      type="hidden"
-      id="place"
-      name="place"
-      value="CCD"
-    >
-
-
-    <!-- -----------------------------------------------
-         CHOICE LOG
-         ----------------------------------------------- -->
-
-    <input
-      type="hidden"
-      id="choiceLog"
-      name="choice_log"
-    >
-
-
-    <!-- -----------------------------------------------
-         TIMESTAMP
-         ----------------------------------------------- -->
-
-    <input
-      type="hidden"
-      id="timestamp"
-      name="timestamp"
-    >
-
-
-    <!-- -----------------------------------------------
-         DATE
-         ----------------------------------------------- -->
-
-    <label for="date">
-      Pick a Day 🙂
-    </label>
-
-
-    <input
-      id="date"
-      name="date"
-      type="date"
-      required
-    >
-
-
-    <!-- -----------------------------------------------
-         TIME
-         ----------------------------------------------- -->
-
-    <label for="time">
-      What Time? 🕒
-    </label>
-
-
-    <select
-      id="time"
-      name="time"
-      required
-    >
-
-      <option
-        value=""
-        selected
-        disabled
+      <!-- Hidden data sent to Google Sheets -->
+      <input
+        type="hidden"
+        id="firstChoice"
+        name="first_choice"
       >
-        Select a time...
-      </option>
 
+      <input
+        type="hidden"
+        id="secondChoice"
+        name="second_choice"
+      >
+
+      <input
+        type="hidden"
+        id="place"
+        name="place"
+        value="CCD"
+      >
+
+      <input
+        type="hidden"
+        id="choiceLog"
+        name="choice_log"
+      >
+
+      <input
+        type="hidden"
+        id="timestamp"
+        name="timestamp"
+      >
+
+
+      <!-- Date -->
+      <label for="date">
+        Pick a Day 🙂
+      </label>
+
+      <input
+        id="date"
+        name="date"
+        type="date"
+        required
+      >
+
+
+      <!-- Time -->
+      <label for="time">
+        What Time? 🕒
+      </label>
+
+      <select
+        id="time"
+        name="time"
+        required
+      >
+
+        <option
+          value=""
+          selected
+          disabled
+        >
+          Select a time...
+        </option>
+
+        <option value="08:00">8:00 AM</option>
+        <option value="08:15">8:15 AM</option>
+        <option value="08:30">8:30 AM</option>
+        <option value="08:45">8:45 AM</option>
+
+        <option value="09:00">9:00 AM</option>
+        <option value="09:15">9:15 AM</option>
+        <option value="09:30">9:30 AM</option>
+        <option value="09:45">9:45 AM</option>
+
+        <option value="10:00">10:00 AM</option>
+        <option value="10:15">10:15 AM</option>
+        <option value="10:30">10:30 AM</option>
+        <option value="10:45">10:45 AM</option>
+
+        <option value="11:00">11:00 AM</option>
+        <option value="11:15">11:15 AM</option>
+        <option value="11:30">11:30 AM</option>
+        <option value="11:45">11:45 AM</option>
+
+        <option value="12:00">12:00 PM</option>
+        <option value="12:15">12:15 PM</option>
+        <option value="12:30">12:30 PM</option>
+        <option value="12:45">12:45 PM</option>
+
+        <option value="13:00">1:00 PM</option>
+        <option value="13:15">1:15 PM</option>
+        <option value="13:30">1:30 PM</option>
+        <option value="13:45">1:45 PM</option>
+
+        <option value="14:00">2:00 PM</option>
+        <option value="14:15">2:15 PM</option>
+        <option value="14:30">2:30 PM</option>
+        <option value="14:45">2:45 PM</option>
+
+        <option value="15:00">3:00 PM</option>
+        <option value="15:15">3:15 PM</option>
+        <option value="15:30">3:30 PM</option>
+        <option value="15:45">3:45 PM</option>
+
+        <option value="16:00">4:00 PM</option>
+        <option value="16:15">4:15 PM</option>
+        <option value="16:30">4:30 PM</option>
+        <option value="16:45">4:45 PM</option>
 
-      <option value="08:00">
-        8:00 AM
-      </option>
+        <option value="17:00">5:00 PM</option>
+        <option value="17:15">5:15 PM</option>
+        <option value="17:30">5:30 PM</option>
+        <option value="17:45">5:45 PM</option>
 
-      <option value="08:15">
-        8:15 AM
-      </option>
+        <option value="18:00">6:00 PM</option>
+        <option value="18:15">6:15 PM</option>
+        <option value="18:30">6:30 PM</option>
+        <option value="18:45">6:45 PM</option>
 
-      <option value="08:30">
-        8:30 AM
-      </option>
+        <option value="19:00">7:00 PM</option>
+        <option value="19:15">7:15 PM</option>
+        <option value="19:30">7:30 PM</option>
+        <option value="19:45">7:45 PM</option>
 
-      <option value="08:45">
-        8:45 AM
-      </option>
+        <option value="20:00">8:00 PM</option>
+        <option value="20:15">8:15 PM</option>
+        <option value="20:30">8:30 PM</option>
+        <option value="20:45">8:45 PM</option>
 
+        <option value="21:00">9:00 PM</option>
+        <option value="21:15">9:15 PM</option>
+        <option value="21:30">9:30 PM</option>
+        <option value="21:45">9:45 PM</option>
 
-      <option value="09:00">
-        9:00 AM
-      </option>
+        <option value="22:00">10:00 PM</option>
+        <option value="22:15">10:15 PM</option>
+        <option value="22:30">10:30 PM</option>
+        <option value="22:45">10:45 PM</option>
 
-      <option value="09:15">
-        9:15 AM
-      </option>
+        <option value="23:00">11:00 PM</option>
+        <option value="23:15">11:15 PM</option>
+        <option value="23:30">11:30 PM</option>
+        <option value="23:45">11:45 PM</option>
 
-      <option value="09:30">
-        9:30 AM
-      </option>
+      </select>
 
-      <option value="09:45">
-        9:45 AM
-      </option>
 
+      <!-- Submit -->
+      <input
+        id="setDateButton"
+        type="submit"
+        value="Set the date! 🙂"
+      >
 
-      <option value="10:00">
-        10:00 AM
-      </option>
+    </form>
 
-      <option value="10:15">
-        10:15 AM
-      </option>
 
-      <option value="10:30">
-        10:30 AM
-      </option>
+    <p
+      id="status"
+      class="status"
+      aria-live="polite"
+    ></p>
 
-      <option value="10:45">
-        10:45 AM
-      </option>
+  </main>
 
 
-      <option value="11:00">
-        11:00 AM
-      </option>
+  <script>
 
-      <option value="11:15">
-        11:15 AM
-      </option>
+    /*
+      --------------------------------------------------
+      LOAD THE CONVERSATION CHOICE LOG
+      --------------------------------------------------
+    */
 
-      <option value="11:30">
-        11:30 AM
-      </option>
+    let choiceLog = [];
 
-      <option value="11:45">
-        11:45 AM
-      </option>
-
-
-      <option value="12:00">
-        12:00 PM
-      </option>
-
-      <option value="12:15">
-        12:15 PM
-      </option>
-
-      <option value="12:30">
-        12:30 PM
-      </option>
-
-      <option value="12:45">
-        12:45 PM
-      </option>
-
-
-      <option value="13:00">
-        1:00 PM
-      </option>
-
-      <option value="13:15">
-        1:15 PM
-      </option>
-
-      <option value="13:30">
-        1:30 PM
-      </option>
-
-      <option value="13:45">
-        1:45 PM
-      </option>
-
-
-      <option value="14:00">
-        2:00 PM
-      </option>
-
-      <option value="14:15">
-        2:15 PM
-      </option>
-
-      <option value="14:30">
-        2:30 PM
-      </option>
-
-      <option value="14:45">
-        2:45 PM
-      </option>
-
-
-      <option value="15:00">
-        3:00 PM
-      </option>
-
-      <option value="15:15">
-        3:15 PM
-      </option>
-
-      <option value="15:30">
-        3:30 PM
-      </option>
-
-      <option value="15:45">
-        3:45 PM
-      </option>
-
-
-      <option value="16:00">
-        4:00 PM
-      </option>
-
-      <option value="16:15">
-        4:15 PM
-      </option>
-
-      <option value="16:30">
-        4:30 PM
-      </option>
-
-      <option value="16:45">
-        4:45 PM
-      </option>
-
-
-      <option value="17:00">
-        5:00 PM
-      </option>
-
-      <option value="17:15">
-        5:15 PM
-      </option>
-
-      <option value="17:30">
-        5:30 PM
-      </option>
-
-      <option value="17:45">
-        5:45 PM
-      </option>
-
-
-      <option value="18:00">
-        6:00 PM
-      </option>
-
-      <option value="18:15">
-        6:15 PM
-      </option>
-
-      <option value="18:30">
-        6:30 PM
-      </option>
-
-      <option value="18:45">
-        6:45 PM
-      </option>
-
-
-      <option value="19:00">
-        7:00 PM
-      </option>
-
-      <option value="19:15">
-        7:15 PM
-      </option>
-
-      <option value="19:30">
-        7:30 PM
-      </option>
-
-      <option value="19:45">
-        7:45 PM
-      </option>
-
-
-      <option value="20:00">
-        8:00 PM
-      </option>
-
-      <option value="20:15">
-        8:15 PM
-      </option>
-
-      <option value="20:30">
-        8:30 PM
-      </option>
-
-      <option value="20:45">
-        8:45 PM
-      </option>
-
-
-      <option value="21:00">
-        9:00 PM
-      </option>
-
-      <option value="21:15">
-        9:15 PM
-      </option>
-
-      <option value="21:30">
-        9:30 PM
-      </option>
-
-      <option value="21:45">
-        9:45 PM
-      </option>
-
-
-      <option value="22:00">
-        10:00 PM
-      </option>
-
-      <option value="22:15">
-        10:15 PM
-      </option>
-
-      <option value="22:30">
-        10:30 PM
-      </option>
-
-      <option value="22:45">
-        10:45 PM
-      </option>
-
-
-      <option value="23:00">
-        11:00 PM
-      </option>
-
-      <option value="23:15">
-        11:15 PM
-      </option>
-
-      <option value="23:30">
-        11:30 PM
-      </option>
-
-      <option value="23:45">
-        11:45 PM
-      </option>
-
-    </select>
-
-
-    <!-- -----------------------------------------------
-         SUBMIT BUTTON
-         ----------------------------------------------- -->
-
-    <input
-      id="setDateButton"
-      type="submit"
-      value="Set the date! 🙂"
-    >
-
-  </form>
-
-
-  <p
-    id="status"
-    class="status"
-    aria-live="polite"
-  ></p>
-
-</main>
-
-
-<script>
-
-/* =====================================================
-   GOOGLE APPS SCRIPT
-   ===================================================== */
-
-const ENDPOINT_URL =
-  "https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec";
-
-
-/* =====================================================
-   PREVIOUS CHOICES
-   ===================================================== */
-
-const choiceLog =
-  JSON.parse(
-    localStorage.getItem(
-      "conversation_choice_log"
-    ) || "[]"
-  );
-
-
-/* =====================================================
-   ELEMENTS
-   ===================================================== */
-
-const form =
-  document.getElementById(
-    "scheduleForm"
-  );
-
-
-const dateSong =
-  document.getElementById(
-    "dateSong"
-  );
-
-
-const status =
-  document.getElementById(
-    "status"
-  );
-
-
-const submitButton =
-  document.getElementById(
-    "setDateButton"
-  );
-
-
-/* =====================================================
-   CHOICE HELPER
-   ===================================================== */
-
-function getChoice(
-  actionName
-) {
-
-  return choiceLog.some(
-    item =>
-      item.action === actionName
-  );
-
-}
-
-
-/* =====================================================
-   FILL HIDDEN FIELDS
-   ===================================================== */
-
-document.getElementById(
-  "firstChoice"
-).value =
-  getChoice("first_yes")
-    ? "Yes"
-    : (
-        getChoice("first_no")
-          ? "No"
-          : ""
+    try {
+      choiceLog = JSON.parse(
+        localStorage.getItem("conversation_choice_log") || "[]"
       );
 
+      if (!Array.isArray(choiceLog)) {
+        choiceLog = [];
+      }
 
-document.getElementById(
-  "secondChoice"
-).value =
-  getChoice("second_yes")
-    ? "Yes"
-    : (
-        getChoice("second_no")
-          ? "No"
-          : ""
+    } catch (error) {
+
+      console.error(
+        "Could not read conversation choice log:",
+        error
       );
 
-
-document.getElementById(
-  "choiceLog"
-).value =
-  JSON.stringify(
-    choiceLog
-  );
-
-
-document.getElementById(
-  "timestamp"
-).value =
-  new Date().toISOString();
-
-
-/* =====================================================
-   PLAY BAD BUNNY
-   ===================================================== */
-
-function playDateSong() {
-
-  try {
-
-    /*
-      Stop any previous playback.
-    */
-    dateSong.pause();
+      choiceLog = [];
+    }
 
 
     /*
-      Always start from the beginning.
+      --------------------------------------------------
+      ELEMENTS
+      --------------------------------------------------
     */
-    dateSong.currentTime =
-      0;
 
+    const form =
+      document.getElementById("scheduleForm");
 
-    dateSong.volume =
-      0.9;
+    const dateSong =
+      document.getElementById("dateSong");
+
+    const submitButton =
+      document.getElementById("setDateButton");
+
+    const status =
+      document.getElementById("status");
 
 
     /*
-      Start playback.
+      --------------------------------------------------
+      PRELOAD SONG
+      --------------------------------------------------
     */
-    const playPromise =
-      dateSong.play();
+
+    dateSong.volume = 0.9;
+
+    dateSong.load();
 
 
     /*
-      Handle browsers that return a Promise.
+      --------------------------------------------------
+      CHECK WHETHER A CHOICE EXISTS
+      --------------------------------------------------
     */
-    if (
-      playPromise &&
-      typeof playPromise.catch ===
-        "function"
-    ) {
 
-      playPromise.catch(
-        function (error) {
+    function getChoice(actionName) {
 
-          console.warn(
-            "Bad Bunny could not play:",
-            error
-          );
+      return choiceLog.some(function(item) {
+        return item.action === actionName;
+      });
+
+    }
+
+
+    /*
+      --------------------------------------------------
+      FILL FIRST CHOICE
+      --------------------------------------------------
+    */
+
+    function updateFirstChoice() {
+
+      document.getElementById("firstChoice").value =
+        getChoice("first_yes")
+          ? "Yes"
+          : (
+              getChoice("first_no")
+                ? "No"
+                : ""
+            );
+
+    }
+
+
+    /*
+      --------------------------------------------------
+      FILL SECOND CHOICE
+      --------------------------------------------------
+    */
+
+    function updateSecondChoice() {
+
+      document.getElementById("secondChoice").value =
+        getChoice("second_yes")
+          ? "Yes"
+          : (
+              getChoice("second_no")
+                ? "No"
+                : ""
+            );
+
+    }
+
+
+    /*
+      --------------------------------------------------
+      FILL CHOICE LOG
+      --------------------------------------------------
+    */
+
+    function updateChoiceLog() {
+
+      document.getElementById("choiceLog").value =
+        JSON.stringify(choiceLog);
+
+    }
+
+
+    /*
+      --------------------------------------------------
+      FILL TIMESTAMP
+      --------------------------------------------------
+    */
+
+    function updateTimestamp() {
+
+      document.getElementById("timestamp").value =
+        new Date().toISOString();
+
+    }
+
+
+    /*
+      --------------------------------------------------
+      INITIALIZE HIDDEN FIELDS
+      --------------------------------------------------
+    */
+
+    updateFirstChoice();
+    updateSecondChoice();
+    updateChoiceLog();
+    updateTimestamp();
+
+
+    /*
+      --------------------------------------------------
+      PLAY FINAL SONG
+      --------------------------------------------------
+
+      Always starts from 0:00.
+    */
+
+    function playDateSong() {
+
+      try {
+
+        dateSong.pause();
+
+        dateSong.currentTime = 0;
+
+        dateSong.volume = 0.9;
+
+        const playPromise =
+          dateSong.play();
+
+        if (
+          playPromise &&
+          typeof playPromise.catch === "function"
+        ) {
+
+          playPromise.catch(function(error) {
+
+            console.warn(
+              "Bad Bunny could not play:",
+              error
+            );
+
+          });
 
         }
-      );
 
-    }
+      } catch (error) {
 
-  }
+        console.warn(
+          "Could not start date song:",
+          error
+        );
 
-  catch (error) {
-
-    /*
-      Audio failure must NEVER stop
-      the form submission.
-    */
-    console.warn(
-      "Bad Bunny audio error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   FORM SUBMISSION
-   ===================================================== */
-
-form.addEventListener(
-  "submit",
-  function (event) {
-
-    /*
-      Prevent the normal page navigation.
-    */
-    event.preventDefault();
-
-
-    /*
-      Check the required date and time fields.
-    */
-    if (
-      !form.checkValidity()
-    ) {
-
-      form.reportValidity();
-
-      return;
+      }
 
     }
 
 
-    /* ================================================
-       PLAY MUSIC
-       ================================================ */
+    /*
+      --------------------------------------------------
+      FINAL FORM SUBMISSION
+      --------------------------------------------------
 
-    playDateSong();
+      IMPORTANT:
 
+      We are NOT using fetch() here.
 
-    /* ================================================
-       UPDATE TIMESTAMP
-       ================================================ */
+      The form is submitted normally to Google Apps Script
+      through the hidden iframe.
 
-    document.getElementById(
-      "timestamp"
-    ).value =
-      new Date().toISOString();
+      This allows the browser to perform a normal
+      application/x-www-form-urlencoded POST.
+    */
 
+    form.addEventListener(
+      "submit",
+      function(event) {
 
-    /* ================================================
-       UPDATE UI
-       ================================================ */
-
-    status.textContent =
-      "Saving your date... ♥";
-
-    submitButton.value =
-      "Saving... ♥";
-
-    submitButton.disabled =
-      true;
+        event.preventDefault();
 
 
-    /* ================================================
-       NATIVE FORM SUBMISSION
-       ================================================
+        /*
+          Check required date/time fields.
+        */
 
-       IMPORTANT:
+        if (!form.checkValidity()) {
 
-       We deliberately do NOT use fetch().
+          form.reportValidity();
 
-       The browser sends a normal POST request
-       to Google Apps Script.
-
-       Because the form targets the hidden iframe,
-       the current page stays open.
-       ================================================ */
-
-    HTMLFormElement.prototype.submit.call(
-      form
-    );
+          return;
+        }
 
 
-    /* ================================================
-       SUCCESS STATE
-       ================================================ */
+        /*
+          Start music immediately from the button click.
+        */
 
-    setTimeout(
-      function () {
+        playDateSong();
+
+
+        /*
+          Refresh all hidden fields immediately
+          before submission.
+        */
+
+        updateFirstChoice();
+
+        updateSecondChoice();
+
+        updateChoiceLog();
+
+        updateTimestamp();
+
+
+        /*
+          Update the UI.
+        */
 
         status.textContent =
-          "It's a date. ♥🙂";
+          "Saving your date... ♥";
 
         submitButton.value =
-          "Date set! ♥";
+          "Saving... ♥";
 
-      },
-      800
+        submitButton.disabled =
+          true;
+
+
+        /*
+          IMPORTANT:
+
+          HTMLFormElement.prototype.submit.call(form)
+
+          bypasses the submit event listener itself
+          and performs the REAL native form submission.
+        */
+
+        HTMLFormElement.prototype.submit.call(form);
+
+
+        /*
+          Give Google Apps Script a moment to receive
+          the request, then update the page.
+        */
+
+        setTimeout(
+          function() {
+
+            status.textContent =
+              "It's a date. ♥🙂";
+
+            submitButton.value =
+              "Date set! ♥";
+
+          },
+          1000
+        );
+
+      }
     );
 
-  }
-);
-
-</script>
+  </script>
 
 </body>
 </html>
