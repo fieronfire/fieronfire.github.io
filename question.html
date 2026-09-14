@@ -1,693 +1,504 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
-  >
-
-  <title>One question</title>
-
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One question</title>
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- ========================================
-       PAGE CONTENT
-       ======================================== -->
+<audio id="yesSound" preload="auto">
+  <source src="crackers.mp3" type="audio/mpeg">
+</audio>
 
-  <div
-    class="page-layer"
-    id="pageLayer"
-  >
+<audio id="noSound" preload="auto">
+  <source src="sad-trombone.mp3" type="audio/mpeg">
+</audio>
 
-    <!-- White floating dots -->
+<div class="page-layer" id="pageLayer">
 
-    <span class="spark s1"></span>
-    <span class="spark s2"></span>
-    <span class="spark s3"></span>
-    <span class="spark s4"></span>
-    <span class="spark s5"></span>
-    <span class="spark s6"></span>
-    <span class="spark s7"></span>
-    <span class="spark s8"></span>
-    <span class="spark s9"></span>
-    <span class="spark s10"></span>
-    <span class="spark s11"></span>
-    <span class="spark s12"></span>
-    <span class="spark s13"></span>
-    <span class="spark s14"></span>
-    <span class="spark s15"></span>
-    <span class="spark s16"></span>
-    <span class="spark s17"></span>
-    <span class="spark s18"></span>
+  <span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
+  <span class="spark s4"></span><span class="spark s5"></span>
+  <span class="spark s6"></span><span class="spark s7"></span><span class="spark s8"></span>
+  <span class="spark s9"></span><span class="spark s10"></span><span class="spark s11"></span>
+  <span class="spark s12"></span><span class="spark s13"></span><span class="spark s14"></span>
+  <span class="spark s15"></span><span class="spark s16"></span>
+  <span class="spark s17"></span><span class="spark s18"></span>
 
+  <main class="card transition-page" id="card">
 
-    <!-- Main card -->
+    <div class="icon">🙂💬</div>
+    <p class="eyebrow">One question</p>
 
-    <main
-      class="card transition-page"
-      id="card"
-    >
+    <h1>
+      Dude, I think you're a cool person and you think I'm a creep. 😭
+    </h1>
 
-      <div class="icon">
-        🙂💬
-      </div>
+    <p>
+      But that's the thing — we don't know whether either of us is correct.
+      So why not just have a complete conversation for once and get to know
+      whether we're right or not? 🙂
+    </p>
 
-      <p class="eyebrow">
-        One question
-      </p>
+    <p class="small">
+      You can refuse if you want to, and I won't contact you ever after that. 👍
+    </p>
 
-      <h1>
-        Dude, I think you're a cool person and you think I'm a creep. 😭
-      </h1>
+    <div class="choice-row" id="choices">
+      <input type="button" id="yes1" value="Yes 🙂">
+      <input type="button" id="no1" class="secondary" value="No">
+    </div>
 
-      <p>
-        But that's the thing — we don't know whether either of us is correct.
-        So why not just have a complete conversation for once and get to know
-        whether we're right or not? 🙂
-      </p>
+    <div class="confirm-panel hidden" id="confirmPanel">
+      <div class="icon">🙂💭</div>
+      <h2>Please?</h2>
 
       <p class="small">
-        You can refuse if you want to, and I won't contact you ever after that. 👍
+        Please? I'd genuinely like to talk. 🙂
       </p>
 
-
-      <!-- First choice -->
-
-      <div
-        class="choice-row"
-        id="choices"
-      >
-
-        <input
-          type="button"
-          id="yes1"
-          value="Yes 🙂"
-        >
-
-        <input
-          type="button"
-          id="no1"
-          value="No"
-          class="secondary"
-        >
-
+      <div class="choice-row">
+        <input type="button" id="yes2" value="Yes 🙂">
+        <input type="button" id="no2" class="secondary" value="No">
       </div>
+    </div>
 
+  </main>
+</div>
 
-      <!-- Confirmation -->
+<div class="page-edge-shadow"></div>
 
-      <div
-        class="confirm-panel hidden"
-        id="confirmPanel"
-      >
+<!-- Crazy page switch overlay -->
+<div class="page-switch" id="pageSwitch" aria-hidden="true">
+  <div class="switch-sheet sheet-one"></div>
+  <div class="switch-sheet sheet-two"></div>
+  <div class="switch-sheet sheet-three"></div>
+  <div class="switch-flash"></div>
+  <div class="switch-ring ring-one"></div>
+  <div class="switch-ring ring-two"></div>
 
-        <div class="icon">
-          🙂💭
-        </div>
+  <span class="switch-dot d1"></span>
+  <span class="switch-dot d2"></span>
+  <span class="switch-dot d3"></span>
+  <span class="switch-dot d4"></span>
+  <span class="switch-dot d5"></span>
+  <span class="switch-dot d6"></span>
+  <span class="switch-dot d7"></span>
+  <span class="switch-dot d8"></span>
+</div>
 
-        <h2>
-          Please?
-        </h2>
+<script>
+const ENDPOINT_URL =
+  "https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec";
 
-        <p class="small">
-          Please? I'd genuinely like to talk. 🙂
-        </p>
+const log = [];
 
-        <div class="choice-row">
+function saveLog() {
+  localStorage.setItem(
+    "conversation_choice_log",
+    JSON.stringify(log)
+  );
+}
 
-          <input
-            type="button"
-            id="yes2"
-            value="Yes 🙂"
-          >
+function record(action) {
+  log.push({
+    action,
+    time: new Date().toISOString()
+  });
 
-          <input
-            type="button"
-            id="no2"
-            value="No"
-            class="secondary"
-          >
+  saveLog();
+}
 
-        </div>
-
-      </div>
-
-    </main>
-
-  </div>
-
-
-  <!-- ========================================
-       CRAZY PAGE SWITCH
-       ======================================== -->
-
-  <div
-    class="page-switch"
-    id="pageSwitch"
-    aria-hidden="true"
-  >
-
-    <!-- giant diagonal sweep -->
-
-    <div class="switch-sheet sheet-one"></div>
-
-    <div class="switch-sheet sheet-two"></div>
-
-    <div class="switch-sheet sheet-three"></div>
-
-
-    <!-- center flash -->
-
-    <div class="switch-flash"></div>
-
-
-    <!-- spinning rings -->
-
-    <div class="switch-ring ring-one"></div>
-
-    <div class="switch-ring ring-two"></div>
-
-
-    <!-- little particles -->
-
-    <span class="switch-dot d1"></span>
-    <span class="switch-dot d2"></span>
-    <span class="switch-dot d3"></span>
-    <span class="switch-dot d4"></span>
-    <span class="switch-dot d5"></span>
-    <span class="switch-dot d6"></span>
-    <span class="switch-dot d7"></span>
-    <span class="switch-dot d8"></span>
-
-  </div>
-
-
-  <script>
-
-    /* ========================================
-       GOOGLE SHEETS ENDPOINT
-       ======================================== */
-
-    const ENDPOINT_URL =
-      "https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec";
-
-
-    /* ========================================
-       CHOICE LOG
-       ======================================== */
-
-    const log = [];
-
-
-    function saveLog() {
-
-      localStorage.setItem(
-        "conversation_choice_log",
-        JSON.stringify(log)
+function firstChoiceValue() {
+  return log.some(
+    item => item.action === "first_yes"
+  )
+    ? "Yes"
+    : (
+        log.some(
+          item => item.action === "first_no"
+        )
+          ? "No"
+          : ""
       );
+}
 
-    }
+function secondChoiceValue() {
+  return log.some(
+    item => item.action === "second_yes"
+  )
+    ? "Yes"
+    : (
+        log.some(
+          item => item.action === "second_no"
+        )
+          ? "No"
+          : ""
+      );
+}
 
+function makePayload() {
+  return JSON.stringify({
+    timestamp:
+      new Date().toISOString(),
 
-    function record(action) {
+    first_choice:
+      firstChoiceValue(),
 
-      log.push({
+    second_choice:
+      secondChoiceValue(),
 
-        action:
-          action,
+    date:
+      "",
 
-        time:
-          new Date().toISOString()
+    time:
+      "",
 
-      });
+    place:
+      "",
 
-      saveLog();
+    choice_log:
+      JSON.stringify(log)
+  });
+}
 
-    }
+function sendNoNo() {
 
+  const payload =
+    makePayload();
 
-    function firstChoiceValue() {
-
-      return log.some(
-        item =>
-          item.action === "first_yes"
-      )
-
-        ? "Yes"
-
-        : (
-          log.some(
-            item =>
-              item.action === "first_no"
-          )
-
-            ? "No"
-
-            : ""
-        );
-
-    }
-
-
-    function secondChoiceValue() {
-
-      return log.some(
-        item =>
-          item.action === "second_yes"
-      )
-
-        ? "Yes"
-
-        : (
-          log.some(
-            item =>
-              item.action === "second_no"
-          )
-
-            ? "No"
-
-            : ""
-        );
-
-    }
-
-
-    /* ========================================
-       GOOGLE SHEETS PAYLOAD
-       ======================================== */
-
-    function makePayload() {
-
-      return JSON.stringify({
-
-        timestamp:
-          new Date().toISOString(),
-
-        first_choice:
-          firstChoiceValue(),
-
-        second_choice:
-          secondChoiceValue(),
-
-        date:
-          "",
-
-        time:
-          "",
-
-        place:
-          "",
-
-        choice_log:
-          JSON.stringify(log)
-
-      });
-
-    }
-
-
-    /* ========================================
-       NO / NO SUBMISSION
-       ======================================== */
-
-    function sendNoNo() {
-
-      const payload =
-        makePayload();
-
-      const blob =
-        new Blob(
-          [payload],
-          {
-            type:
-              "text/plain;charset=utf-8"
-          }
-        );
-
-
-      if (
-        navigator.sendBeacon
-      ) {
-
-        const sent =
-          navigator.sendBeacon(
-            ENDPOINT_URL,
-            blob
-          );
-
-
-        if (sent) {
-
-          return Promise.resolve(
-            true
-          );
-
-        }
-
+  const blob =
+    new Blob(
+      [payload],
+      {
+        type:
+          "text/plain;charset=utf-8"
       }
+    );
 
+  if (navigator.sendBeacon) {
 
-      return fetch(
+    const sent =
+      navigator.sendBeacon(
         ENDPOINT_URL,
-        {
-
-          method:
-            "POST",
-
-          mode:
-            "no-cors",
-
-          headers: {
-            "Content-Type":
-              "text/plain;charset=utf-8"
-          },
-
-          body:
-            payload,
-
-          keepalive:
-            true
-
-        }
-      )
-
-        .then(
-          () => true
-        )
-
-        .catch(
-          error => {
-
-            console.error(
-              "No/No submission failed:",
-              error
-            );
-
-            return false;
-
-          }
-        );
-
-    }
-
-
-    /* ========================================
-       CRAZY PAGE SWITCH
-       ======================================== */
-
-    function crazyPageSwitch(
-      destination
-    ) {
-
-      if (
-        document.body.classList.contains(
-          "switch-running"
-        )
-      ) {
-
-        return;
-
-      }
-
-
-      document.body.classList.add(
-        "switch-running"
+        blob
       );
 
+    if (sent) {
+      return Promise.resolve(true);
+    }
+  }
 
-      const pageLayer =
-        document.getElementById(
-          "pageLayer"
+  return fetch(
+    ENDPOINT_URL,
+    {
+      method:
+        "POST",
+
+      mode:
+        "no-cors",
+
+      headers: {
+        "Content-Type":
+          "text/plain;charset=utf-8"
+      },
+
+      body:
+        payload,
+
+      keepalive:
+        true
+    }
+  )
+  .then(
+    () => true
+  )
+  .catch(
+    error => {
+      console.error(
+        "No/No submission failed:",
+        error
+      );
+
+      return false;
+    }
+  );
+}
+
+
+function playYesSound() {
+
+  const audio =
+    document.getElementById(
+      "yesSound"
+    );
+
+  audio.pause();
+
+  audio.currentTime =
+    0;
+
+  audio.volume =
+    0.9;
+
+  audio.play().catch(
+    error =>
+      console.warn(
+        "Yes sound could not play:",
+        error
+      )
+  );
+}
+
+
+function playNoSound() {
+
+  const audio =
+    document.getElementById(
+      "noSound"
+    );
+
+  audio.pause();
+
+  audio.currentTime =
+    0;
+
+  audio.volume =
+    0.9;
+
+  audio.play().catch(
+    error =>
+      console.warn(
+        "No sound could not play:",
+        error
+      )
+  );
+}
+
+
+function crazyPageSwitch(url) {
+
+  if (
+    document.body.classList.contains(
+      "switch-running"
+    )
+  ) {
+    return;
+  }
+
+  document.body.classList.add(
+    "switch-running"
+  );
+
+  const card =
+    document.getElementById(
+      "card"
+    );
+
+  const pageLayer =
+    document.getElementById(
+      "pageLayer"
+    );
+
+  const pageSwitch =
+    document.getElementById(
+      "pageSwitch"
+    );
+
+  card.classList.add(
+    "switch-impact"
+  );
+
+  setTimeout(
+    function () {
+
+      pageSwitch.classList.add(
+        "active"
+      );
+
+      void pageSwitch.offsetWidth;
+
+      pageLayer.classList.add(
+        "switching"
+      );
+
+    },
+    80
+  );
+
+  setTimeout(
+    function () {
+
+      window.location.href =
+        url;
+
+    },
+    1850
+  );
+}
+
+
+function go(url) {
+
+  document
+    .getElementById("card")
+    .classList.add(
+      "page-exit"
+    );
+
+  setTimeout(
+    () =>
+      window.location.href =
+        url,
+    400
+  );
+}
+
+
+document
+  .getElementById("yes1")
+  .addEventListener(
+    "click",
+    function () {
+
+      record(
+        "first_yes"
+      );
+
+      playYesSound();
+
+      crazyPageSwitch(
+        "schedule.html"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById("no1")
+  .addEventListener(
+    "click",
+    function () {
+
+      record(
+        "first_no"
+      );
+
+      document
+        .getElementById(
+          "choices"
+        )
+        .classList.add(
+          "hidden"
         );
 
-      const pageSwitch =
-        document.getElementById(
-          "pageSwitch"
+      document
+        .getElementById(
+          "confirmPanel"
+        )
+        .classList.remove(
+          "hidden"
         );
+
+      const yesButton =
+        document.getElementById(
+          "yes2"
+        );
+
+      yesButton.classList.remove(
+        "grow"
+      );
+
+      void yesButton.offsetWidth;
+
+      yesButton.classList.add(
+        "grow"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById("yes2")
+  .addEventListener(
+    "click",
+    function () {
+
+      record(
+        "second_yes"
+      );
+
+      playYesSound();
+
+      crazyPageSwitch(
+        "schedule.html"
+      );
+
+    }
+  );
+
+
+document
+  .getElementById("no2")
+  .addEventListener(
+    "click",
+    async function () {
+
+      record(
+        "second_no"
+      );
+
+      playNoSound();
+
+      const button =
+        document.getElementById(
+          "no2"
+        );
+
+      button.disabled =
+        true;
+
+      button.value =
+        "Sending...";
+
+      await sendNoNo();
 
       const card =
         document.getElementById(
           "card"
         );
 
-
-      /*
-        Tiny impact when Yes is pressed.
-      */
-
       card.classList.add(
-        "switch-impact"
+        "page-exit"
       );
-
-
-      /*
-        Give the impact a fraction
-        of a second before the big
-        transition begins.
-      */
 
       setTimeout(
         function () {
 
-          pageSwitch.classList.add(
-            "active"
+          card.classList.remove(
+            "page-exit"
           );
 
-          /*
-            Force browser repaint.
-          */
-
-          void pageSwitch.offsetWidth;
-
-          /*
-            Now distort the entire
-            existing page.
-          */
-
-          pageLayer.classList.add(
-            "switching"
+          card.classList.add(
+            "goodbye"
           );
 
-        },
-        80
-      );
-
-
-      /*
-        The schedule page appears only
-        after the visual transition is
-        completely finished.
-      */
-
-      setTimeout(
-        function () {
-
-          window.location.href =
-            destination;
-
-        },
-        1850
-      );
-
-    }
-
-
-    /* ========================================
-       NORMAL SMALL TRANSITION
-       ======================================== */
-
-    function go(url) {
-
-      document
-        .getElementById("card")
-        .classList
-        .add("page-exit");
-
-
-      setTimeout(
-        function () {
-
-          window.location.href =
-            url;
+          card.innerHTML =
+            '<div class="icon">👋🙂</div>' +
+            '<p class="eyebrow">Okay.</p>' +
+            '<h1>Okay, bye-bye.</h1>' +
+            '<p>Take care. 🙂</p>';
 
         },
         400
       );
 
     }
-
-
-    /* ========================================
-       FIRST YES
-       ======================================== */
-
-    document
-      .getElementById("yes1")
-      .addEventListener(
-        "click",
-        function () {
-
-          record(
-            "first_yes"
-          );
-
-          crazyPageSwitch(
-            "schedule.html"
-          );
-
-        }
-      );
-
-
-    /* ========================================
-       FIRST NO
-       ======================================== */
-
-    document
-      .getElementById("no1")
-      .addEventListener(
-        "click",
-        function () {
-
-          record(
-            "first_no"
-          );
-
-
-          document
-            .getElementById("choices")
-            .classList
-            .add("hidden");
-
-
-          document
-            .getElementById("confirmPanel")
-            .classList
-            .remove("hidden");
-
-
-          const yesButton =
-            document.getElementById(
-              "yes2"
-            );
-
-
-          yesButton.classList.remove(
-            "grow"
-          );
-
-
-          void yesButton.offsetWidth;
-
-
-          yesButton.classList.add(
-            "grow"
-          );
-
-        }
-      );
-
-
-    /* ========================================
-       SECOND YES
-       ======================================== */
-
-    document
-      .getElementById("yes2")
-      .addEventListener(
-        "click",
-        function () {
-
-          record(
-            "second_yes"
-          );
-
-          crazyPageSwitch(
-            "schedule.html"
-          );
-
-        }
-      );
-
-
-    /* ========================================
-       SECOND NO
-       ======================================== */
-
-    document
-      .getElementById("no2")
-      .addEventListener(
-        "click",
-        async function () {
-
-          record(
-            "second_no"
-          );
-
-
-          const button =
-            document.getElementById(
-              "no2"
-            );
-
-
-          button.disabled =
-            true;
-
-
-          button.value =
-            "Sending...";
-
-
-          await sendNoNo();
-
-
-          const card =
-            document.getElementById(
-              "card"
-            );
-
-
-          card.classList.add(
-            "page-exit"
-          );
-
-
-          setTimeout(
-            function () {
-
-              card.classList.remove(
-                "page-exit"
-              );
-
-
-              card.classList.add(
-                "goodbye"
-              );
-
-
-              card.innerHTML =
-                '<div class="icon">👋🙂</div>' +
-                '<p class="eyebrow">Okay.</p>' +
-                '<h1>Okay, bye-bye.</h1>' +
-                '<p>Take care. 🙂</p>';
-
-            },
-            400
-          );
-
-        }
-      );
-
-  </script>
+  );
+</script>
 
 </body>
 </html>
