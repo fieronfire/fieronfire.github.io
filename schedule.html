@@ -9,18 +9,12 @@
 
 <body>
 
-<!-- =====================================================
-     BAD BUNNY AUDIO
-     ===================================================== -->
-
-<audio id="dateSong" preload="auto" playsinline>
-  <source src="./bad.mp3" type="audio/mpeg">
+<audio id="dateSong" preload="auto">
+  <source src="bad.mp3" type="audio/mpeg">
 </audio>
 
 
-<!-- =====================================================
-     FLOATING DOTS
-     ===================================================== -->
+<!-- FLOATING DOTS -->
 
 <span class="spark s1"></span>
 <span class="spark s2"></span>
@@ -42,9 +36,7 @@
 <span class="spark s18"></span>
 
 
-<!-- =====================================================
-     MAIN CARD
-     ===================================================== -->
+<!-- MAIN CARD -->
 
 <main class="card transition-page">
 
@@ -71,13 +63,11 @@
   </p>
 
 
-  <!-- ===================================================
-       SCHEDULE FORM
-       =================================================== -->
+  <!-- SCHEDULE FORM -->
 
   <form
     id="scheduleForm"
-    action="https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec"
+    action="https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec"
     method="POST"
   >
 
@@ -113,8 +103,6 @@
     >
 
 
-    <!-- DATE -->
-
     <label for="date">
       Pick a Day 🙂
     </label>
@@ -126,8 +114,6 @@
       required
     >
 
-
-    <!-- TIME -->
 
     <label for="time">
       What Time? 🕒
@@ -230,8 +216,6 @@
     </select>
 
 
-    <!-- SUBMIT -->
-
     <input
       type="submit"
       value="Set the date! 🙂"
@@ -272,8 +256,7 @@ const dateSong =
     "dateSong"
   );
 
-dateSong.volume =
-  0.9;
+dateSong.volume = 0.9;
 
 
 /* =====================================================
@@ -291,7 +274,7 @@ function getChoice(actionName) {
 
 
 /* =====================================================
-   HIDDEN FORM VALUES
+   HIDDEN VALUES
    ===================================================== */
 
 document.getElementById(
@@ -333,54 +316,38 @@ document.getElementById(
 
 
 /* =====================================================
-   PLAY BAD BUNNY FROM THE START
+   PLAY BAD BUNNY
    ===================================================== */
 
 function playDateSong() {
 
-  const song =
+  const audio =
     document.getElementById(
       "dateSong"
     );
 
-  try {
+  audio.pause();
 
-    /*
-      Always start from 0:00.
-    */
-    song.currentTime =
-      0;
+  audio.currentTime = 0;
 
-    song.volume =
-      0.9;
+  audio.volume = 0.9;
 
-    const playPromise =
-      song.play();
+  const playPromise =
+    audio.play();
 
-    if (
-      playPromise !== undefined
-    ) {
+  if (
+    playPromise !== undefined
+  ) {
 
-      playPromise.catch(
-        function (error) {
+    playPromise.catch(
+      function (error) {
 
-          console.error(
-            "Bad Bunny playback failed:",
-            error
-          );
+        console.warn(
+          "Bad Bunny could not play:",
+          error
+        );
 
-        }
-      );
-
-    }
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Bad Bunny playback error:",
-      error
+      }
     );
 
   }
@@ -400,9 +367,6 @@ document
     "submit",
     function (event) {
 
-      /*
-        Stop normal page navigation.
-      */
       event.preventDefault();
 
 
@@ -424,16 +388,16 @@ document
         );
 
 
-      /* =================================================
-         PLAY SONG IMMEDIATELY
-         ================================================= */
+      /* ===============================================
+         PLAY BAD BUNNY FROM 0:00
+         =============================================== */
 
       playDateSong();
 
 
-      /* =================================================
-         UPDATE UI
-         ================================================= */
+      /* ===============================================
+         UPDATE BUTTON
+         =============================================== */
 
       status.textContent =
         "Saving your date... ♥";
@@ -441,14 +405,13 @@ document
       submitButton.value =
         "Saving... ♥";
 
-
       submitButton.disabled =
         true;
 
 
-      /* =================================================
+      /* ===============================================
          SEND TO GOOGLE SHEETS
-         ================================================= */
+         =============================================== */
 
       fetch(
         form.action,
