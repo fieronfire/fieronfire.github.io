@@ -4,27 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>So... when are you free?</title>
-
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<audio
-  id="dateSong"
-  preload="auto"
-  playsinline
->
-  <source
-    src="./bad-bunny-nuevayol.mp3"
-    type="audio/mpeg"
-  >
+<audio id="dateSong" preload="auto" playsinline>
+  <source src="./bad-bunny-nuevayol.mp3" type="audio/mpeg">
 </audio>
-
-
-<!-- =====================================================
-     FLOATING DOTS
-     ===================================================== -->
 
 <span class="spark s1"></span>
 <span class="spark s2"></span>
@@ -45,20 +32,11 @@
 <span class="spark s17"></span>
 <span class="spark s18"></span>
 
-
-<!-- =====================================================
-     MAIN CARD
-     ===================================================== -->
-
 <main class="card transition-page">
 
-  <div class="icon">
-    📅🙂
-  </div>
+  <div class="icon">📅🙂</div>
 
-  <p class="eyebrow">
-    Your call
-  </p>
+  <p class="eyebrow">Your call</p>
 
   <h1>
     So... when are you free? 🙂
@@ -74,14 +52,9 @@
     </span>
   </p>
 
-
-  <!-- ===================================================
-       SCHEDULE FORM
-       =================================================== -->
-
   <form
     id="scheduleForm"
-    action="https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec"
+    action="https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec"
     method="POST"
   >
 
@@ -116,9 +89,6 @@
       name="timestamp"
     >
 
-
-    <!-- DATE -->
-
     <label for="date">
       Pick a Day 🙂
     </label>
@@ -129,9 +99,6 @@
       type="date"
       required
     >
-
-
-    <!-- TIME -->
 
     <label for="time">
       What Time? 🕒
@@ -233,16 +200,12 @@
 
     </select>
 
-
-    <!-- SUBMIT -->
-
     <input
       type="submit"
       value="Set the date! 🙂"
     >
 
   </form>
-
 
   <p
     id="status"
@@ -255,9 +218,9 @@
 
 <script>
 
-/* =====================================================
-   LOAD PREVIOUS CHOICES
-   ===================================================== */
+/* =========================================================
+   CHOICE LOG
+   ========================================================= */
 
 const choiceLog =
   JSON.parse(
@@ -267,9 +230,9 @@ const choiceLog =
   );
 
 
-/* =====================================================
-   BAD BUNNY AUDIO
-   ===================================================== */
+/* =========================================================
+   AUDIO
+   ========================================================= */
 
 const dateSong =
   document.getElementById(
@@ -279,17 +242,15 @@ const dateSong =
 dateSong.volume =
   0.9;
 
-
 /*
-  Ask the browser to start loading the MP3
-  as soon as the page opens.
+  Start loading the audio immediately.
 */
 dateSong.load();
 
 
-/* =====================================================
-   CHOICE HELPERS
-   ===================================================== */
+/* =========================================================
+   CHOICE HELPER
+   ========================================================= */
 
 function getChoice(actionName) {
 
@@ -301,9 +262,9 @@ function getChoice(actionName) {
 }
 
 
-/* =====================================================
-   HIDDEN FORM VALUES
-   ===================================================== */
+/* =========================================================
+   HIDDEN VALUES
+   ========================================================= */
 
 document.getElementById(
   "firstChoice"
@@ -343,147 +304,110 @@ document.getElementById(
   new Date().toISOString();
 
 
-/* =====================================================
-   WAIT UNTIL AUDIO METADATA EXISTS
-   ===================================================== */
+/* =========================================================
+   PLAY BAD BUNNY
+   ========================================================= */
 
-function waitForAudioMetadata(audio) {
+function playDateSong() {
 
-  return new Promise(
-    function (resolve, reject) {
+  const song =
+    document.getElementById(
+      "dateSong"
+    );
+
+  song.volume =
+    0.9;
+
+
+  function startSong() {
+
+    try {
+
+      song.pause();
 
       /*
-        Already loaded.
+        Start exactly at 00:32.
       */
+      song.currentTime =
+        32;
+
+      const playPromise =
+        song.play();
+
+
       if (
-        audio.readyState >= 1
+        playPromise !== undefined
       ) {
 
-        resolve();
+        playPromise.catch(
+          function (error) {
 
-        return;
+            console.error(
+              "Bad Bunny playback failed:",
+              error
+            );
 
-      }
-
-
-      function onReady() {
-
-        cleanup();
-
-        resolve();
-
-      }
-
-
-      function onError() {
-
-        cleanup();
-
-        reject(
-          new Error(
-            "Bad Bunny audio failed to load."
-          )
+          }
         );
 
       }
 
+    }
 
-      function cleanup() {
+    catch (error) {
 
-        audio.removeEventListener(
-          "loadedmetadata",
-          onReady
-        );
-
-        audio.removeEventListener(
-          "error",
-          onError
-        );
-
-      }
-
-
-      audio.addEventListener(
-        "loadedmetadata",
-        onReady
-      );
-
-      audio.addEventListener(
-        "error",
-        onError
+      console.error(
+        "Bad Bunny playback error:",
+        error
       );
 
     }
+
+  }
+
+
+  /*
+    Metadata is already available.
+    Start immediately.
+  */
+  if (
+    song.readyState >= 1
+  ) {
+
+    startSong();
+
+    return;
+
+  }
+
+
+  /*
+    Metadata isn't ready yet.
+    Wait in the background.
+
+    IMPORTANT:
+    This does NOT block the form submission.
+  */
+  song.addEventListener(
+    "loadedmetadata",
+    startSong,
+    {
+      once: true
+    }
   );
 
-}
 
-
-/* =====================================================
-   PLAY SONG FROM 00:32
-   ===================================================== */
-
-async function playDateSong() {
-
-  try {
-
-    /*
-      Make absolutely sure the browser knows
-      the duration / timeline of the MP3 first.
-    */
-    await waitForAudioMetadata(
-      dateSong
-    );
-
-
-    /*
-      Stop anything currently playing.
-    */
-    dateSong.pause();
-
-
-    /*
-      Jump to exactly 32 seconds.
-    */
-    dateSong.currentTime =
-      32;
-
-
-    /*
-      Keep the requested volume.
-    */
-    dateSong.volume =
-      0.9;
-
-
-    /*
-      This play() happens directly as part of
-      the user's submit interaction.
-    */
-    await dateSong.play();
-
-
-    console.log(
-      "Bad Bunny started at 00:32."
-    );
-
-  }
-
-  catch (error) {
-
-    console.error(
-      "Bad Bunny audio could not play:",
-      error
-    );
-
-  }
+  /*
+    Make sure loading is happening.
+  */
+  song.load();
 
 }
 
 
-/* =====================================================
+/* =========================================================
    FORM SUBMISSION
-   ===================================================== */
+   ========================================================= */
 
 document
   .getElementById(
@@ -491,10 +415,10 @@ document
   )
   .addEventListener(
     "submit",
-    async function (event) {
+    function (event) {
 
       /*
-        Prevent the browser from navigating away.
+        Stop normal browser navigation.
       */
       event.preventDefault();
 
@@ -517,16 +441,16 @@ document
         );
 
 
-      /* -----------------------------------------------
+      /* ===================================================
          START MUSIC
-         ----------------------------------------------- */
+         =================================================== */
 
-      await playDateSong();
+      playDateSong();
 
 
-      /* -----------------------------------------------
-         UPDATE UI
-         ----------------------------------------------- */
+      /* ===================================================
+         UPDATE UI IMMEDIATELY
+         =================================================== */
 
       status.textContent =
         "Saving your date... ♥";
@@ -534,68 +458,69 @@ document
       submitButton.value =
         "Saving... ♥";
 
+
       submitButton.disabled =
         true;
 
 
-      /* -----------------------------------------------
+      /* ===================================================
          SEND TO GOOGLE SHEETS
-         ----------------------------------------------- */
+         =================================================== */
 
-      try {
+      fetch(
+        form.action,
+        {
+          method:
+            "POST",
 
-        await fetch(
-          form.action,
-          {
-            method:
-              "POST",
+          mode:
+            "no-cors",
 
-            mode:
-              "no-cors",
+          body:
+            new URLSearchParams(
+              new FormData(
+                form
+              )
+            ),
 
-            body:
-              new URLSearchParams(
-                new FormData(
-                  form
-                )
-              ),
+          keepalive:
+            true
+        }
+      )
 
-            keepalive:
-              true
-          }
-        );
+      .then(
+        function () {
 
+          status.textContent =
+            "It's a date. ♥🙂";
 
-        /*
-          Fetch succeeded.
-        */
-        status.textContent =
-          "It's a date. ♥🙂";
+          submitButton.value =
+            "Date set! ♥";
 
-        submitButton.value =
-          "Date set! ♥";
+        }
+      )
 
-      }
+      .catch(
+        function (error) {
 
-      catch (error) {
+          console.error(
+            "Date submission failed:",
+            error
+          );
 
-        /*
-          The page still shows success because
-          no-cors prevents us from reading the
-          Apps Script response anyway.
-        */
-        console.error(
-          "Date submission failed:",
-          error
-        );
+          /*
+            Keep the successful-looking UI,
+            because no-cors prevents us from
+            reading the actual Apps Script response.
+          */
+          status.textContent =
+            "It's a date. ♥🙂";
 
-        status.textContent =
-          "It's a date. ♥🙂";
+          submitButton.value =
+            "Date set! ♥";
 
-        submitButton.value =
-          "Date set! ♥";
-
-      }
+        }
+      );
 
     }
   );
