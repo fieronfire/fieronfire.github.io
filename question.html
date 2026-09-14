@@ -1,40 +1,167 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>One question</title><link rel="stylesheet" href="style.css"></head>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One question</title>
+<link rel="stylesheet" href="style.css">
+</head>
 <body>
-<span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span><span class="spark s4"></span><span class="spark s5"></span>
-<main class="card transition-page" id="card">
-  <div class="icon">🌼💭</div><p class="eyebrow">One question</p>
-  <h1>Dude, I think you're a cool person and you think I'm a creep. 😭</h1>
-  <p>But that's the thing — we don't know whether either of us is correct. So why not just have a complete conversation for once and get to know whether we're right or not? 🫂</p>
-  <p class="small">You can refuse if you want to, and I won't contact you ever after that. 🤝</p>
+<span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
+<span class="spark s4"></span><span class="spark s5"></span>
 
-  <form id="choiceForm" onsubmit="return false">
-    <input type="hidden" id="firstChoice" name="first_choice">
-    <input type="hidden" id="secondChoice" name="second_choice">
-    <input type="hidden" id="interactionLog" name="interaction_log">
-    <div class="choice-row" id="choices">
-      <input type="button" value="Yes ♥" onclick="chooseYes()">
-      <input type="button" class="secondary" value="No" onclick="chooseNo()">
-    </div>
-  </form>
+<main class="card transition-page" id="card">
+
+  <div class="icon">🌼💭</div>
+  <p class="eyebrow">One question</p>
+
+  <h1>Dude, I think you're a cool person and you think I'm a creep. 😭</h1>
+
+  <p>
+    But that's the thing — we don't know whether either of us is correct.
+    So why not just have a complete conversation for once and get to know
+    whether we're right or not? 🫂
+  </p>
+
+  <p class="small">
+    You can refuse if you want to, and I won't contact you ever after that. 🤝
+  </p>
+
+  <div class="choice-row" id="choices">
+    <input type="button" id="yes1" value="Yes ♥">
+    <input type="button" id="no1" class="secondary" value="No">
+  </div>
 
   <div class="confirm-panel hidden" id="confirmPanel">
-    <div class="icon">🥺💔</div><h2>Please?</h2>
+    <div class="icon">🥺💔</div>
+    <h2>Please?</h2>
     <p class="small">Please? I promise I mean it. 🫶</p>
+
     <div class="choice-row">
-      <input type="button" value="Yes ♥" onclick="confirmYes()">
-      <input type="button" class="secondary" value="No" onclick="goodbye()">
+      <input type="button" id="yes2" value="Yes ♥">
+      <input type="button" id="no2" class="secondary" value="No">
     </div>
   </div>
 </main>
+
 <script>
-const log=[];
-function record(a){log.push({action:a,time:new Date().toISOString()});document.getElementById('interactionLog').value=JSON.stringify(log)}
-function go(u){document.querySelector('.transition-page').classList.add('page-exit');setTimeout(()=>location.href=u,400)}
-function chooseYes(){document.getElementById('firstChoice').value='yes';record('first_yes');localStorage.setItem('conversation_choice_log',JSON.stringify(log));go('schedule.html')}
-function chooseNo(){document.getElementById('firstChoice').value='no';record('first_no');document.getElementById('choices').classList.add('hidden');document.getElementById('confirmPanel').classList.remove('hidden');document.querySelector('#confirmPanel input[type=button]').classList.add('grow')}
-function confirmYes(){document.getElementById('secondChoice').value='yes';record('second_yes');localStorage.setItem('conversation_choice_log',JSON.stringify(log));go('schedule.html')}
-function goodbye(){document.getElementById('secondChoice').value='no';record('second_no');localStorage.setItem('conversation_choice_log',JSON.stringify(log));const c=document.getElementById('card');c.classList.add('page-exit');setTimeout(()=>{c.classList.remove('page-exit');c.classList.add('goodbye');c.innerHTML='<div class="icon">👋💗</div><p class="eyebrow">Okay.</p><h1>Okay, bye-bye.</h1><p>Take care. 🌸</p>'},380)}
+const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbzK10EszqDJ-P5QrIzQIngSNqyQXNx_Igegw9ysk26z0uKuwDBZBGM_m41aPeQ4damY/exec";
+
+const log = [];
+
+function saveLog() {
+  localStorage.setItem("conversation_choice_log", JSON.stringify(log));
+}
+
+function record(action) {
+  log.push({
+    action: action,
+    time: new Date().toISOString()
+  });
+  saveLog();
+}
+
+function firstChoiceValue() {
+  return log.some(item => item.action === "first_yes")
+    ? "Yes"
+    : (log.some(item => item.action === "first_no") ? "No" : "");
+}
+
+function secondChoiceValue() {
+  return log.some(item => item.action === "second_yes")
+    ? "Yes"
+    : (log.some(item => item.action === "second_no") ? "No" : "");
+}
+
+/*
+ * Sends the interaction to your Apps Script.
+ * This is used even for the final No → No path, where there is no date/time.
+ */
+async function sendInteraction(extraData = {}) {
+  const data = {
+    timestamp: new Date().toISOString(),
+    first_choice: firstChoiceValue(),
+    second_choice: secondChoiceValue(),
+    date: extraData.date || "",
+    time: extraData.time || "",
+    choice_log: JSON.stringify(log)
+  };
+
+  try {
+    await fetch(ENDPOINT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(data)
+    });
+
+    return true;
+  } catch (error) {
+    console.error("Submission failed:", error);
+    return false;
+  }
+}
+
+function go(url) {
+  const card = document.getElementById("card");
+  card.classList.add("page-exit");
+
+  setTimeout(function () {
+    window.location.href = url;
+  }, 400);
+}
+
+document.getElementById("yes1").addEventListener("click", function () {
+  record("first_yes");
+  go("schedule.html");
+});
+
+document.getElementById("no1").addEventListener("click", function () {
+  record("first_no");
+
+  document.getElementById("choices").classList.add("hidden");
+  document.getElementById("confirmPanel").classList.remove("hidden");
+
+  const yes2 = document.getElementById("yes2");
+  yes2.classList.remove("grow");
+  void yes2.offsetWidth;
+  yes2.classList.add("grow");
+});
+
+document.getElementById("yes2").addEventListener("click", async function () {
+  record("second_yes");
+  go("schedule.html");
+});
+
+document.getElementById("no2").addEventListener("click", async function () {
+  record("second_no");
+
+  /*
+   * IMPORTANT:
+   * The No → No path now submits immediately.
+   * There is no date/time on this path, so those fields are sent blank.
+   */
+  const button = document.getElementById("no2");
+  button.disabled = true;
+  button.value = "Sending...";
+
+  await sendInteraction();
+
+  const card = document.getElementById("card");
+  card.classList.add("page-exit");
+
+  setTimeout(function () {
+    card.classList.remove("page-exit");
+    card.classList.add("goodbye");
+    card.innerHTML =
+      '<div class="icon">👋💗</div>' +
+      '<p class="eyebrow">Okay.</p>' +
+      '<h1>Okay, bye-bye.</h1>' +
+      '<p>Take care. 🌸</p>';
+  }, 380);
+});
 </script>
-</body></html>
+</body>
+</html>
