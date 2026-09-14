@@ -1,204 +1,372 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>One question</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <title>One question...</title>
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
-<span class="spark s4"></span><span class="spark s5"></span>
 
-<main class="card transition-page" id="card">
+  <!-- ========================================
+       FLOATING WHITE DOTS
+       ======================================== -->
 
-  <div class="icon">🌼💭</div>
-  <p class="eyebrow">One question</p>
+  <span class="spark s1"></span>
+  <span class="spark s2"></span>
+  <span class="spark s3"></span>
+  <span class="spark s4"></span>
+  <span class="spark s5"></span>
+  <span class="spark s6"></span>
+  <span class="spark s7"></span>
+  <span class="spark s8"></span>
+  <span class="spark s9"></span>
+  <span class="spark s10"></span>
+  <span class="spark s11"></span>
+  <span class="spark s12"></span>
+  <span class="spark s13"></span>
+  <span class="spark s14"></span>
+  <span class="spark s15"></span>
+  <span class="spark s16"></span>
+  <span class="spark s17"></span>
+  <span class="spark s18"></span>
 
-  <h1>
-    Dude, I think you're a cool person and you think I'm a creep. 😭
-  </h1>
 
-  <p>
-    But that's the thing — we don't know whether either of us is correct.
-    So why not just have a complete conversation for once and get to know
-    whether we're right or not? 🫂
-  </p>
+  <!-- ========================================
+       FOLD / AIRPLANE TRANSITION
+       ======================================== -->
 
-  <p class="small">
-    You can refuse if you want to, and I won't contact you ever after that. 🤝
-  </p>
+  <div
+    id="airplaneTransition"
+    class="airplane-transition"
+    aria-hidden="true"
+  >
 
-  <div class="choice-row" id="choices">
-    <input type="button" id="yes1" value="Yes ♥">
-    <input type="button" id="no1" class="secondary" value="No">
+    <!-- Moving diagonal fold edge -->
+    <div class="fold-edge"></div>
+
+    <!-- Dark underside of the paper -->
+    <div class="fold-shadow"></div>
+
+    <!-- Main paper fold -->
+    <div class="fold-paper fold-paper-1"></div>
+    <div class="fold-paper fold-paper-2"></div>
+
+    <!-- Small highlight on the folded paper -->
+    <div class="fold-highlight"></div>
+
+    <!-- Airplane -->
+    <div class="airplane">
+
+      <div class="plane-body">
+        ✈
+      </div>
+
+      <div class="plane-trail"></div>
+
+    </div>
+
   </div>
 
-  <div class="confirm-panel hidden" id="confirmPanel">
-    <div class="icon">🥺💔</div>
-    <h2>Please?</h2>
 
-    <p class="small">
-      Please? I promise I mean it. 🫶
+  <!-- ========================================
+       MAIN CARD
+       ======================================== -->
+
+  <main
+    class="card transition-page"
+    id="mainCard"
+  >
+
+    <div class="icon">
+      💭🙂
+    </div>
+
+    <p class="eyebrow">
+      Okay, hear me out.
     </p>
 
-    <div class="choice-row">
-      <input type="button" id="yes2" value="Yes ♥">
-      <input type="button" id="no2" class="secondary" value="No">
+    <h1>
+      I think you're a cool person.
+      <span class="inline-emoji">🙂</span>
+    </h1>
+
+    <p>
+      And you think I'm a creep.
+      But that's the thing — we don't actually know
+      whether either of us is correct.
+    </p>
+
+    <p>
+      So why not just have a complete conversation once
+      and get to know whether we're right or not?
+    </p>
+
+    <p class="small">
+      You can refuse if you want to,
+      and I won't contact you ever after that.
+    </p>
+
+
+    <!-- ========================================
+         FIRST CHOICE
+         ======================================== -->
+
+    <div
+      class="choice-row"
+      id="firstChoice"
+    >
+
+      <input
+        type="button"
+        value="Yes 🙂"
+        onclick="firstYes()"
+      >
+
+      <input
+        type="button"
+        value="No"
+        class="secondary"
+        onclick="firstNo()"
+      >
+
     </div>
-  </div>
 
-</main>
 
-<script>
-const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec";
-const log = [];
+    <!-- ========================================
+         SECOND CONFIRMATION
+         ======================================== -->
 
-function saveLog() {
-  localStorage.setItem(
-    "conversation_choice_log",
-    JSON.stringify(log)
-  );
-}
+    <section
+      id="confirmPanel"
+      class="confirm-panel hidden"
+    >
 
-function record(action) {
-  log.push({
-    action: action,
-    time: new Date().toISOString()
-  });
+      <div class="heart">
+        🥺
+      </div>
 
-  saveLog();
-}
+      <h2>
+        Please?
+      </h2>
 
-function firstChoiceValue() {
-  return log.some(item => item.action === "first_yes")
-    ? "Yes"
-    : (log.some(item => item.action === "first_no") ? "No" : "");
-}
+      <p>
+        Just once. No pressure.
+      </p>
 
-function secondChoiceValue() {
-  return log.some(item => item.action === "second_yes")
-    ? "Yes"
-    : (log.some(item => item.action === "second_no") ? "No" : "");
-}
 
-function makePayload() {
-  return JSON.stringify({
-    timestamp: new Date().toISOString(),
-    first_choice: firstChoiceValue(),
-    second_choice: secondChoiceValue(),
-    date: "",
-    time: "",
-    place: "",
-    choice_log: JSON.stringify(log)
-  });
-}
+      <div class="choice-row">
 
-/*
- * For No -> No we use sendBeacon first.
- * It is designed for small POST requests that must survive page transitions.
- * If the browser does not support/send the beacon, use fetch(...keepalive).
- */
-function sendNoNo() {
-  const payload = makePayload();
-  const blob = new Blob(
-    [payload],
-    { type: "text/plain;charset=utf-8" }
-  );
+        <input
+          type="button"
+          value="Okay 🙂"
+          onclick="secondYes()"
+        >
 
-  if (navigator.sendBeacon) {
-    const sent = navigator.sendBeacon(
-      ENDPOINT_URL,
-      blob
-    );
+        <input
+          type="button"
+          value="No"
+          class="secondary"
+          onclick="secondNo()"
+        >
 
-    if (sent) {
-      return Promise.resolve(true);
+      </div>
+
+    </section>
+
+
+    <!-- ========================================
+         GOODBYE
+         ======================================== -->
+
+    <section
+      id="goodbyePanel"
+      class="goodbye hidden"
+    >
+
+      <div class="heart">
+        🤍
+      </div>
+
+      <h2>
+        Okay, bye-bye.
+      </h2>
+
+      <p>
+        Take care.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    /*
+      ----------------------------------------
+      TRANSITION STATE
+      ----------------------------------------
+    */
+
+    let firstChoiceValue = "";
+
+    let secondChoiceValue = "";
+
+
+    /*
+      ----------------------------------------
+      AIRPLANE + FOLD TRANSITION
+      ----------------------------------------
+    */
+
+    function startAirplaneTransition(destination) {
+
+      const transition =
+        document.getElementById(
+          "airplaneTransition"
+        );
+
+      const card =
+        document.getElementById(
+          "mainCard"
+        );
+
+
+      /*
+        Prevent double clicks.
+      */
+
+      document.body.classList.add(
+        "transition-running"
+      );
+
+
+      /*
+        Slightly shrink the card before
+        the page begins folding.
+      */
+
+      card.classList.add(
+        "card-before-fold"
+      );
+
+
+      /*
+        Give the browser a tiny moment
+        to render the frozen state.
+      */
+
+      setTimeout(function () {
+
+        transition.classList.add(
+          "airplane-active"
+        );
+
+      }, 90);
+
+
+      /*
+        Navigate only after the airplane
+        has crossed the screen.
+      */
+
+      setTimeout(function () {
+
+        window.location.href = destination;
+
+      }, 1900);
+
     }
-  }
 
-  return fetch(ENDPOINT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    },
-    body: payload,
-    keepalive: true
-  })
-  .then(() => true)
-  .catch((error) => {
-    console.error("No/No submission failed:", error);
-    return false;
-  });
-}
 
-function go(url) {
-  document.getElementById("card")
-    .classList
-    .add("page-exit");
+    /*
+      ----------------------------------------
+      FIRST YES
+      ----------------------------------------
+    */
 
-  setTimeout(function () {
-    window.location.href = url;
-  }, 400);
-}
+    function firstYes() {
 
-/* First Yes -> Page 3 */
-document.getElementById("yes1").addEventListener("click", function () {
-  record("first_yes");
-  go("schedule.html");
-});
+      firstChoiceValue = "yes";
 
-/* First No -> Please? */
-document.getElementById("no1").addEventListener("click", function () {
-  record("first_no");
+      secondChoiceValue = "";
 
-  document.getElementById("choices")
-    .classList
-    .add("hidden");
+      startAirplaneTransition(
+        "schedule.html"
+      );
 
-  document.getElementById("confirmPanel")
-    .classList
-    .remove("hidden");
+    }
 
-  const yesButton = document.getElementById("yes2");
 
-  yesButton.classList.remove("grow");
-  void yesButton.offsetWidth;
-  yesButton.classList.add("grow");
-});
+    /*
+      ----------------------------------------
+      FIRST NO
+      ----------------------------------------
+    */
 
-/* Second Yes -> Page 3 */
-document.getElementById("yes2").addEventListener("click", function () {
-  record("second_yes");
-  go("schedule.html");
-});
+    function firstNo() {
 
-/* Second No -> submit immediately */
-document.getElementById("no2").addEventListener("click", async function () {
-  record("second_no");
+      firstChoiceValue = "no";
 
-  const button = document.getElementById("no2");
-  button.disabled = true;
-  button.value = "Sending...";
+      document
+        .getElementById("firstChoice")
+        .classList
+        .add("hidden");
 
-  await sendNoNo();
+      document
+        .getElementById("confirmPanel")
+        .classList
+        .remove("hidden");
 
-  const card = document.getElementById("card");
+    }
 
-  card.classList.add("page-exit");
 
-  setTimeout(function () {
-    card.classList.remove("page-exit");
-    card.classList.add("goodbye");
+    /*
+      ----------------------------------------
+      SECOND YES
+      ----------------------------------------
+    */
 
-    card.innerHTML =
-      '<div class="icon">👋💗</div>' +
-      '<p class="eyebrow">Okay.</p>' +
-      '<h1>Okay, bye-bye.</h1>' +
-      '<p>Take care. 🌸</p>';
-  }, 400);
-});
-</script>
+    function secondYes() {
+
+      secondChoiceValue = "yes";
+
+      startAirplaneTransition(
+        "schedule.html"
+      );
+
+    }
+
+
+    /*
+      ----------------------------------------
+      SECOND NO
+      ----------------------------------------
+    */
+
+    function secondNo() {
+
+      secondChoiceValue = "no";
+
+      document
+        .getElementById("confirmPanel")
+        .classList
+        .add("hidden");
+
+      document
+        .getElementById("goodbyePanel")
+        .classList
+        .remove("hidden");
+
+    }
+
+  </script>
+
 </body>
+
 </html>
