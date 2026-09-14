@@ -58,8 +58,6 @@ body {
 
   position: relative;
 
-  /* Solid pink background */
-
   background: var(--pink);
 
 }
@@ -348,7 +346,7 @@ body {
 
 
 /* ========================================
-   MULTILINGUAL PAGE 1 TEXT
+   MULTILINGUAL BACKGROUND TEXT
    ======================================== */
 
 .background-phrases {
@@ -366,6 +364,14 @@ body {
 }
 
 
+/*
+   IMPORTANT:
+
+   These are deliberately darker and more visible.
+   They are still lighter than the main card text,
+   but they should now immediately catch your eye.
+*/
+
 .background-phrases .phrase {
 
   position: absolute;
@@ -379,26 +385,32 @@ body {
 
   font-size:
     clamp(
-      0.70rem,
-      0.95vw,
-      0.92rem
+      0.72rem,
+      1vw,
+      0.98rem
     );
 
-  font-weight: 500;
+  font-weight: 600;
 
-  letter-spacing: 0.01em;
-
-  /*
-    Very light so the phrases
-    stay in the background.
-  */
+  letter-spacing: 0.015em;
 
   color:
     rgba(
       107,
       57,
       69,
-      0.57
+      0.62
+    );
+
+  opacity: 0.92;
+
+  text-shadow:
+    0 1px 2px
+    rgba(
+      107,
+      57,
+      69,
+      0.06
     );
 
   animation:
@@ -410,9 +422,9 @@ body {
 }
 
 
-/* ----------------------------------------
-   Individual scattered positions
-   ---------------------------------------- */
+/* ========================================
+   INDIVIDUAL SCATTERED POSITIONS
+   ======================================== */
 
 .ph1 {
 
@@ -654,22 +666,22 @@ body {
 }
 
 
+/* ========================================
+   PHRASE ANIMATION
+   ======================================== */
+
 @keyframes phraseFloat {
 
   0%,
   100% {
 
-    opacity: 0.45;
-
-    margin-top: 0;
+    opacity: 0.88;
 
   }
 
   50% {
 
-    opacity: 0.70;
-
-    margin-top: -4px;
+    opacity: 1;
 
   }
 
@@ -1374,15 +1386,19 @@ form input[type="submit"] {
 
   .background-phrases .phrase {
 
-    font-size: 0.64rem;
+    font-size: 0.68rem;
+
+    font-weight: 600;
 
     color:
       rgba(
         107,
         57,
         69,
-        0.41
+        0.52
       );
+
+    opacity: 0.9;
 
   }
 
