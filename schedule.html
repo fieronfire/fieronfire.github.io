@@ -9,9 +9,18 @@
 
 <body>
 
+<!-- =====================================================
+     BAD BUNNY AUDIO
+     ===================================================== -->
+
 <audio id="dateSong" preload="auto" playsinline>
-  <source src="./bad-bunny-nuevayol.mp3" type="audio/mpeg">
+  <source src="./bad.mp3" type="audio/mpeg">
 </audio>
+
+
+<!-- =====================================================
+     FLOATING DOTS
+     ===================================================== -->
 
 <span class="spark s1"></span>
 <span class="spark s2"></span>
@@ -32,11 +41,20 @@
 <span class="spark s17"></span>
 <span class="spark s18"></span>
 
+
+<!-- =====================================================
+     MAIN CARD
+     ===================================================== -->
+
 <main class="card transition-page">
 
-  <div class="icon">📅🙂</div>
+  <div class="icon">
+    📅🙂
+  </div>
 
-  <p class="eyebrow">Your call</p>
+  <p class="eyebrow">
+    Your call
+  </p>
 
   <h1>
     So... when are you free? 🙂
@@ -51,6 +69,11 @@
       📍 Meet up in CCD
     </span>
   </p>
+
+
+  <!-- ===================================================
+       SCHEDULE FORM
+       =================================================== -->
 
   <form
     id="scheduleForm"
@@ -89,6 +112,9 @@
       name="timestamp"
     >
 
+
+    <!-- DATE -->
+
     <label for="date">
       Pick a Day 🙂
     </label>
@@ -99,6 +125,9 @@
       type="date"
       required
     >
+
+
+    <!-- TIME -->
 
     <label for="time">
       What Time? 🕒
@@ -200,12 +229,16 @@
 
     </select>
 
+
+    <!-- SUBMIT -->
+
     <input
       type="submit"
       value="Set the date! 🙂"
     >
 
   </form>
+
 
   <p
     id="status"
@@ -218,9 +251,9 @@
 
 <script>
 
-/* =========================================================
+/* =====================================================
    CHOICE LOG
-   ========================================================= */
+   ===================================================== */
 
 const choiceLog =
   JSON.parse(
@@ -230,9 +263,9 @@ const choiceLog =
   );
 
 
-/* =========================================================
+/* =====================================================
    AUDIO
-   ========================================================= */
+   ===================================================== */
 
 const dateSong =
   document.getElementById(
@@ -242,15 +275,10 @@ const dateSong =
 dateSong.volume =
   0.9;
 
-/*
-  Start loading the audio immediately.
-*/
-dateSong.load();
 
-
-/* =========================================================
+/* =====================================================
    CHOICE HELPER
-   ========================================================= */
+   ===================================================== */
 
 function getChoice(actionName) {
 
@@ -262,9 +290,9 @@ function getChoice(actionName) {
 }
 
 
-/* =========================================================
-   HIDDEN VALUES
-   ========================================================= */
+/* =====================================================
+   HIDDEN FORM VALUES
+   ===================================================== */
 
 document.getElementById(
   "firstChoice"
@@ -304,9 +332,9 @@ document.getElementById(
   new Date().toISOString();
 
 
-/* =========================================================
-   PLAY BAD BUNNY
-   ========================================================= */
+/* =====================================================
+   PLAY BAD BUNNY FROM THE START
+   ===================================================== */
 
 function playDateSong() {
 
@@ -315,99 +343,54 @@ function playDateSong() {
       "dateSong"
     );
 
-  song.volume =
-    0.9;
+  try {
 
+    /*
+      Always start from 0:00.
+    */
+    song.currentTime =
+      0;
 
-  function startSong() {
+    song.volume =
+      0.9;
 
-    try {
+    const playPromise =
+      song.play();
 
-      song.pause();
+    if (
+      playPromise !== undefined
+    ) {
 
-      /*
-        Start exactly at 00:32.
-      */
-      song.currentTime =
-        32;
+      playPromise.catch(
+        function (error) {
 
-      const playPromise =
-        song.play();
+          console.error(
+            "Bad Bunny playback failed:",
+            error
+          );
 
-
-      if (
-        playPromise !== undefined
-      ) {
-
-        playPromise.catch(
-          function (error) {
-
-            console.error(
-              "Bad Bunny playback failed:",
-              error
-            );
-
-          }
-        );
-
-      }
-
-    }
-
-    catch (error) {
-
-      console.error(
-        "Bad Bunny playback error:",
-        error
+        }
       );
 
     }
 
   }
 
+  catch (error) {
 
-  /*
-    Metadata is already available.
-    Start immediately.
-  */
-  if (
-    song.readyState >= 1
-  ) {
-
-    startSong();
-
-    return;
+    console.error(
+      "Bad Bunny playback error:",
+      error
+    );
 
   }
-
-
-  /*
-    Metadata isn't ready yet.
-    Wait in the background.
-
-    IMPORTANT:
-    This does NOT block the form submission.
-  */
-  song.addEventListener(
-    "loadedmetadata",
-    startSong,
-    {
-      once: true
-    }
-  );
-
-
-  /*
-    Make sure loading is happening.
-  */
-  song.load();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    FORM SUBMISSION
-   ========================================================= */
+   ===================================================== */
 
 document
   .getElementById(
@@ -418,7 +401,7 @@ document
     function (event) {
 
       /*
-        Stop normal browser navigation.
+        Stop normal page navigation.
       */
       event.preventDefault();
 
@@ -441,16 +424,16 @@ document
         );
 
 
-      /* ===================================================
-         START MUSIC
-         =================================================== */
+      /* =================================================
+         PLAY SONG IMMEDIATELY
+         ================================================= */
 
       playDateSong();
 
 
-      /* ===================================================
-         UPDATE UI IMMEDIATELY
-         =================================================== */
+      /* =================================================
+         UPDATE UI
+         ================================================= */
 
       status.textContent =
         "Saving your date... ♥";
@@ -463,9 +446,9 @@ document
         true;
 
 
-      /* ===================================================
+      /* =================================================
          SEND TO GOOGLE SHEETS
-         =================================================== */
+         ================================================= */
 
       fetch(
         form.action,
@@ -508,11 +491,6 @@ document
             error
           );
 
-          /*
-            Keep the successful-looking UI,
-            because no-cors prevents us from
-            reading the actual Apps Script response.
-          */
           status.textContent =
             "It's a date. ♥🙂";
 
