@@ -1,56 +1,30 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
-
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>So... when are you free?</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
 
-
-  <!-- ==================================================
-       SONG
-       ================================================== -->
-
-  <audio
-    id="dateSong"
-    preload="auto"
-    playsinline
-  ></audio>
+  <!-- Bad Bunny song -->
+  <audio id="dateSong" preload="auto" playsinline>
+    <source src="./bad.mp3" type="audio/mpeg">
+  </audio>
 
 
-  <!-- ==================================================
-       HIDDEN IFRAME
-       Google Apps Script receives the form here
-       without leaving the page.
-       ================================================== -->
-
+  <!-- Hidden iframe used for Google Apps Script submission -->
   <iframe
     name="googleSheetFrame"
     id="googleSheetFrame"
-    style="
-      display: none;
-      width: 0;
-      height: 0;
-      border: 0;
-    "
+    style="display:none;width:0;height:0;border:0;"
   ></iframe>
 
 
-  <!-- ==================================================
-       FLOATING DOTS
-       ================================================== -->
-
+  <!-- Floating background dots -->
   <span class="spark s1"></span>
   <span class="spark s2"></span>
   <span class="spark s3"></span>
@@ -71,55 +45,33 @@
   <span class="spark s18"></span>
 
 
-  <!-- ==================================================
-       MAIN CARD
-       ================================================== -->
-
   <main class="card transition-page">
 
-    <div class="icon">
-      📅🙂
-    </div>
+    <div class="icon">📅🙂</div>
 
-
-    <p class="eyebrow">
-      Your call
-    </p>
-
+    <p class="eyebrow">Your call</p>
 
     <h1>
       So... when are you free? 🙂
     </h1>
 
-
     <p>
       Pick whatever works for you. 👍
     </p>
 
-
     <p class="meetup">
-      <span>
-        📍 Meet up in CCD
-      </span>
+      <span>📍 Meet up in CCD</span>
     </p>
 
 
-    <!-- ==================================================
-         FORM
-         ================================================== -->
-
     <form
       id="scheduleForm"
-      action="https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec"
+      action="https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec"
       method="POST"
       target="googleSheetFrame"
     >
 
-
-      <!-- ==================================================
-           HIDDEN GOOGLE SHEET DATA
-           ================================================== -->
-
+      <!-- Hidden data sent to Google Sheets -->
       <input
         type="hidden"
         id="firstChoice"
@@ -152,14 +104,10 @@
       >
 
 
-      <!-- ==================================================
-           DATE
-           ================================================== -->
-
+      <!-- Date -->
       <label for="date">
         Pick a Day 🙂
       </label>
-
 
       <input
         id="date"
@@ -169,14 +117,10 @@
       >
 
 
-      <!-- ==================================================
-           TIME
-           ================================================== -->
-
+      <!-- Time -->
       <label for="time">
         What Time? 🕒
       </label>
-
 
       <select
         id="time"
@@ -192,13 +136,90 @@
           Select a time...
         </option>
 
+        <option value="08:00">8:00 AM</option>
+        <option value="08:15">8:15 AM</option>
+        <option value="08:30">8:30 AM</option>
+        <option value="08:45">8:45 AM</option>
+
+        <option value="09:00">9:00 AM</option>
+        <option value="09:15">9:15 AM</option>
+        <option value="09:30">9:30 AM</option>
+        <option value="09:45">9:45 AM</option>
+
+        <option value="10:00">10:00 AM</option>
+        <option value="10:15">10:15 AM</option>
+        <option value="10:30">10:30 AM</option>
+        <option value="10:45">10:45 AM</option>
+
+        <option value="11:00">11:00 AM</option>
+        <option value="11:15">11:15 AM</option>
+        <option value="11:30">11:30 AM</option>
+        <option value="11:45">11:45 AM</option>
+
+        <option value="12:00">12:00 PM</option>
+        <option value="12:15">12:15 PM</option>
+        <option value="12:30">12:30 PM</option>
+        <option value="12:45">12:45 PM</option>
+
+        <option value="13:00">1:00 PM</option>
+        <option value="13:15">1:15 PM</option>
+        <option value="13:30">1:30 PM</option>
+        <option value="13:45">1:45 PM</option>
+
+        <option value="14:00">2:00 PM</option>
+        <option value="14:15">2:15 PM</option>
+        <option value="14:30">2:30 PM</option>
+        <option value="14:45">2:45 PM</option>
+
+        <option value="15:00">3:00 PM</option>
+        <option value="15:15">3:15 PM</option>
+        <option value="15:30">3:30 PM</option>
+        <option value="15:45">3:45 PM</option>
+
+        <option value="16:00">4:00 PM</option>
+        <option value="16:15">4:15 PM</option>
+        <option value="16:30">4:30 PM</option>
+        <option value="16:45">4:45 PM</option>
+
+        <option value="17:00">5:00 PM</option>
+        <option value="17:15">5:15 PM</option>
+        <option value="17:30">5:30 PM</option>
+        <option value="17:45">5:45 PM</option>
+
+        <option value="18:00">6:00 PM</option>
+        <option value="18:15">6:15 PM</option>
+        <option value="18:30">6:30 PM</option>
+        <option value="18:45">6:45 PM</option>
+
+        <option value="19:00">7:00 PM</option>
+        <option value="19:15">7:15 PM</option>
+        <option value="19:30">7:30 PM</option>
+        <option value="19:45">7:45 PM</option>
+
+        <option value="20:00">8:00 PM</option>
+        <option value="20:15">8:15 PM</option>
+        <option value="20:30">8:30 PM</option>
+        <option value="20:45">8:45 PM</option>
+
+        <option value="21:00">9:00 PM</option>
+        <option value="21:15">9:15 PM</option>
+        <option value="21:30">9:30 PM</option>
+        <option value="21:45">9:45 PM</option>
+
+        <option value="22:00">10:00 PM</option>
+        <option value="22:15">10:15 PM</option>
+        <option value="22:30">10:30 PM</option>
+        <option value="22:45">10:45 PM</option>
+
+        <option value="23:00">11:00 PM</option>
+        <option value="23:15">11:15 PM</option>
+        <option value="23:30">11:30 PM</option>
+        <option value="23:45">11:45 PM</option>
+
       </select>
 
 
-      <!-- ==================================================
-           SUBMIT BUTTON
-           ================================================== -->
-
+      <!-- Submit -->
       <input
         id="setDateButton"
         type="submit"
@@ -214,20 +235,44 @@
       aria-live="polite"
     ></p>
 
-
   </main>
 
 
-  <!-- ==================================================
-       JAVASCRIPT
-       ================================================== -->
-
   <script>
 
+    /*
+      --------------------------------------------------
+      LOAD THE CONVERSATION CHOICE LOG
+      --------------------------------------------------
+    */
 
-    /* ==================================================
-       ELEMENTS
-       ================================================== */
+    let choiceLog = [];
+
+    try {
+      choiceLog = JSON.parse(
+        localStorage.getItem("conversation_choice_log") || "[]"
+      );
+
+      if (!Array.isArray(choiceLog)) {
+        choiceLog = [];
+      }
+
+    } catch (error) {
+
+      console.error(
+        "Could not read conversation choice log:",
+        error
+      );
+
+      choiceLog = [];
+    }
+
+
+    /*
+      --------------------------------------------------
+      ELEMENTS
+      --------------------------------------------------
+    */
 
     const form =
       document.getElementById("scheduleForm");
@@ -241,327 +286,154 @@
     const status =
       document.getElementById("status");
 
-    const timeSelect =
-      document.getElementById("time");
+
+    /*
+      --------------------------------------------------
+      PRELOAD SONG
+      --------------------------------------------------
+    */
+
+    dateSong.volume = 0.9;
+
+    dateSong.load();
 
 
-    /* ==================================================
-       GOOGLE APPS SCRIPT URL
-       ================================================== */
+    /*
+      --------------------------------------------------
+      CHECK WHETHER A CHOICE EXISTS
+      --------------------------------------------------
+    */
 
-    const ENDPOINT_URL =
-      "https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec";
+    function getChoice(actionName) {
 
-
-    /* ==================================================
-       GENERATE TIME OPTIONS
-       8:00 AM → 11:45 PM
-       ================================================== */
-
-    for (
-      let minutes = 8 * 60;
-      minutes <= 23 * 60 + 45;
-      minutes += 15
-    ) {
-
-      const hour24 =
-        Math.floor(minutes / 60);
-
-      const minute =
-        minutes % 60;
-
-      let hour12 =
-        hour24 % 12;
-
-      if (hour12 === 0) {
-        hour12 = 12;
-      }
-
-      const ampm =
-        hour24 < 12
-          ? "AM"
-          : "PM";
-
-      const value =
-        String(hour24).padStart(2, "0") +
-        ":" +
-        String(minute).padStart(2, "0");
-
-      const label =
-        hour12 +
-        ":" +
-        String(minute).padStart(2, "0") +
-        " " +
-        ampm;
-
-      const option =
-        document.createElement("option");
-
-      option.value = value;
-      option.textContent = label;
-
-      timeSelect.appendChild(option);
-    }
-
-
-    /* ==================================================
-       READ CONVERSATION LOG
-       ================================================== */
-
-    let choiceLog = [];
-
-    try {
-
-      const storedLog =
-        localStorage.getItem(
-          "conversation_choice_log"
-        );
-
-      if (storedLog) {
-
-        const parsed =
-          JSON.parse(storedLog);
-
-        if (Array.isArray(parsed)) {
-          choiceLog = parsed;
-        }
-
-      }
-
-    } catch (error) {
-
-      console.error(
-        "Could not read conversation choice log:",
-        error
-      );
-
-      choiceLog = [];
+      return choiceLog.some(function(item) {
+        return item.action === actionName;
+      });
 
     }
 
 
-    /* ==================================================
-       CHECK WHETHER A CHOICE EXISTS
-       ================================================== */
+    /*
+      --------------------------------------------------
+      FILL FIRST CHOICE
+      --------------------------------------------------
+    */
 
-    function hasChoice(actionName) {
+    function updateFirstChoice() {
 
-      return choiceLog.some(
-        function(item) {
-
-          return item &&
-                 item.action === actionName;
-
-        }
-      );
+      document.getElementById("firstChoice").value =
+        getChoice("first_yes")
+          ? "Yes"
+          : (
+              getChoice("first_no")
+                ? "No"
+                : ""
+            );
 
     }
 
 
-    /* ==================================================
-       PREPARE HIDDEN FIELDS
-       ================================================== */
+    /*
+      --------------------------------------------------
+      FILL SECOND CHOICE
+      --------------------------------------------------
+    */
 
-    function prepareHiddenFields() {
+    function updateSecondChoice() {
 
-      const firstChoice =
-        document.getElementById(
-          "firstChoice"
-        );
+      document.getElementById("secondChoice").value =
+        getChoice("second_yes")
+          ? "Yes"
+          : (
+              getChoice("second_no")
+                ? "No"
+                : ""
+            );
 
-      const secondChoice =
-        document.getElementById(
-          "secondChoice"
-        );
-
-      const choiceLogField =
-        document.getElementById(
-          "choiceLog"
-        );
-
-      const timestampField =
-        document.getElementById(
-          "timestamp"
-        );
+    }
 
 
-      /* -----------------------------
-         FIRST QUESTION
-         ----------------------------- */
+    /*
+      --------------------------------------------------
+      FILL CHOICE LOG
+      --------------------------------------------------
+    */
 
-      if (hasChoice("first_yes")) {
+    function updateChoiceLog() {
 
-        firstChoice.value = "Yes";
-
-      } else if (hasChoice("first_no")) {
-
-        firstChoice.value = "No";
-
-      } else {
-
-        firstChoice.value = "";
-
-      }
-
-
-      /* -----------------------------
-         SECOND QUESTION
-         ----------------------------- */
-
-      if (hasChoice("second_yes")) {
-
-        secondChoice.value = "Yes";
-
-      } else if (hasChoice("second_no")) {
-
-        secondChoice.value = "No";
-
-      } else {
-
-        secondChoice.value = "";
-
-      }
-
-
-      /* -----------------------------
-         FULL CHOICE LOG
-         ----------------------------- */
-
-      choiceLogField.value =
+      document.getElementById("choiceLog").value =
         JSON.stringify(choiceLog);
 
+    }
 
-      /* -----------------------------
-         TIMESTAMP
-         ----------------------------- */
 
-      timestampField.value =
+    /*
+      --------------------------------------------------
+      FILL TIMESTAMP
+      --------------------------------------------------
+    */
+
+    function updateTimestamp() {
+
+      document.getElementById("timestamp").value =
         new Date().toISOString();
 
     }
 
 
-    /* ==================================================
-       INITIALIZE FORM DATA
-       ================================================== */
+    /*
+      --------------------------------------------------
+      INITIALIZE HIDDEN FIELDS
+      --------------------------------------------------
+    */
 
-    prepareHiddenFields();
-
-
-    /* ==================================================
-       FIND THE SONG
-
-       First try:
-         audio/bad.mp3
-
-       If that fails, try:
-         bad.mp3
-       ================================================== */
-
-    const audioSources = [
-      "./audio/bad.mp3",
-      "./bad.mp3"
-    ];
-
-    let currentAudioSource = 0;
+    updateFirstChoice();
+    updateSecondChoice();
+    updateChoiceLog();
+    updateTimestamp();
 
 
-    function loadNextAudioSource() {
+    /*
+      --------------------------------------------------
+      PLAY FINAL SONG
+      --------------------------------------------------
 
-      if (
-        currentAudioSource >=
-        audioSources.length
-      ) {
+      Always starts from 0:00.
+    */
 
-        console.error(
-          "Could not find bad.mp3"
-        );
-
-        return;
-
-      }
-
-
-      const source =
-        audioSources[currentAudioSource];
-
-
-      dateSong.src = source;
-
-      dateSong.load();
-
-    }
-
-
-    dateSong.addEventListener(
-      "error",
-      function() {
-
-        currentAudioSource++;
-
-        loadNextAudioSource();
-
-      }
-    );
-
-
-    loadNextAudioSource();
-
-
-    /* ==================================================
-       PLAY SONG FROM 0:00
-       ================================================== */
-
-    function playSongFromBeginning() {
+    function playDateSong() {
 
       try {
 
         dateSong.pause();
 
-        /*
-          Always reset to the beginning.
-        */
-
         dateSong.currentTime = 0;
 
         dateSong.volume = 0.9;
 
-
         const playPromise =
           dateSong.play();
-
 
         if (
           playPromise &&
           typeof playPromise.catch === "function"
         ) {
 
-          playPromise.catch(
-            function(error) {
+          playPromise.catch(function(error) {
 
-              /*
-                This usually means the browser's
-                autoplay policy blocked sound.
+            console.warn(
+              "Bad Bunny could not play:",
+              error
+            );
 
-                We don't show an error to the user
-                because Google Sheets submission
-                must remain completely independent.
-              */
-
-              console.warn(
-                "Autoplay was blocked by the browser:",
-                error
-              );
-
-            }
-          );
+          });
 
         }
 
       } catch (error) {
 
-        console.error(
-          "Could not start song:",
+        console.warn(
+          "Could not start date song:",
           error
         );
 
@@ -570,111 +442,31 @@
     }
 
 
-    /* ==================================================
-       TRY TO START MUSIC WHEN PAGE LOADS
-       ================================================== */
+    /*
+      --------------------------------------------------
+      FINAL FORM SUBMISSION
+      --------------------------------------------------
 
-    window.addEventListener(
-      "load",
-      function() {
+      IMPORTANT:
 
-        /*
-          Give the audio element a moment to load.
-        */
+      We are NOT using fetch() here.
 
-        setTimeout(
-          function() {
+      The form is submitted normally to Google Apps Script
+      through the hidden iframe.
 
-            playSongFromBeginning();
-
-          },
-          100
-        );
-
-      }
-    );
-
-
-    /* ==================================================
-       AUTOPLAY FALLBACK
-
-       Some browsers block sound until the visitor
-       interacts with the page.
-
-       So the first interaction anywhere on the page
-       will attempt to start the song.
-
-       THIS IS NOT CONNECTED TO THE SUBMIT BUTTON.
-       ================================================== */
-
-    let userInteractionHandled = false;
-
-
-    function resumeSongAfterInteraction() {
-
-      if (userInteractionHandled) {
-        return;
-      }
-
-      userInteractionHandled = true;
-
-      /*
-        Only try if the song isn't already playing.
-      */
-
-      if (dateSong.paused) {
-
-        playSongFromBeginning();
-
-      }
-
-    }
-
-
-    document.addEventListener(
-      "pointerdown",
-      resumeSongAfterInteraction,
-      {
-        once: true,
-        passive: true
-      }
-    );
-
-
-    document.addEventListener(
-      "keydown",
-      resumeSongAfterInteraction,
-      {
-        once: true
-      }
-    );
-
-
-    /* ==================================================
-       FORM SUBMISSION
-       ==================================================
-
-       IMPORTANT:
-
-       The button does NOT control the music.
-
-       The button ONLY sends the form data.
-       ================================================== */
+      This allows the browser to perform a normal
+      application/x-www-form-urlencoded POST.
+    */
 
     form.addEventListener(
       "submit",
       function(event) {
 
-
-        /*
-          Stop normal page navigation.
-        */
-
         event.preventDefault();
 
 
         /*
-          Validate date and time.
+          Check required date/time fields.
         */
 
         if (!form.checkValidity()) {
@@ -682,19 +474,32 @@
           form.reportValidity();
 
           return;
-
         }
 
 
         /*
-          Prepare the latest data.
+          Start music immediately from the button click.
         */
 
-        prepareHiddenFields();
+        playDateSong();
 
 
         /*
-          Update UI.
+          Refresh all hidden fields immediately
+          before submission.
+        */
+
+        updateFirstChoice();
+
+        updateSecondChoice();
+
+        updateChoiceLog();
+
+        updateTimestamp();
+
+
+        /*
+          Update the UI.
         */
 
         status.textContent =
@@ -708,34 +513,20 @@
 
 
         /*
-          ==================================================
-          NATIVE FORM SUBMISSION
-          ==================================================
+          IMPORTANT:
 
-          This sends:
+          HTMLFormElement.prototype.submit.call(form)
 
-          first_choice
-          second_choice
-          date
-          time
-          place
-          choice_log
-          timestamp
-
-          directly to Apps Script.
-
-          The hidden iframe means the current page
-          remains open.
+          bypasses the submit event listener itself
+          and performs the REAL native form submission.
         */
 
-        HTMLFormElement.prototype.submit.call(
-          form
-        );
+        HTMLFormElement.prototype.submit.call(form);
 
 
         /*
-          Update the message after the POST has
-          been initiated.
+          Give Google Apps Script a moment to receive
+          the request, then update the page.
         */
 
         setTimeout(
@@ -754,10 +545,7 @@
       }
     );
 
-
   </script>
 
-
 </body>
-
 </html>
