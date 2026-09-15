@@ -90,9 +90,10 @@
       so I made this. 🙂
     </p>
 
-    <form onsubmit="go('question.html'); return false;">
+    <form id="takeALookForm">
 
       <input
+        id="takeALook"
         type="submit"
         value="Take a look! 👀"
       >
@@ -104,20 +105,163 @@
 
   <script>
 
-    function go(url) {
+    /* ========================================
+       GOOGLE SHEETS TRACKING SCRIPT
+       ======================================== */
 
-      document
-        .querySelector(".transition-page")
-        .classList
-        .add("page-exit");
+    const TRACKING_URL =
+      "https://script.google.com/macros/s/AKfycbxRxukMwq6Iq6UuqU-FpMHbnX3cCYRimogi72mqKxSQ7P97-2SWRQmVaIVs5sTyehAplg/exec";
 
-      setTimeout(function () {
 
-        window.location.href = url;
+    /* ========================================
+       SEND TRACKING EVENT
+       ======================================== */
 
-      }, 400);
+    function trackEvent(eventName) {
+
+      try {
+
+        const data =
+          new URLSearchParams();
+
+        data.append(
+          "event",
+          eventName
+        );
+
+        /*
+          sendBeacon is ideal here because it sends
+          the event without interrupting the page.
+        */
+
+        const sent =
+          navigator.sendBeacon(
+            TRACKING_URL,
+            data
+          );
+
+        /*
+          Fallback for browsers where sendBeacon
+          is unavailable or fails immediately.
+        */
+
+        if (!sent) {
+
+          fetch(
+            TRACKING_URL,
+            {
+              method: "POST",
+              mode: "no-cors",
+              body: data,
+              keepalive: true
+            }
+          ).catch(
+            function(error) {
+
+              console.warn(
+                "Tracking request failed:",
+                error
+              );
+
+            }
+          );
+
+        }
+
+      } catch (error) {
+
+        console.warn(
+          "Tracking error:",
+          error
+        );
+
+      }
 
     }
+
+
+    /* ========================================
+       WEBSITE OPENED
+       ======================================== */
+
+    window.addEventListener(
+      "load",
+      function () {
+
+        trackEvent(
+          "Website Opened"
+        );
+
+      }
+    );
+
+
+    /* ========================================
+       PAGE TRANSITION
+       ======================================== */
+
+    function go(url) {
+
+      const page =
+        document.querySelector(
+          ".transition-page"
+        );
+
+      page.classList.add(
+        "page-exit"
+      );
+
+      setTimeout(
+        function () {
+
+          window.location.href =
+            url;
+
+        },
+        400
+      );
+
+    }
+
+
+    /* ========================================
+       TAKE A LOOK BUTTON
+       ======================================== */
+
+    document
+      .getElementById("takeALookForm")
+      .addEventListener(
+        "submit",
+        function (event) {
+
+          /*
+            Prevent normal form submission.
+          */
+
+          event.preventDefault();
+
+
+          /*
+            Record that they clicked
+            "Take a look".
+          */
+
+          trackEvent(
+            "Clicked Take a Look"
+          );
+
+
+          /*
+            Continue to question.html
+            exactly as before.
+          */
+
+          go(
+            "question.html"
+          );
+
+        }
+      );
 
   </script>
 
