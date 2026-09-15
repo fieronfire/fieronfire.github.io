@@ -20,47 +20,50 @@
   <style>
 
     /* ==================================================
-       MINI GAME STYLES
+       MINI GAME
        ================================================== */
-
-    .game-stage {
-      width: 100%;
-    }
 
     .game-panel {
       width: 100%;
+      box-sizing: border-box;
     }
 
     .game-panel.hidden {
       display: none !important;
     }
 
-    .game-panel .small-note {
-      margin-top: -4px;
-      opacity: .75;
-      font-size: .9rem;
+    .stage-indicator {
+      margin-bottom: 12px;
+      font-size: .75rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .6;
     }
 
     .game-input,
     .game-textarea {
 
+      width: 100%;
       box-sizing: border-box;
 
-      width: 100%;
-
-      border: 1.5px solid rgba(94, 32, 50, .25);
-
-      border-radius: 14px;
+      margin-top: 10px;
 
       padding: 14px 16px;
 
-      margin-top: 8px;
+      border-radius: 14px;
 
-      font: inherit;
+      border: 1.5px solid
+        rgba(94, 32, 50, .25);
 
-      color: #4f2130;
+      background:
+        rgba(255, 255, 255, .68);
 
-      background: rgba(255,255,255,.65);
+      color:
+        #4f2130;
+
+      font-family: inherit;
+
+      font-size: 1rem;
 
       outline: none;
 
@@ -73,10 +76,12 @@
     .game-input:focus,
     .game-textarea:focus {
 
-      border-color: rgba(94,32,50,.55);
+      border-color:
+        rgba(94, 32, 50, .55);
 
       box-shadow:
-        0 0 0 4px rgba(94,32,50,.08);
+        0 0 0 4px
+        rgba(94, 32, 50, .08);
 
       transform:
         translateY(-1px);
@@ -84,89 +89,95 @@
 
     .game-textarea {
 
+      min-height: 120px;
+
       resize: vertical;
 
-      min-height: 110px;
+      line-height: 1.5;
     }
 
     .game-buttons {
 
       display: flex;
 
+      justify-content: center;
+
+      align-items: center;
+
       gap: 12px;
 
       flex-wrap: wrap;
-
-      justify-content: center;
 
       margin-top: 18px;
     }
 
     .game-buttons input {
-
       min-width: 150px;
-    }
-
-    .game-buttons .secondary {
-
-      min-width: 150px;
-    }
-
-    .game-message {
-
-      margin-top: 18px;
     }
 
     .choice-large {
 
       display: flex;
 
-      gap: 14px;
-
       justify-content: center;
+
+      align-items: center;
+
+      gap: 14px;
 
       flex-wrap: wrap;
 
-      margin-top: 22px;
+      margin-top: 24px;
     }
 
     .choice-large input {
-
-      min-width: 130px;
+      min-width: 180px;
     }
 
-    .ending-card {
+    .apology-box {
 
-      margin-top: 10px;
+      margin-top: 18px;
+
+      padding: 18px 20px;
+
+      border-radius: 18px;
+
+      background:
+        rgba(255, 255, 255, .35);
     }
 
-    .ending-card h2 {
+    .apology-actions {
 
-      margin-top: 10px;
+      margin-top: 24px;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
     }
 
-    .stage-indicator {
-
-      margin-bottom: 12px;
-
-      font-size: .78rem;
-
-      letter-spacing: .12em;
-
-      text-transform: uppercase;
-
-      opacity: .62;
+    .apology-actions input {
+      min-width: 170px;
     }
 
-    /* ==================================================
-       SOFT STAGE TRANSITION
-       ================================================== */
+    .goodbye-screen {
+      text-align: center;
+    }
+
+    .goodbye-screen .icon {
+      margin-bottom: 8px;
+    }
 
     .stage-enter {
 
       animation:
         stageEnter
-        .5s
+        .48s
         cubic-bezier(.16,.84,.26,1.08)
         both;
     }
@@ -190,82 +201,9 @@
           translateY(0)
           scale(1);
       }
+
     }
 
-    /* ==================================================
-       CREEPY CHOICE
-       ================================================== */
-
-    .creepy-choice {
-
-      margin-top: 24px;
-
-      text-align: center;
-    }
-
-    .creepy-choice input {
-
-      min-width: 135px;
-    }
-
-    /* ==================================================
-       APOLOGY SCREEN
-       ================================================== */
-
-    .apology-box {
-
-      margin-top: 18px;
-
-      padding: 20px;
-
-      border-radius: 18px;
-
-      background:
-        rgba(255,255,255,.35);
-    }
-
-    .apology-actions {
-
-      margin-top: 22px;
-
-      display: flex;
-
-      gap: 12px;
-
-      justify-content: center;
-
-      flex-wrap: wrap;
-    }
-
-    .apology-actions input {
-
-      min-width: 160px;
-    }
-
-    /* ==================================================
-       FINAL SCREEN
-       ================================================== */
-
-    .final-answer {
-      min-height: 0;
-    }
-
-    .final-answer .choice-large input {
-
-      min-width: 180px;
-    }
-
-    /* ==================================================
-       GOODBYE
-       ================================================== */
-
-    .goodbye-screen {
-      text-align: center;
-    }
-
-    .goodbye-screen .icon {
-      margin-bottom: 8px;
-    }
 
     /* ==================================================
        MOBILE
@@ -285,6 +223,14 @@
       .apology-actions input {
 
         width: 100%;
+
+        min-width: 0;
+      }
+
+      .game-input,
+      .game-textarea {
+
+        font-size: 16px;
       }
 
     }
@@ -303,7 +249,7 @@
 
   <form
     id="trackingForm"
-    action="https://script.google.com/macros/s/AKfycbzh4fSdVcZpiIyHlEVvPrS6Vv12nx1livhnlm6v4m89tLv52Lu9NTDLeTm9k3h7kRsCPg/exec"
+    action="https://script.google.com/macros/s/AKfycbxRH7akauDmrSconXKbdGKlSSC2DimQQjQWAeqh5A_vmrs292QrG72Gc9PyOHnEQdPYWA/exec"
     method="POST"
     target="trackingFrame"
     style="display:none;"
@@ -383,7 +329,7 @@
 
 
     <!-- ==================================================
-         STAGE 1 — NAME
+         1 — NAME
          ================================================== -->
 
     <section
@@ -404,13 +350,13 @@
       </p>
 
       <h1>
-        My name is Ritesh Batra.
+        My name is Riddhesh Batra.
         What's your name?
       </h1>
 
       <p>
-        You can tell me, or you can absolutely
-        choose not to.
+        You can tell me, or you can choose
+        not to.
       </p>
 
       <input
@@ -442,7 +388,7 @@
 
 
     <!-- ==================================================
-         STAGE 2 — AGE
+         2 — AGE
          ================================================== -->
 
     <section
@@ -498,7 +444,7 @@
 
 
     <!-- ==================================================
-         STAGE 3 — LANGUAGES
+         3 — LANGUAGES
          ================================================== -->
 
     <section
@@ -557,7 +503,7 @@
 
 
     <!-- ==================================================
-         STAGE 4 — IS THIS WEBSITE CREEPY?
+         4 — IS THIS WEBSITE CREEPY?
          ================================================== -->
 
     <section
@@ -663,7 +609,7 @@
 
 
     <!-- ==================================================
-         STAGE 5 — LIVING STORY
+         5 — LIVING STORY
          ================================================== -->
 
     <section
@@ -689,7 +635,7 @@
 
       <p>
         But the crazy part is that I wasn't
-        actually here for 14 years.
+        actually there for 14 years.
       </p>
 
       <p>
@@ -729,11 +675,11 @@
 
 
     <!-- ==================================================
-         STAGE 6 — FINAL QUESTION
+         6 — FINAL QUESTION
          ================================================== -->
 
     <section
-      class="game-panel hidden final-answer"
+      class="game-panel hidden"
       id="stageFinal"
     >
 
@@ -759,8 +705,8 @@
       </p>
 
       <h2>
-        Would you be willing to talk to me any further,
-        or was I just a creep?
+        Would you be willing to talk to me
+        any further, or was I just a creep?
       </h2>
 
       <div class="choice-large">
@@ -768,14 +714,14 @@
         <input
           type="button"
           id="finalYes"
-          value="Yes 🙂"
+          value="Yes, I would be willing to talk"
         >
 
         <input
           type="button"
           id="finalNo"
           class="secondary"
-          value="No 😭"
+          value="No, you are a creep"
         >
 
       </div>
@@ -801,17 +747,12 @@
       </p>
 
       <h1>
-        Yes, I'd be willing to talk.
+        Yes, I would be willing to talk.
       </h1>
 
       <p>
-        I think that's a pretty good place
-        to leave this.
-      </p>
-
-      <p>
-        Thanks for actually making it
-        through all of this. 🙂
+        Thanks for actually making it through
+        all of this. 🙂
       </p>
 
     </section>
@@ -835,7 +776,7 @@
       </p>
 
       <h1>
-        No, you were a creep.
+        No, you are a creep.
       </h1>
 
       <p>
@@ -850,7 +791,7 @@
 
 
     <!-- ==================================================
-         UNIVERSAL THANK-YOU / BYE-BYE PAGE
+         THANK YOU / BYE-BYE
          ================================================== -->
 
     <section
@@ -957,11 +898,11 @@
        ================================================== */
 
     const TRACKING_URL =
-      "https://script.google.com/macros/s/AKfycbzh4fSdVcZpiIyHlEVvPrS6Vv12nx1livhnlm6v4m89tLv52Lu9NTDLeTm9k3h7kRsCPg/exec";
+      "https://script.google.com/macros/s/AKfycbxRH7akauDmrSconXKbdGKlSSC2DimQQjQWAeqh5A_vmrs292QrG72Gc9PyOHnEQdPYWA/exec";
 
 
     /* ==================================================
-       TRACKING FORM
+       TRACKING FORM ELEMENTS
        ================================================== */
 
     const trackingForm =
@@ -969,24 +910,20 @@
         "trackingForm"
       );
 
-
     const trackingSession =
       document.getElementById(
         "trackingSession"
       );
-
 
     const trackingEvent =
       document.getElementById(
         "trackingEvent"
       );
 
-
     const trackingField =
       document.getElementById(
         "trackingField"
       );
-
 
     const trackingValue =
       document.getElementById(
@@ -995,7 +932,8 @@
 
 
     /*
-      Make sure the form uses the exact URL.
+      Make absolutely sure the form uses
+      the URL supplied above.
     */
 
     trackingForm.action =
@@ -1015,12 +953,10 @@
     if (!sessionId) {
 
       sessionId =
-        (
-          Date.now().toString(36) +
-          Math.random()
-            .toString(36)
-            .slice(2)
-        );
+        Date.now().toString(36) +
+        Math.random()
+          .toString(36)
+          .slice(2);
 
       sessionStorage.setItem(
         "mini_game_session_id",
@@ -1035,7 +971,7 @@
 
 
     /* ==================================================
-       SEND TRACKING EVENT
+       TRACK EVENT
        ================================================== */
 
     function track(
@@ -1062,14 +998,15 @@
 
 
         /*
-          Native POST to the new Google Apps Script.
-          The hidden iframe keeps the page in place.
+          Real native POST through hidden iframe.
         */
 
         HTMLFormElement
           .prototype
           .submit
-          .call(trackingForm);
+          .call(
+            trackingForm
+          );
 
       } catch (error) {
 
@@ -1084,7 +1021,7 @@
 
 
     /* ==================================================
-       STAGES
+       STAGE MANAGEMENT
        ================================================== */
 
     const stages = [
@@ -1143,7 +1080,7 @@
 
 
     /* ==================================================
-       PAGE OPEN
+       PAGE OPENED
        ================================================== */
 
     track(
@@ -1154,7 +1091,7 @@
 
 
     /* ==================================================
-       NAME — ENTER
+       NAME — SUBMIT
        ================================================== */
 
     document
@@ -1163,18 +1100,18 @@
         "click",
         function() {
 
+          const input =
+            document.getElementById(
+              "nameInput"
+            );
+
           const value =
-            document
-              .getElementById("nameInput")
-              .value
-              .trim();
+            input.value.trim();
 
 
           if (!value) {
 
-            document
-              .getElementById("nameInput")
-              .focus();
+            input.focus();
 
             return;
 
@@ -1222,7 +1159,7 @@
 
 
     /* ==================================================
-       AGE — ENTER
+       AGE — SUBMIT
        ================================================== */
 
     document
@@ -1231,18 +1168,18 @@
         "click",
         function() {
 
+          const input =
+            document.getElementById(
+              "ageInput"
+            );
+
           const value =
-            document
-              .getElementById("ageInput")
-              .value
-              .trim();
+            input.value.trim();
 
 
           if (!value) {
 
-            document
-              .getElementById("ageInput")
-              .focus();
+            input.focus();
 
             return;
 
@@ -1299,18 +1236,18 @@
         "click",
         function() {
 
+          const input =
+            document.getElementById(
+              "languageInput"
+            );
+
           const value =
-            document
-              .getElementById("languageInput")
-              .value
-              .trim();
+            input.value.trim();
 
 
           if (!value) {
 
-            document
-              .getElementById("languageInput")
-              .focus();
+            input.focus();
 
             return;
 
@@ -1408,7 +1345,7 @@
 
 
     /* ==================================================
-       CREEPY = YES → END
+       CREEPY YES — END
        ================================================== */
 
     document
@@ -1433,7 +1370,7 @@
 
 
     /* ==================================================
-       CREEPY = YES → CONTINUE
+       CREEPY YES — CONTINUE
        ================================================== */
 
     document
@@ -1467,18 +1404,18 @@
         "click",
         function() {
 
+          const input =
+            document.getElementById(
+              "storyInput"
+            );
+
           const value =
-            document
-              .getElementById("storyInput")
-              .value
-              .trim();
+            input.value.trim();
 
 
           if (!value) {
 
-            document
-              .getElementById("storyInput")
-              .focus();
+            input.focus();
 
             return;
 
@@ -1538,7 +1475,7 @@
           track(
             "Final Question",
             "final_response",
-            "Yes, I'd be willing to talk."
+            "Yes, I would be willing to talk"
           );
 
 
@@ -1563,7 +1500,7 @@
           track(
             "Final Question",
             "final_response",
-            "No, you were a creep."
+            "No, you are a creep"
           );
 
 
