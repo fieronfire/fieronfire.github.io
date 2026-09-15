@@ -1,30 +1,357 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>So... when are you free?</title>
 
-  <link rel="stylesheet" href="style.css">
+<head>
+
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+
+  <title>Okay... let's actually talk.</title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
+  <style>
+
+    /* ==================================================
+       MINI GAME STYLES
+       ================================================== */
+
+    .game-stage {
+      width: 100%;
+    }
+
+    .game-panel {
+      width: 100%;
+    }
+
+    .game-panel.hidden {
+      display: none !important;
+    }
+
+    .game-panel .small-note {
+      margin-top: -4px;
+      opacity: .75;
+      font-size: .9rem;
+    }
+
+    .game-input,
+    .game-textarea {
+
+      box-sizing: border-box;
+
+      width: 100%;
+
+      border: 1.5px solid rgba(94, 32, 50, .25);
+
+      border-radius: 14px;
+
+      padding: 14px 16px;
+
+      margin-top: 8px;
+
+      font: inherit;
+
+      color: #4f2130;
+
+      background: rgba(255,255,255,.65);
+
+      outline: none;
+
+      transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
+    }
+
+    .game-input:focus,
+    .game-textarea:focus {
+
+      border-color: rgba(94,32,50,.55);
+
+      box-shadow:
+        0 0 0 4px rgba(94,32,50,.08);
+
+      transform:
+        translateY(-1px);
+    }
+
+    .game-textarea {
+
+      resize: vertical;
+
+      min-height: 110px;
+    }
+
+    .game-buttons {
+
+      display: flex;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+
+      justify-content: center;
+
+      margin-top: 18px;
+    }
+
+    .game-buttons input {
+
+      min-width: 150px;
+    }
+
+    .game-buttons .secondary {
+
+      min-width: 150px;
+    }
+
+    .game-message {
+
+      margin-top: 18px;
+    }
+
+    .choice-large {
+
+      display: flex;
+
+      gap: 14px;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      margin-top: 22px;
+    }
+
+    .choice-large input {
+
+      min-width: 130px;
+    }
+
+    .ending-card {
+
+      margin-top: 10px;
+    }
+
+    .ending-card h2 {
+
+      margin-top: 10px;
+    }
+
+    .stage-indicator {
+
+      margin-bottom: 12px;
+
+      font-size: .78rem;
+
+      letter-spacing: .12em;
+
+      text-transform: uppercase;
+
+      opacity: .62;
+    }
+
+    /* ==================================================
+       SOFT STAGE TRANSITION
+       ================================================== */
+
+    .stage-enter {
+
+      animation:
+        stageEnter
+        .5s
+        cubic-bezier(.16,.84,.26,1.08)
+        both;
+    }
+
+    @keyframes stageEnter {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(18px)
+          scale(.97);
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+      }
+    }
+
+    /* ==================================================
+       CREEPY CHOICE
+       ================================================== */
+
+    .creepy-choice {
+
+      margin-top: 24px;
+
+      text-align: center;
+    }
+
+    .creepy-choice input {
+
+      min-width: 135px;
+    }
+
+    /* ==================================================
+       APOLOGY SCREEN
+       ================================================== */
+
+    .apology-box {
+
+      margin-top: 18px;
+
+      padding: 20px;
+
+      border-radius: 18px;
+
+      background:
+        rgba(255,255,255,.35);
+    }
+
+    .apology-actions {
+
+      margin-top: 22px;
+
+      display: flex;
+
+      gap: 12px;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+    }
+
+    .apology-actions input {
+
+      min-width: 160px;
+    }
+
+    /* ==================================================
+       FINAL SCREEN
+       ================================================== */
+
+    .final-answer {
+      min-height: 0;
+    }
+
+    .final-answer .choice-large input {
+
+      min-width: 180px;
+    }
+
+    /* ==================================================
+       GOODBYE
+       ================================================== */
+
+    .goodbye-screen {
+      text-align: center;
+    }
+
+    .goodbye-screen .icon {
+      margin-bottom: 8px;
+    }
+
+    /* ==================================================
+       MOBILE
+       ================================================== */
+
+    @media (max-width: 600px) {
+
+      .game-buttons,
+      .choice-large,
+      .apology-actions {
+
+        flex-direction: column;
+      }
+
+      .game-buttons input,
+      .choice-large input,
+      .apology-actions input {
+
+        width: 100%;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
-  <!-- Bad Bunny song -->
-  <audio id="dateSong" preload="auto" playsinline>
-    <source src="./bad.mp3" type="audio/mpeg">
-  </audio>
+
+  <!-- ==================================================
+       HIDDEN GOOGLE SHEETS TRACKING FORM
+       ================================================== -->
+
+  <form
+    id="trackingForm"
+    action="https://script.google.com/macros/s/AKfycbzh4fSdVcZpiIyHlEVvPrS6Vv12nx1livhnlm6v4m89tLv52Lu9NTDLeTm9k3h7kRsCPg/exec"
+    method="POST"
+    target="trackingFrame"
+    style="display:none;"
+  >
+
+    <input
+      type="hidden"
+      id="trackingSession"
+      name="session_id"
+    >
+
+    <input
+      type="hidden"
+      id="trackingEvent"
+      name="event"
+    >
+
+    <input
+      type="hidden"
+      id="trackingField"
+      name="field"
+    >
+
+    <input
+      type="hidden"
+      id="trackingValue"
+      name="value"
+    >
+
+  </form>
 
 
-  <!-- Hidden iframe used for Google Apps Script submission -->
   <iframe
-    name="googleSheetFrame"
-    id="googleSheetFrame"
-    style="display:none;width:0;height:0;border:0;"
+    name="trackingFrame"
+    id="trackingFrame"
+    style="
+      display:none;
+      width:0;
+      height:0;
+      border:0;
+    "
   ></iframe>
 
 
-  <!-- Floating background dots -->
+  <!-- ==================================================
+       FLOATING DOTS
+       ================================================== -->
+
   <span class="spark s1"></span>
   <span class="spark s2"></span>
   <span class="spark s3"></span>
@@ -45,395 +372,709 @@
   <span class="spark s18"></span>
 
 
-  <main class="card transition-page">
+  <!-- ==================================================
+       MAIN CARD
+       ================================================== -->
 
-    <div class="icon">📅🙂</div>
-
-    <p class="eyebrow">Your call</p>
-
-    <h1>
-      So... when are you free? 🙂
-    </h1>
-
-    <p>
-      Pick whatever works for you. 👍
-    </p>
-
-    <p class="meetup">
-      <span>📍 Meet up in CCD</span>
-    </p>
+  <main
+    class="card transition-page"
+    id="card"
+  >
 
 
-    <form
-      id="scheduleForm"
-      action="https://script.google.com/macros/s/AKfycbxPEWcKfJzzWcIjgLwYVkNrt8DXCKx-jZE86_rFMmVnMxZHHQjuj5ia3RoiC5pNw0T5/exec"
-      method="POST"
-      target="googleSheetFrame"
+    <!-- ==================================================
+         STAGE 1 — NAME
+         ================================================== -->
+
+    <section
+      class="game-panel stage-enter"
+      id="stageName"
     >
 
-      <!-- Hidden data sent to Google Sheets -->
-      <input
-        type="hidden"
-        id="firstChoice"
-        name="first_choice"
-      >
+      <div class="icon">
+        👋🙂
+      </div>
+
+      <div class="stage-indicator">
+        Mini game · 1 / 6
+      </div>
+
+      <p class="eyebrow">
+        Okay, let's actually talk.
+      </p>
+
+      <h1>
+        My name is Ritesh Batra.
+        What's your name?
+      </h1>
+
+      <p>
+        You can tell me, or you can absolutely
+        choose not to.
+      </p>
 
       <input
-        type="hidden"
-        id="secondChoice"
-        name="second_choice"
+        class="game-input"
+        id="nameInput"
+        type="text"
+        autocomplete="name"
+        placeholder="Your name..."
       >
 
-      <input
-        type="hidden"
-        id="place"
-        name="place"
-        value="CCD"
-      >
+      <div class="game-buttons">
 
-      <input
-        type="hidden"
-        id="choiceLog"
-        name="choice_log"
-      >
-
-      <input
-        type="hidden"
-        id="timestamp"
-        name="timestamp"
-      >
-
-
-      <!-- Date -->
-      <label for="date">
-        Pick a Day 🙂
-      </label>
-
-      <input
-        id="date"
-        name="date"
-        type="date"
-        required
-      >
-
-
-      <!-- Time -->
-      <label for="time">
-        What Time? 🕒
-      </label>
-
-      <select
-        id="time"
-        name="time"
-        required
-      >
-
-        <option
-          value=""
-          selected
-          disabled
+        <input
+          type="button"
+          id="nameSubmit"
+          value="Enter 🙂"
         >
-          Select a time...
-        </option>
 
-        <option value="08:00">8:00 AM</option>
-        <option value="08:15">8:15 AM</option>
-        <option value="08:30">8:30 AM</option>
-        <option value="08:45">8:45 AM</option>
+        <input
+          type="button"
+          id="nameSkip"
+          class="secondary"
+          value="I don't want to tell"
+        >
 
-        <option value="09:00">9:00 AM</option>
-        <option value="09:15">9:15 AM</option>
-        <option value="09:30">9:30 AM</option>
-        <option value="09:45">9:45 AM</option>
+      </div>
 
-        <option value="10:00">10:00 AM</option>
-        <option value="10:15">10:15 AM</option>
-        <option value="10:30">10:30 AM</option>
-        <option value="10:45">10:45 AM</option>
-
-        <option value="11:00">11:00 AM</option>
-        <option value="11:15">11:15 AM</option>
-        <option value="11:30">11:30 AM</option>
-        <option value="11:45">11:45 AM</option>
-
-        <option value="12:00">12:00 PM</option>
-        <option value="12:15">12:15 PM</option>
-        <option value="12:30">12:30 PM</option>
-        <option value="12:45">12:45 PM</option>
-
-        <option value="13:00">1:00 PM</option>
-        <option value="13:15">1:15 PM</option>
-        <option value="13:30">1:30 PM</option>
-        <option value="13:45">1:45 PM</option>
-
-        <option value="14:00">2:00 PM</option>
-        <option value="14:15">2:15 PM</option>
-        <option value="14:30">2:30 PM</option>
-        <option value="14:45">2:45 PM</option>
-
-        <option value="15:00">3:00 PM</option>
-        <option value="15:15">3:15 PM</option>
-        <option value="15:30">3:30 PM</option>
-        <option value="15:45">3:45 PM</option>
-
-        <option value="16:00">4:00 PM</option>
-        <option value="16:15">4:15 PM</option>
-        <option value="16:30">4:30 PM</option>
-        <option value="16:45">4:45 PM</option>
-
-        <option value="17:00">5:00 PM</option>
-        <option value="17:15">5:15 PM</option>
-        <option value="17:30">5:30 PM</option>
-        <option value="17:45">5:45 PM</option>
-
-        <option value="18:00">6:00 PM</option>
-        <option value="18:15">6:15 PM</option>
-        <option value="18:30">6:30 PM</option>
-        <option value="18:45">6:45 PM</option>
-
-        <option value="19:00">7:00 PM</option>
-        <option value="19:15">7:15 PM</option>
-        <option value="19:30">7:30 PM</option>
-        <option value="19:45">7:45 PM</option>
-
-        <option value="20:00">8:00 PM</option>
-        <option value="20:15">8:15 PM</option>
-        <option value="20:30">8:30 PM</option>
-        <option value="20:45">8:45 PM</option>
-
-        <option value="21:00">9:00 PM</option>
-        <option value="21:15">9:15 PM</option>
-        <option value="21:30">9:30 PM</option>
-        <option value="21:45">9:45 PM</option>
-
-        <option value="22:00">10:00 PM</option>
-        <option value="22:15">10:15 PM</option>
-        <option value="22:30">10:30 PM</option>
-        <option value="22:45">10:45 PM</option>
-
-        <option value="23:00">11:00 PM</option>
-        <option value="23:15">11:15 PM</option>
-        <option value="23:30">11:30 PM</option>
-        <option value="23:45">11:45 PM</option>
-
-      </select>
+    </section>
 
 
-      <!-- Submit -->
+    <!-- ==================================================
+         STAGE 2 — AGE
+         ================================================== -->
+
+    <section
+      class="game-panel hidden"
+      id="stageAge"
+    >
+
+      <div class="icon">
+        🎂🙂
+      </div>
+
+      <div class="stage-indicator">
+        Mini game · 2 / 6
+      </div>
+
+      <p class="eyebrow">
+        One more thing.
+      </p>
+
+      <h1>
+        I'm 17 years old.
+        How old are you?
+      </h1>
+
       <input
-        id="setDateButton"
-        type="submit"
-        value="Submit! 🙂"
+        class="game-input"
+        id="ageInput"
+        type="number"
+        min="1"
+        max="120"
+        inputmode="numeric"
+        placeholder="Your age..."
       >
 
-    </form>
+      <div class="game-buttons">
+
+        <input
+          type="button"
+          id="ageSubmit"
+          value="Enter 🙂"
+        >
+
+        <input
+          type="button"
+          id="ageSkip"
+          class="secondary"
+          value="I don't want to tell"
+        >
+
+      </div>
+
+    </section>
 
 
-    <p
-      id="status"
-      class="status"
-      aria-live="polite"
-    ></p>
+    <!-- ==================================================
+         STAGE 3 — LANGUAGES
+         ================================================== -->
+
+    <section
+      class="game-panel hidden"
+      id="stageLanguages"
+    >
+
+      <div class="icon">
+        🌎🗣️
+      </div>
+
+      <div class="stage-indicator">
+        Mini game · 3 / 6
+      </div>
+
+      <p class="eyebrow">
+        Languages.
+      </p>
+
+      <h1>
+        I can speak English, Spanish, Hindi,
+        Sanskrit, Yoruba, Hausa, Pidgin English,
+        a little bit of French, Marathi,
+        and I'm learning Gujarati.
+      </h1>
+
+      <p>
+        What languages do you speak?
+      </p>
+
+      <input
+        class="game-input"
+        id="languageInput"
+        type="text"
+        placeholder="Tell me the languages..."
+      >
+
+      <div class="game-buttons">
+
+        <input
+          type="button"
+          id="languageSubmit"
+          value="Submit 🙂"
+        >
+
+        <input
+          type="button"
+          id="languageSkip"
+          class="secondary"
+          value="Skip"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         STAGE 4 — IS THIS WEBSITE CREEPY?
+         ================================================== -->
+
+    <section
+      class="game-panel hidden"
+      id="stageCreepy"
+    >
+
+      <div class="icon">
+        😭
+      </div>
+
+      <div class="stage-indicator">
+        Mini game · 4 / 6
+      </div>
+
+      <p class="eyebrow">
+        Be honest.
+      </p>
+
+      <h1>
+        Is this website creepy?
+      </h1>
+
+      <p>
+        Seriously. You can be honest.
+        I won't be offended.
+      </p>
+
+      <div class="choice-large">
+
+        <input
+          type="button"
+          id="creepyYes"
+          value="Yes 😭"
+        >
+
+        <input
+          type="button"
+          id="creepyNo"
+          class="secondary"
+          value="No 🙂"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         CREEPY = YES
+         ================================================== -->
+
+    <section
+      class="game-panel hidden"
+      id="stageCreepyYes"
+    >
+
+      <div class="icon">
+        😭
+      </div>
+
+      <p class="eyebrow">
+        Okay. That's fair.
+      </p>
+
+      <h1>
+        I'm sorry for invading your personal
+        space if this got too creepy.
+      </h1>
+
+      <div class="apology-box">
+
+        <p>
+          I genuinely don't want this to make
+          you uncomfortable.
+        </p>
+
+        <p>
+          You can end it here, or you can
+          see what I was actually trying to do.
+        </p>
+
+      </div>
+
+      <div class="apology-actions">
+
+        <input
+          type="button"
+          id="creepyEnd"
+          class="secondary"
+          value="End"
+        >
+
+        <input
+          type="button"
+          id="creepyContinue"
+          value="I want to see more"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         STAGE 5 — LIVING STORY
+         ================================================== -->
+
+    <section
+      class="game-panel hidden"
+      id="stageStory"
+    >
+
+      <div class="icon">
+        🌍🙂
+      </div>
+
+      <div class="stage-indicator">
+        Mini game · 5 / 6
+      </div>
+
+      <p class="eyebrow">
+        Okay, here's something weird about me.
+      </p>
+
+      <h1>
+        I live in Faridabad, Haryana.
+      </h1>
+
+      <p>
+        But the crazy part is that I wasn't
+        actually here for 14 years.
+      </p>
+
+      <p>
+        I've only lived in India for around
+        three years, and honestly, it's been
+        pretty great living here.
+      </p>
+
+      <h2>
+        Do you have a crazy living story too?
+      </h2>
+
+      <textarea
+        class="game-textarea"
+        id="storyInput"
+        placeholder="Tell me about it..."
+      ></textarea>
+
+      <div class="game-buttons">
+
+        <input
+          type="button"
+          id="storySubmit"
+          value="Tell 🙂"
+        >
+
+        <input
+          type="button"
+          id="storySkip"
+          class="secondary"
+          value="I don't want to tell"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         STAGE 6 — FINAL QUESTION
+         ================================================== -->
+
+    <section
+      class="game-panel hidden final-answer"
+      id="stageFinal"
+    >
+
+      <div class="icon">
+        🙂💬
+      </div>
+
+      <div class="stage-indicator">
+        Final question · 6 / 6
+      </div>
+
+      <p class="eyebrow">
+        And... I think that's pretty much it.
+      </p>
+
+      <h1>
+        I could ask for more,
+        but then it would probably get creepy.
+      </h1>
+
+      <p>
+        So...
+      </p>
+
+      <h2>
+        Would you be willing to talk to me any further,
+        or was I just a creep?
+      </h2>
+
+      <div class="choice-large">
+
+        <input
+          type="button"
+          id="finalYes"
+          value="Yes 🙂"
+        >
+
+        <input
+          type="button"
+          id="finalNo"
+          class="secondary"
+          value="No 😭"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         FINAL YES
+         ================================================== -->
+
+    <section
+      class="game-panel hidden goodbye-screen"
+      id="stageFinalYes"
+    >
+
+      <div class="icon">
+        🙂❤️
+      </div>
+
+      <p class="eyebrow">
+        Okay.
+      </p>
+
+      <h1>
+        Yes, I'd be willing to talk.
+      </h1>
+
+      <p>
+        I think that's a pretty good place
+        to leave this.
+      </p>
+
+      <p>
+        Thanks for actually making it
+        through all of this. 🙂
+      </p>
+
+    </section>
+
+
+    <!-- ==================================================
+         FINAL NO
+         ================================================== -->
+
+    <section
+      class="game-panel hidden goodbye-screen"
+      id="stageFinalNo"
+    >
+
+      <div class="icon">
+        😭
+      </div>
+
+      <p class="eyebrow">
+        Fair enough.
+      </p>
+
+      <h1>
+        No, you were a creep.
+      </h1>
+
+      <p>
+        I won't contact you ever again.
+      </p>
+
+      <p>
+        Take care. 👋
+      </p>
+
+    </section>
+
+
+    <!-- ==================================================
+         UNIVERSAL THANK-YOU / BYE-BYE PAGE
+         ================================================== -->
+
+    <section
+      class="game-panel hidden goodbye-screen"
+      id="stageThankYou"
+    >
+
+      <div class="icon">
+        👋🙂
+      </div>
+
+      <p class="eyebrow">
+        Okay. Thank you.
+      </p>
+
+      <h1>
+        Bye-bye.
+      </h1>
+
+      <p>
+        Every single person I talked to about
+        making this website and sending it to you
+        said no.
+      </p>
+
+      <p>
+        Every. Single. One.
+      </p>
+
+      <p>
+        And somehow, despite listening to absolutely
+        none of that advice, here I am sending it
+        to you anyway. 😭
+      </p>
+
+      <p>
+        If this offends you or makes you uncomfortable
+        in any way, please let me know. I genuinely
+        don't have any intention of offending you
+        or invading your personal space.
+      </p>
+
+      <p>
+        Honestly, I made this because I was bored.
+        Midterms were over, I had absolutely nothing
+        to do, and I was sitting there thinking that
+        I'd probably messed up an interaction with
+        someone I thought was a really, really cool
+        person.
+      </p>
+
+      <p>
+        So I thought, you know what?
+        Let's try to fix it in the most unnecessarily
+        crazy way possible.
+      </p>
+
+      <p>
+        I don't know whether this works.
+      </p>
+
+      <p>
+        If it works, that's fucking crazy.
+      </p>
+
+      <p>
+        If it doesn't, then I'm basically back to
+        square one anyway.
+      </p>
+
+      <p>
+        So technically, I lost nothing. 😂
+      </p>
+
+      <p>
+        At this point I'm just rambling on in a website,
+        and I genuinely don't even expect you to read
+        all of this.
+      </p>
+
+      <p>
+        But yeah.
+      </p>
+
+      <p>
+        Crazy shit.
+      </p>
+
+      <p>
+        Bye-bye. 👋🙂
+      </p>
+
+    </section>
+
 
   </main>
 
 
   <script>
 
-    /*
-      --------------------------------------------------
-      LOAD THE CONVERSATION CHOICE LOG
-      --------------------------------------------------
-    */
 
-    let choiceLog = [];
+    /* ==================================================
+       TRACKING URL
+       ================================================== */
 
-    try {
-      choiceLog = JSON.parse(
-        localStorage.getItem("conversation_choice_log") || "[]"
+    const TRACKING_URL =
+      "https://script.google.com/macros/s/AKfycbzh4fSdVcZpiIyHlEVvPrS6Vv12nx1livhnlm6v4m89tLv52Lu9NTDLeTm9k3h7kRsCPg/exec";
+
+
+    /* ==================================================
+       TRACKING FORM
+       ================================================== */
+
+    const trackingForm =
+      document.getElementById(
+        "trackingForm"
       );
 
-      if (!Array.isArray(choiceLog)) {
-        choiceLog = [];
-      }
 
-    } catch (error) {
-
-      console.error(
-        "Could not read conversation choice log:",
-        error
+    const trackingSession =
+      document.getElementById(
+        "trackingSession"
       );
 
-      choiceLog = [];
-    }
+
+    const trackingEvent =
+      document.getElementById(
+        "trackingEvent"
+      );
+
+
+    const trackingField =
+      document.getElementById(
+        "trackingField"
+      );
+
+
+    const trackingValue =
+      document.getElementById(
+        "trackingValue"
+      );
 
 
     /*
-      --------------------------------------------------
-      ELEMENTS
-      --------------------------------------------------
+      Make sure the form uses the exact URL.
     */
 
-    const form =
-      document.getElementById("scheduleForm");
-
-    const dateSong =
-      document.getElementById("dateSong");
-
-    const submitButton =
-      document.getElementById("setDateButton");
-
-    const status =
-      document.getElementById("status");
+    trackingForm.action =
+      TRACKING_URL;
 
 
-    /*
-      --------------------------------------------------
-      PRELOAD SONG
-      --------------------------------------------------
-    */
+    /* ==================================================
+       SESSION ID
+       ================================================== */
 
-    dateSong.volume = 0.9;
-
-    dateSong.load();
-
-
-    /*
-      --------------------------------------------------
-      CHECK WHETHER A CHOICE EXISTS
-      --------------------------------------------------
-    */
-
-    function getChoice(actionName) {
-
-      return choiceLog.some(function(item) {
-        return item.action === actionName;
-      });
-
-    }
+    let sessionId =
+      sessionStorage.getItem(
+        "mini_game_session_id"
+      );
 
 
-    /*
-      --------------------------------------------------
-      FILL FIRST CHOICE
-      --------------------------------------------------
-    */
+    if (!sessionId) {
 
-    function updateFirstChoice() {
+      sessionId =
+        (
+          Date.now().toString(36) +
+          Math.random()
+            .toString(36)
+            .slice(2)
+        );
 
-      document.getElementById("firstChoice").value =
-        getChoice("first_yes")
-          ? "Yes"
-          : (
-              getChoice("first_no")
-                ? "No"
-                : ""
-            );
+      sessionStorage.setItem(
+        "mini_game_session_id",
+        sessionId
+      );
 
     }
 
 
-    /*
-      --------------------------------------------------
-      FILL SECOND CHOICE
-      --------------------------------------------------
-    */
-
-    function updateSecondChoice() {
-
-      document.getElementById("secondChoice").value =
-        getChoice("second_yes")
-          ? "Yes"
-          : (
-              getChoice("second_no")
-                ? "No"
-                : ""
-            );
-
-    }
+    trackingSession.value =
+      sessionId;
 
 
-    /*
-      --------------------------------------------------
-      FILL CHOICE LOG
-      --------------------------------------------------
-    */
+    /* ==================================================
+       SEND TRACKING EVENT
+       ================================================== */
 
-    function updateChoiceLog() {
-
-      document.getElementById("choiceLog").value =
-        JSON.stringify(choiceLog);
-
-    }
-
-
-    /*
-      --------------------------------------------------
-      FILL TIMESTAMP
-      --------------------------------------------------
-    */
-
-    function updateTimestamp() {
-
-      document.getElementById("timestamp").value =
-        new Date().toISOString();
-
-    }
-
-
-    /*
-      --------------------------------------------------
-      INITIALIZE HIDDEN FIELDS
-      --------------------------------------------------
-    */
-
-    updateFirstChoice();
-    updateSecondChoice();
-    updateChoiceLog();
-    updateTimestamp();
-
-
-    /*
-      --------------------------------------------------
-      PLAY FINAL SONG
-      --------------------------------------------------
-
-      Always starts from 0:00.
-    */
-
-    function playDateSong() {
+    function track(
+      eventName,
+      fieldName,
+      value
+    ) {
 
       try {
 
-        dateSong.pause();
+        trackingSession.value =
+          sessionId;
 
-        dateSong.currentTime = 0;
+        trackingEvent.value =
+          eventName;
 
-        dateSong.volume = 0.9;
+        trackingField.value =
+          fieldName || "";
 
-        const playPromise =
-          dateSong.play();
+        trackingValue.value =
+          value == null
+            ? ""
+            : String(value);
 
-        if (
-          playPromise &&
-          typeof playPromise.catch === "function"
-        ) {
 
-          playPromise.catch(function(error) {
+        /*
+          Native POST to the new Google Apps Script.
+          The hidden iframe keeps the page in place.
+        */
 
-            console.warn(
-              "Bad Bunny could not play:",
-              error
-            );
-
-          });
-
-        }
+        HTMLFormElement
+          .prototype
+          .submit
+          .call(trackingForm);
 
       } catch (error) {
 
         console.warn(
-          "Could not start date song:",
+          "Tracking failed:",
           error
         );
 
@@ -442,110 +1083,501 @@
     }
 
 
-    /*
-      --------------------------------------------------
-      FINAL FORM SUBMISSION
-      --------------------------------------------------
+    /* ==================================================
+       STAGES
+       ================================================== */
 
-      IMPORTANT:
+    const stages = [
 
-      We are NOT using fetch() here.
+      "stageName",
+      "stageAge",
+      "stageLanguages",
+      "stageCreepy",
+      "stageCreepyYes",
+      "stageStory",
+      "stageFinal",
+      "stageFinalYes",
+      "stageFinalNo",
+      "stageThankYou"
 
-      The form is submitted normally to Google Apps Script
-      through the hidden iframe.
-
-      This allows the browser to perform a normal
-      application/x-www-form-urlencoded POST.
-    */
-
-    form.addEventListener(
-      "submit",
-      function(event) {
-
-        event.preventDefault();
+    ];
 
 
-        /*
-          Check required date/time fields.
-        */
+    function showStage(stageId) {
 
-        if (!form.checkValidity()) {
+      stages.forEach(
+        function(id) {
 
-          form.reportValidity();
+          const element =
+            document.getElementById(id);
 
-          return;
+
+          if (id === stageId) {
+
+            element.classList.remove(
+              "hidden"
+            );
+
+            element.classList.remove(
+              "stage-enter"
+            );
+
+            void element.offsetWidth;
+
+            element.classList.add(
+              "stage-enter"
+            );
+
+          } else {
+
+            element.classList.add(
+              "hidden"
+            );
+
+          }
+
         }
+      );
+
+    }
 
 
-        /*
-          Start music immediately from the button click.
-        */
+    /* ==================================================
+       PAGE OPEN
+       ================================================== */
 
-        playDateSong();
-
-
-        /*
-          Refresh all hidden fields immediately
-          before submission.
-        */
-
-        updateFirstChoice();
-
-        updateSecondChoice();
-
-        updateChoiceLog();
-
-        updateTimestamp();
-
-
-        /*
-          Update the UI.
-        */
-
-        status.textContent =
-          "Saving your date... ♥";
-
-        submitButton.value =
-          "Saving... ♥";
-
-        submitButton.disabled =
-          true;
-
-
-        /*
-          IMPORTANT:
-
-          HTMLFormElement.prototype.submit.call(form)
-
-          bypasses the submit event listener itself
-          and performs the REAL native form submission.
-        */
-
-        HTMLFormElement.prototype.submit.call(form);
-
-
-        /*
-          Give Google Apps Script a moment to receive
-          the request, then update the page.
-        */
-
-        setTimeout(
-          function() {
-
-            status.textContent =
-              "SEE YOU🙂";
-
-            submitButton.value =
-              "♥";
-
-          },
-          1000
-        );
-
-      }
+    track(
+      "Schedule Opened",
+      "page",
+      "schedule.html"
     );
+
+
+    /* ==================================================
+       NAME — ENTER
+       ================================================== */
+
+    document
+      .getElementById("nameSubmit")
+      .addEventListener(
+        "click",
+        function() {
+
+          const value =
+            document
+              .getElementById("nameInput")
+              .value
+              .trim();
+
+
+          if (!value) {
+
+            document
+              .getElementById("nameInput")
+              .focus();
+
+            return;
+
+          }
+
+
+          track(
+            "Name Submitted",
+            "name",
+            value
+          );
+
+
+          showStage(
+            "stageAge"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       NAME — SKIP
+       ================================================== */
+
+    document
+      .getElementById("nameSkip")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Name Skipped",
+            "name",
+            "[SKIPPED]"
+          );
+
+
+          showStage(
+            "stageAge"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       AGE — ENTER
+       ================================================== */
+
+    document
+      .getElementById("ageSubmit")
+      .addEventListener(
+        "click",
+        function() {
+
+          const value =
+            document
+              .getElementById("ageInput")
+              .value
+              .trim();
+
+
+          if (!value) {
+
+            document
+              .getElementById("ageInput")
+              .focus();
+
+            return;
+
+          }
+
+
+          track(
+            "Age Submitted",
+            "age",
+            value
+          );
+
+
+          showStage(
+            "stageLanguages"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       AGE — SKIP
+       ================================================== */
+
+    document
+      .getElementById("ageSkip")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Age Skipped",
+            "age",
+            "[SKIPPED]"
+          );
+
+
+          showStage(
+            "stageLanguages"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       LANGUAGES — SUBMIT
+       ================================================== */
+
+    document
+      .getElementById("languageSubmit")
+      .addEventListener(
+        "click",
+        function() {
+
+          const value =
+            document
+              .getElementById("languageInput")
+              .value
+              .trim();
+
+
+          if (!value) {
+
+            document
+              .getElementById("languageInput")
+              .focus();
+
+            return;
+
+          }
+
+
+          track(
+            "Languages Submitted",
+            "languages",
+            value
+          );
+
+
+          showStage(
+            "stageCreepy"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       LANGUAGES — SKIP
+       ================================================== */
+
+    document
+      .getElementById("languageSkip")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Languages Skipped",
+            "languages",
+            "[SKIPPED]"
+          );
+
+
+          showStage(
+            "stageCreepy"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       CREEPY — YES
+       ================================================== */
+
+    document
+      .getElementById("creepyYes")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Creepy Question",
+            "creepy_website",
+            "Yes"
+          );
+
+
+          showStage(
+            "stageCreepyYes"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       CREEPY — NO
+       ================================================== */
+
+    document
+      .getElementById("creepyNo")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Creepy Question",
+            "creepy_website",
+            "No"
+          );
+
+
+          showStage(
+            "stageStory"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       CREEPY = YES → END
+       ================================================== */
+
+    document
+      .getElementById("creepyEnd")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Creepy Followup",
+            "creepy_followup",
+            "End"
+          );
+
+
+          showStage(
+            "stageThankYou"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       CREEPY = YES → CONTINUE
+       ================================================== */
+
+    document
+      .getElementById("creepyContinue")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Creepy Followup",
+            "creepy_followup",
+            "I want to see more"
+          );
+
+
+          showStage(
+            "stageStory"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       LIVING STORY — TELL
+       ================================================== */
+
+    document
+      .getElementById("storySubmit")
+      .addEventListener(
+        "click",
+        function() {
+
+          const value =
+            document
+              .getElementById("storyInput")
+              .value
+              .trim();
+
+
+          if (!value) {
+
+            document
+              .getElementById("storyInput")
+              .focus();
+
+            return;
+
+          }
+
+
+          track(
+            "Living Story Submitted",
+            "living_story",
+            value
+          );
+
+
+          showStage(
+            "stageFinal"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       LIVING STORY — SKIP
+       ================================================== */
+
+    document
+      .getElementById("storySkip")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Living Story Skipped",
+            "living_story",
+            "[SKIPPED]"
+          );
+
+
+          showStage(
+            "stageFinal"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       FINAL — YES
+       ================================================== */
+
+    document
+      .getElementById("finalYes")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Final Question",
+            "final_response",
+            "Yes, I'd be willing to talk."
+          );
+
+
+          showStage(
+            "stageFinalYes"
+          );
+
+        }
+      );
+
+
+    /* ==================================================
+       FINAL — NO
+       ================================================== */
+
+    document
+      .getElementById("finalNo")
+      .addEventListener(
+        "click",
+        function() {
+
+          track(
+            "Final Question",
+            "final_response",
+            "No, you were a creep."
+          );
+
+
+          showStage(
+            "stageFinalNo"
+          );
+
+        }
+      );
+
 
   </script>
 
+
 </body>
+
 </html>
