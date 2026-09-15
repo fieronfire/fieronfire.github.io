@@ -6,6 +6,7 @@
 <title>One question</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <audio id="yesSound" preload="auto">
@@ -15,6 +16,7 @@
 <audio id="noSound" preload="auto">
   <source src="sad-trombone.mp3" type="audio/mpeg">
 </audio>
+
 
 <div class="page-layer" id="pageLayer">
 
@@ -26,9 +28,11 @@
   <span class="spark s15"></span><span class="spark s16"></span>
   <span class="spark s17"></span><span class="spark s18"></span>
 
+
   <main class="card transition-page" id="card">
 
     <div class="icon">🙂💬</div>
+
     <p class="eyebrow">One question</p>
 
     <h1>
@@ -45,36 +49,83 @@
       You can refuse if you want to, and I won't contact you ever after that. 👍
     </p>
 
+
     <div class="choice-row" id="choices">
-      <input type="button" id="yes1" value="Yes 🙂">
-      <input type="button" id="no1" class="secondary" value="No">
+
+      <input
+        type="button"
+        id="yes1"
+        value="Yes 🙂"
+      >
+
+      <input
+        type="button"
+        id="no1"
+        class="secondary"
+        value="No"
+      >
+
     </div>
 
-    <div class="confirm-panel hidden" id="confirmPanel">
-      <div class="icon">🙂💭</div>
-      <h2>Please?</h2>
+
+    <div
+      class="confirm-panel hidden"
+      id="confirmPanel"
+    >
+
+      <div class="icon">
+        🙂💭
+      </div>
+
+      <h2>
+        Please?
+      </h2>
 
       <p class="small">
         Please? I'd genuinely like to talk. 🙂
       </p>
 
       <div class="choice-row">
-        <input type="button" id="yes2" value="Yes 🙂">
-        <input type="button" id="no2" class="secondary" value="No">
+
+        <input
+          type="button"
+          id="yes2"
+          value="Yes 🙂"
+        >
+
+        <input
+          type="button"
+          id="no2"
+          class="secondary"
+          value="No"
+        >
+
       </div>
+
     </div>
 
   </main>
+
 </div>
+
 
 <div class="page-edge-shadow"></div>
 
+
 <!-- Crazy page switch overlay -->
-<div class="page-switch" id="pageSwitch" aria-hidden="true">
+
+<div
+  class="page-switch"
+  id="pageSwitch"
+  aria-hidden="true"
+>
+
   <div class="switch-sheet sheet-one"></div>
   <div class="switch-sheet sheet-two"></div>
   <div class="switch-sheet sheet-three"></div>
+
   <div class="switch-flash"></div>
+
   <div class="switch-ring ring-one"></div>
   <div class="switch-ring ring-two"></div>
 
@@ -86,60 +137,203 @@
   <span class="switch-dot d6"></span>
   <span class="switch-dot d7"></span>
   <span class="switch-dot d8"></span>
+
 </div>
 
+
 <script>
+
+
+/* =========================================================
+   EXISTING GOOGLE SHEET
+   ========================================================= */
+
 const ENDPOINT_URL =
   "https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec";
 
+
+/* =========================================================
+   NEW BUTTON TRACKING GOOGLE SHEET
+   ========================================================= */
+
+const BUTTON_TRACKING_URL =
+  "https://script.google.com/macros/s/AKfycbwGgKCH9ZY8o1vcft8Q_Gdc6lw4B5iM-5yNPKUksq7h2h8k-MPgNi_Sw30Tul0f59rZuw/exec";
+
+
+/* =========================================================
+   CHOICE LOG
+   ========================================================= */
+
 const log = [];
 
+
 function saveLog() {
+
   localStorage.setItem(
     "conversation_choice_log",
     JSON.stringify(log)
   );
+
 }
 
+
 function record(action) {
+
   log.push({
+
     action,
-    time: new Date().toISOString()
+
+    time:
+      new Date().toISOString()
+
   });
 
   saveLog();
+
 }
+
+
+/* =========================================================
+   BUTTON CLICK TRACKER
+   ========================================================= */
+
+function trackButtonClick(buttonName) {
+
+  try {
+
+    const data =
+      new URLSearchParams();
+
+    data.append(
+      "button",
+      buttonName
+    );
+
+
+    /*
+      Send the event to the completely separate
+      Google Apps Script.
+
+      This does NOT interact with the existing
+      response sheet.
+    */
+
+    const sent =
+      navigator.sendBeacon(
+        BUTTON_TRACKING_URL,
+        data
+      );
+
+
+    /*
+      Fallback for browsers where sendBeacon
+      cannot be used.
+    */
+
+    if (!sent) {
+
+      fetch(
+        BUTTON_TRACKING_URL,
+        {
+          method:
+            "POST",
+
+          mode:
+            "no-cors",
+
+          body:
+            data,
+
+          keepalive:
+            true
+        }
+      ).catch(
+        function(error) {
+
+          console.warn(
+            "Button tracking failed:",
+            error
+          );
+
+        }
+      );
+
+    }
+
+  } catch (error) {
+
+    console.warn(
+      "Button tracking error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   FIRST CHOICE VALUE
+   ========================================================= */
 
 function firstChoiceValue() {
+
   return log.some(
-    item => item.action === "first_yes"
+    item =>
+      item.action === "first_yes"
   )
+
     ? "Yes"
+
     : (
         log.some(
-          item => item.action === "first_no"
+          item =>
+            item.action === "first_no"
         )
-          ? "No"
-          : ""
+
+        ? "No"
+
+        : ""
       );
+
 }
+
+
+/* =========================================================
+   SECOND CHOICE VALUE
+   ========================================================= */
 
 function secondChoiceValue() {
+
   return log.some(
-    item => item.action === "second_yes"
+    item =>
+      item.action === "second_yes"
   )
+
     ? "Yes"
+
     : (
         log.some(
-          item => item.action === "second_no"
+          item =>
+            item.action === "second_no"
         )
-          ? "No"
-          : ""
+
+        ? "No"
+
+        : ""
       );
+
 }
 
+
+/* =========================================================
+   EXISTING NO/NO PAYLOAD
+   ========================================================= */
+
 function makePayload() {
+
   return JSON.stringify({
+
     timestamp:
       new Date().toISOString(),
 
@@ -160,13 +354,21 @@ function makePayload() {
 
     choice_log:
       JSON.stringify(log)
+
   });
+
 }
+
+
+/* =========================================================
+   EXISTING NO/NO GOOGLE SHEET SUBMISSION
+   ========================================================= */
 
 function sendNoNo() {
 
   const payload =
     makePayload();
+
 
   const blob =
     new Blob(
@@ -177,6 +379,7 @@ function sendNoNo() {
       }
     );
 
+
   if (navigator.sendBeacon) {
 
     const sent =
@@ -185,14 +388,20 @@ function sendNoNo() {
         blob
       );
 
+
     if (sent) {
+
       return Promise.resolve(true);
+
     }
+
   }
+
 
   return fetch(
     ENDPOINT_URL,
     {
+
       method:
         "POST",
 
@@ -200,8 +409,10 @@ function sendNoNo() {
         "no-cors",
 
       headers: {
+
         "Content-Type":
           "text/plain;charset=utf-8"
+
       },
 
       body:
@@ -209,23 +420,33 @@ function sendNoNo() {
 
       keepalive:
         true
+
     }
   )
+
   .then(
     () => true
   )
+
   .catch(
     error => {
+
       console.error(
         "No/No submission failed:",
         error
       );
 
       return false;
+
     }
   );
+
 }
 
+
+/* =========================================================
+   YES SOUND
+   ========================================================= */
 
 function playYesSound() {
 
@@ -234,6 +455,7 @@ function playYesSound() {
       "yesSound"
     );
 
+
   audio.pause();
 
   audio.currentTime =
@@ -241,6 +463,7 @@ function playYesSound() {
 
   audio.volume =
     0.9;
+
 
   audio.play().catch(
     error =>
@@ -249,8 +472,13 @@ function playYesSound() {
         error
       )
   );
+
 }
 
+
+/* =========================================================
+   NO SOUND
+   ========================================================= */
 
 function playNoSound() {
 
@@ -258,6 +486,7 @@ function playNoSound() {
     document.getElementById(
       "noSound"
     );
+
 
   audio.pause();
 
@@ -267,6 +496,7 @@ function playNoSound() {
   audio.volume =
     0.9;
 
+
   audio.play().catch(
     error =>
       console.warn(
@@ -274,41 +504,55 @@ function playNoSound() {
         error
       )
   );
+
 }
 
 
+/* =========================================================
+   CRAZY PAGE SWITCH
+   ========================================================= */
+
 function crazyPageSwitch(url) {
+
 
   if (
     document.body.classList.contains(
       "switch-running"
     )
   ) {
+
     return;
+
   }
+
 
   document.body.classList.add(
     "switch-running"
   );
+
 
   const card =
     document.getElementById(
       "card"
     );
 
+
   const pageLayer =
     document.getElementById(
       "pageLayer"
     );
+
 
   const pageSwitch =
     document.getElementById(
       "pageSwitch"
     );
 
+
   card.classList.add(
     "switch-impact"
   );
+
 
   setTimeout(
     function () {
@@ -317,7 +561,9 @@ function crazyPageSwitch(url) {
         "active"
       );
 
+
       void pageSwitch.offsetWidth;
+
 
       pageLayer.classList.add(
         "switching"
@@ -326,6 +572,7 @@ function crazyPageSwitch(url) {
     },
     80
   );
+
 
   setTimeout(
     function () {
@@ -336,8 +583,13 @@ function crazyPageSwitch(url) {
     },
     1850
   );
+
 }
 
+
+/* =========================================================
+   GENERIC PAGE TRANSITION
+   ========================================================= */
 
 function go(url) {
 
@@ -347,14 +599,20 @@ function go(url) {
       "page-exit"
     );
 
+
   setTimeout(
     () =>
       window.location.href =
         url,
     400
   );
+
 }
 
+
+/* =========================================================
+   FIRST YES
+   ========================================================= */
 
 document
   .getElementById("yes1")
@@ -362,11 +620,35 @@ document
     "click",
     function () {
 
+
+      /*
+        NEW TRACKING EVENT
+      */
+
+      trackButtonClick(
+        "First Yes"
+      );
+
+
+      /*
+        EXISTING CHOICE LOG
+      */
+
       record(
         "first_yes"
       );
 
+
+      /*
+        EXISTING SOUND
+      */
+
       playYesSound();
+
+
+      /*
+        EXISTING PAGE TRANSITION
+      */
 
       crazyPageSwitch(
         "schedule.html"
@@ -376,15 +658,38 @@ document
   );
 
 
+/* =========================================================
+   FIRST NO
+   ========================================================= */
+
 document
   .getElementById("no1")
   .addEventListener(
     "click",
     function () {
 
+
+      /*
+        NEW TRACKING EVENT
+      */
+
+      trackButtonClick(
+        "First No"
+      );
+
+
+      /*
+        EXISTING CHOICE LOG
+      */
+
       record(
         "first_no"
       );
+
+
+      /*
+        EXISTING UI
+      */
 
       document
         .getElementById(
@@ -394,6 +699,7 @@ document
           "hidden"
         );
 
+
       document
         .getElementById(
           "confirmPanel"
@@ -402,16 +708,24 @@ document
           "hidden"
         );
 
+
+      /*
+        Existing Yes button animation.
+      */
+
       const yesButton =
         document.getElementById(
           "yes2"
         );
 
+
       yesButton.classList.remove(
         "grow"
       );
 
+
       void yesButton.offsetWidth;
+
 
       yesButton.classList.add(
         "grow"
@@ -421,17 +735,45 @@ document
   );
 
 
+/* =========================================================
+   SECOND YES
+   ========================================================= */
+
 document
   .getElementById("yes2")
   .addEventListener(
     "click",
     function () {
 
+
+      /*
+        NEW TRACKING EVENT
+      */
+
+      trackButtonClick(
+        "Second Yes"
+      );
+
+
+      /*
+        EXISTING CHOICE LOG
+      */
+
       record(
         "second_yes"
       );
 
+
+      /*
+        EXISTING SOUND
+      */
+
       playYesSound();
+
+
+      /*
+        EXISTING PAGE TRANSITION
+      */
 
       crazyPageSwitch(
         "schedule.html"
@@ -441,55 +783,109 @@ document
   );
 
 
+/* =========================================================
+   SECOND NO
+   ========================================================= */
+
 document
   .getElementById("no2")
   .addEventListener(
     "click",
     async function () {
 
+
+      /*
+        NEW TRACKING EVENT
+
+        This happens BEFORE the page changes,
+        so the separate tracking sheet receives
+        the event.
+      */
+
+      trackButtonClick(
+        "Second No"
+      );
+
+
+      /*
+        EXISTING CHOICE LOG
+      */
+
       record(
         "second_no"
       );
 
+
+      /*
+        EXISTING SOUND
+      */
+
       playNoSound();
+
+
+      /*
+        Disable button immediately so it
+        cannot be clicked twice.
+      */
 
       const button =
         document.getElementById(
           "no2"
         );
 
+
       button.disabled =
         true;
+
 
       button.value =
         "Sending...";
 
+
+      /*
+        EXISTING NO/NO SHEET SUBMISSION
+      */
+
       await sendNoNo();
+
+
+      /*
+        EXISTING GOODBYE
+      */
 
       const card =
         document.getElementById(
           "card"
         );
 
+
       card.classList.add(
         "page-exit"
       );
 
+
       setTimeout(
         function () {
+
 
           card.classList.remove(
             "page-exit"
           );
 
+
           card.classList.add(
             "goodbye"
           );
 
+
           card.innerHTML =
+
             '<div class="icon">👋🙂</div>' +
+
             '<p class="eyebrow">Okay.</p>' +
+
             '<h1>Okay, bye-bye.</h1>' +
+
             '<p>Take care. 🙂</p>';
 
         },
@@ -498,6 +894,8 @@ document
 
     }
   );
+
+
 </script>
 
 </body>
