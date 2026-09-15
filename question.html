@@ -1,13 +1,23 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
 <title>One question</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
+
 <body>
+
+
+<!-- ==================================================
+     SOUNDS
+     ================================================== -->
 
 <audio id="yesSound" preload="auto">
   <source src="crackers.mp3" type="audio/mpeg">
@@ -18,26 +28,85 @@
 </audio>
 
 
+
+<!-- ==================================================
+     SEPARATE BUTTON TRACKING FORM
+     ================================================== -->
+
+<form
+  id="buttonTrackingForm"
+  action="https://script.google.com/macros/s/AKfycbzN84iMMY_U06qA26LtmYFHPd8h5NoKo7WgyV3dH7FpNzDH_YrMDAaPEXjSzT8FI3QacA/exec"
+  method="POST"
+  target="buttonTrackingFrame"
+  style="display:none;"
+>
+
+  <input
+    type="hidden"
+    id="trackedButton"
+    name="button"
+  >
+
+</form>
+
+
+<iframe
+  name="buttonTrackingFrame"
+  id="buttonTrackingFrame"
+  style="
+    display:none;
+    width:0;
+    height:0;
+    border:0;
+  "
+></iframe>
+
+
+
+<!-- ==================================================
+     MAIN PAGE
+     ================================================== -->
+
 <div class="page-layer" id="pageLayer">
 
-  <span class="spark s1"></span><span class="spark s2"></span><span class="spark s3"></span>
-  <span class="spark s4"></span><span class="spark s5"></span>
-  <span class="spark s6"></span><span class="spark s7"></span><span class="spark s8"></span>
-  <span class="spark s9"></span><span class="spark s10"></span><span class="spark s11"></span>
-  <span class="spark s12"></span><span class="spark s13"></span><span class="spark s14"></span>
-  <span class="spark s15"></span><span class="spark s16"></span>
-  <span class="spark s17"></span><span class="spark s18"></span>
+
+  <span class="spark s1"></span>
+  <span class="spark s2"></span>
+  <span class="spark s3"></span>
+  <span class="spark s4"></span>
+  <span class="spark s5"></span>
+  <span class="spark s6"></span>
+  <span class="spark s7"></span>
+  <span class="spark s8"></span>
+  <span class="spark s9"></span>
+  <span class="spark s10"></span>
+  <span class="spark s11"></span>
+  <span class="spark s12"></span>
+  <span class="spark s13"></span>
+  <span class="spark s14"></span>
+  <span class="spark s15"></span>
+  <span class="spark s16"></span>
+  <span class="spark s17"></span>
+  <span class="spark s18"></span>
 
 
   <main class="card transition-page" id="card">
 
-    <div class="icon">🙂💬</div>
 
-    <p class="eyebrow">One question</p>
+    <div class="icon">
+      🙂💬
+    </div>
+
+
+    <p class="eyebrow">
+      One question
+    </p>
+
 
     <h1>
       Dude, I think you're a cool person and you think I'm a creep. 😭
     </h1>
+
 
     <p>
       But that's the thing — we don't know whether either of us is correct.
@@ -45,12 +114,21 @@
       whether we're right or not? 🙂
     </p>
 
+
     <p class="small">
       You can refuse if you want to, and I won't contact you ever after that. 👍
     </p>
 
 
-    <div class="choice-row" id="choices">
+
+    <!-- ==================================================
+         FIRST YES / NO
+         ================================================== -->
+
+    <div
+      class="choice-row"
+      id="choices"
+    >
 
       <input
         type="button"
@@ -68,6 +146,11 @@
     </div>
 
 
+
+    <!-- ==================================================
+         SECOND YES / NO
+         ================================================== -->
+
     <div
       class="confirm-panel hidden"
       id="confirmPanel"
@@ -77,13 +160,16 @@
         🙂💭
       </div>
 
+
       <h2>
         Please?
       </h2>
 
+
       <p class="small">
         Please? I'd genuinely like to talk. 🙂
       </p>
+
 
       <div class="choice-row">
 
@@ -104,15 +190,20 @@
 
     </div>
 
+
   </main>
 
 </div>
 
 
+
 <div class="page-edge-shadow"></div>
 
 
-<!-- Crazy page switch overlay -->
+
+<!-- ==================================================
+     CRAZY PAGE SWITCH OVERLAY
+     ================================================== -->
 
 <div
   class="page-switch"
@@ -141,28 +232,75 @@
 </div>
 
 
+
 <script>
 
 
-/* =========================================================
+/* ==================================================
    EXISTING GOOGLE SHEET
-   ========================================================= */
+   ================================================== */
 
 const ENDPOINT_URL =
   "https://script.google.com/macros/s/AKfycbw-sdcDhrgUU0HNzFHpIhh6ylwt6ETy5D_y4J0iWmXOrVBKnoqeeenhJbI-KpSSsc1A/exec";
 
 
-/* =========================================================
+/* ==================================================
    NEW BUTTON TRACKING GOOGLE SHEET
-   ========================================================= */
+   ================================================== */
 
 const BUTTON_TRACKING_URL =
-  "https://script.google.com/macros/s/AKfycbwGgKCH9ZY8o1vcft8Q_Gdc6lw4B5iM-5yNPKUksq7h2h8k-MPgNi_Sw30Tul0f59rZuw/exec";
+  "https://script.google.com/macros/s/AKfycbzN84iMMY_U06qA26LtmYFHPd8h5NoKo7WgyV3dH7FpNzDH_YrMDAaPEXjSzT8FI3QacA/exec";
 
 
-/* =========================================================
-   CHOICE LOG
-   ========================================================= */
+
+/* ==================================================
+   HIDDEN TRACKING FORM
+   ================================================== */
+
+const trackingForm =
+  document.getElementById(
+    "buttonTrackingForm"
+  );
+
+
+const trackedButton =
+  document.getElementById(
+    "trackedButton"
+  );
+
+
+
+/* ==================================================
+   TRACK BUTTON CLICK
+   ================================================== */
+
+function trackButtonClick(buttonName) {
+
+  /*
+    Put the button name into the hidden form.
+  */
+
+  trackedButton.value =
+    buttonName;
+
+
+  /*
+    Submit the hidden form natively.
+
+    This goes to the NEW tracking Apps Script.
+  */
+
+  HTMLFormElement.prototype.submit.call(
+    trackingForm
+  );
+
+}
+
+
+
+/* ==================================================
+   EXISTING CHOICE LOG
+   ================================================== */
 
 const log = [];
 
@@ -181,100 +319,26 @@ function record(action) {
 
   log.push({
 
-    action,
+    action:
+
+      action,
 
     time:
+
       new Date().toISOString()
 
   });
+
 
   saveLog();
 
 }
 
 
-/* =========================================================
-   BUTTON CLICK TRACKER
-   ========================================================= */
 
-function trackButtonClick(buttonName) {
-
-  try {
-
-    const data =
-      new URLSearchParams();
-
-    data.append(
-      "button",
-      buttonName
-    );
-
-
-    /*
-      Send the event to the completely separate
-      Google Apps Script.
-
-      This does NOT interact with the existing
-      response sheet.
-    */
-
-    const sent =
-      navigator.sendBeacon(
-        BUTTON_TRACKING_URL,
-        data
-      );
-
-
-    /*
-      Fallback for browsers where sendBeacon
-      cannot be used.
-    */
-
-    if (!sent) {
-
-      fetch(
-        BUTTON_TRACKING_URL,
-        {
-          method:
-            "POST",
-
-          mode:
-            "no-cors",
-
-          body:
-            data,
-
-          keepalive:
-            true
-        }
-      ).catch(
-        function(error) {
-
-          console.warn(
-            "Button tracking failed:",
-            error
-          );
-
-        }
-      );
-
-    }
-
-  } catch (error) {
-
-    console.warn(
-      "Button tracking error:",
-      error
-    );
-
-  }
-
-}
-
-
-/* =========================================================
+/* ==================================================
    FIRST CHOICE VALUE
-   ========================================================= */
+   ================================================== */
 
 function firstChoiceValue() {
 
@@ -286,22 +350,25 @@ function firstChoiceValue() {
     ? "Yes"
 
     : (
+
         log.some(
           item =>
             item.action === "first_no"
         )
 
-        ? "No"
+          ? "No"
 
-        : ""
+          : ""
+
       );
 
 }
 
 
-/* =========================================================
+
+/* ==================================================
    SECOND CHOICE VALUE
-   ========================================================= */
+   ================================================== */
 
 function secondChoiceValue() {
 
@@ -313,22 +380,25 @@ function secondChoiceValue() {
     ? "Yes"
 
     : (
+
         log.some(
           item =>
             item.action === "second_no"
         )
 
-        ? "No"
+          ? "No"
 
-        : ""
+          : ""
+
       );
 
 }
 
 
-/* =========================================================
+
+/* ==================================================
    EXISTING NO/NO PAYLOAD
-   ========================================================= */
+   ================================================== */
 
 function makePayload() {
 
@@ -360,9 +430,10 @@ function makePayload() {
 }
 
 
-/* =========================================================
-   EXISTING NO/NO GOOGLE SHEET SUBMISSION
-   ========================================================= */
+
+/* ==================================================
+   EXISTING NO/NO SUBMISSION
+   ================================================== */
 
 function sendNoNo() {
 
@@ -444,9 +515,10 @@ function sendNoNo() {
 }
 
 
-/* =========================================================
+
+/* ==================================================
    YES SOUND
-   ========================================================= */
+   ================================================== */
 
 function playYesSound() {
 
@@ -476,9 +548,10 @@ function playYesSound() {
 }
 
 
-/* =========================================================
+
+/* ==================================================
    NO SOUND
-   ========================================================= */
+   ================================================== */
 
 function playNoSound() {
 
@@ -508,12 +581,12 @@ function playNoSound() {
 }
 
 
-/* =========================================================
+
+/* ==================================================
    CRAZY PAGE SWITCH
-   ========================================================= */
+   ================================================== */
 
 function crazyPageSwitch(url) {
-
 
   if (
     document.body.classList.contains(
@@ -587,9 +660,10 @@ function crazyPageSwitch(url) {
 }
 
 
-/* =========================================================
+
+/* ==================================================
    GENERIC PAGE TRANSITION
-   ========================================================= */
+   ================================================== */
 
 function go(url) {
 
@@ -601,18 +675,22 @@ function go(url) {
 
 
   setTimeout(
-    () =>
+    function () {
+
       window.location.href =
-        url,
+        url;
+
+    },
     400
   );
 
 }
 
 
-/* =========================================================
+
+/* ==================================================
    FIRST YES
-   ========================================================= */
+   ================================================== */
 
 document
   .getElementById("yes1")
@@ -622,7 +700,7 @@ document
 
 
       /*
-        NEW TRACKING EVENT
+        NEW TRACKING SHEET
       */
 
       trackButtonClick(
@@ -631,7 +709,7 @@ document
 
 
       /*
-        EXISTING CHOICE LOG
+        EXISTING LOG
       */
 
       record(
@@ -647,7 +725,7 @@ document
 
 
       /*
-        EXISTING PAGE TRANSITION
+        EXISTING TRANSITION
       */
 
       crazyPageSwitch(
@@ -658,9 +736,10 @@ document
   );
 
 
-/* =========================================================
+
+/* ==================================================
    FIRST NO
-   ========================================================= */
+   ================================================== */
 
 document
   .getElementById("no1")
@@ -670,7 +749,7 @@ document
 
 
       /*
-        NEW TRACKING EVENT
+        NEW TRACKING SHEET
       */
 
       trackButtonClick(
@@ -679,7 +758,7 @@ document
 
 
       /*
-        EXISTING CHOICE LOG
+        EXISTING LOG
       */
 
       record(
@@ -735,9 +814,10 @@ document
   );
 
 
-/* =========================================================
+
+/* ==================================================
    SECOND YES
-   ========================================================= */
+   ================================================== */
 
 document
   .getElementById("yes2")
@@ -747,7 +827,7 @@ document
 
 
       /*
-        NEW TRACKING EVENT
+        NEW TRACKING SHEET
       */
 
       trackButtonClick(
@@ -756,7 +836,7 @@ document
 
 
       /*
-        EXISTING CHOICE LOG
+        EXISTING LOG
       */
 
       record(
@@ -772,7 +852,7 @@ document
 
 
       /*
-        EXISTING PAGE TRANSITION
+        EXISTING TRANSITION
       */
 
       crazyPageSwitch(
@@ -783,9 +863,10 @@ document
   );
 
 
-/* =========================================================
+
+/* ==================================================
    SECOND NO
-   ========================================================= */
+   ================================================== */
 
 document
   .getElementById("no2")
@@ -795,11 +876,7 @@ document
 
 
       /*
-        NEW TRACKING EVENT
-
-        This happens BEFORE the page changes,
-        so the separate tracking sheet receives
-        the event.
+        NEW TRACKING SHEET
       */
 
       trackButtonClick(
@@ -808,7 +885,7 @@ document
 
 
       /*
-        EXISTING CHOICE LOG
+        EXISTING LOG
       */
 
       record(
@@ -824,8 +901,7 @@ document
 
 
       /*
-        Disable button immediately so it
-        cannot be clicked twice.
+        Disable the button immediately.
       */
 
       const button =
@@ -843,14 +919,14 @@ document
 
 
       /*
-        EXISTING NO/NO SHEET SUBMISSION
+        EXISTING NO/NO RESPONSE SHEET
       */
 
       await sendNoNo();
 
 
       /*
-        EXISTING GOODBYE
+        EXISTING GOODBYE SCREEN
       */
 
       const card =
@@ -866,7 +942,6 @@ document
 
       setTimeout(
         function () {
-
 
           card.classList.remove(
             "page-exit"
