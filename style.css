@@ -2739,5 +2739,300 @@ body.switch-running .page-switch {
 
     scroll-behavior:
       auto !important;
+     /* =========================================================
+   SCHEDULE.HTML — MINI GAME
+   ========================================================= */
+
+.game-panel {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.game-panel.hidden {
+  display: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   STAGE INDICATOR
+   --------------------------------------------------------- */
+
+.stage-indicator {
+  margin-bottom: 12px;
+
+  font-size: 0.75rem;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
+
+  opacity: 0.6;
+}
+
+
+/* ---------------------------------------------------------
+   INPUTS
+   --------------------------------------------------------- */
+
+.game-input,
+.game-textarea {
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin-top: 10px;
+
+  padding: 14px 16px;
+
+  border-radius: 14px;
+
+  border: 1.5px solid
+    rgba(94, 32, 50, 0.25);
+
+  background:
+    rgba(255, 255, 255, 0.68);
+
+  color:
+    #4f2130;
+
+  font-family: inherit;
+
+  font-size: 1rem;
+
+  outline: none;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease,
+    transform .2s ease;
+
+}
+
+
+.game-input:focus,
+.game-textarea:focus {
+
+  border-color:
+    rgba(94, 32, 50, 0.55);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(94, 32, 50, 0.08);
+
+  transform:
+    translateY(-1px);
+
+}
+
+
+.game-textarea {
+
+  min-height: 120px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+
+}
+
+
+/* ---------------------------------------------------------
+   BUTTON GROUPS
+   --------------------------------------------------------- */
+
+.game-buttons {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  margin-top: 18px;
+
+}
+
+
+.game-buttons input {
+
+  min-width: 150px;
+
+}
+
+
+.choice-large {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+
+  margin-top: 24px;
+
+}
+
+
+.choice-large input {
+
+  min-width: 140px;
+
+}
+
+
+.apology-actions {
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 12px;
+
+  flex-wrap: wrap;
+
+  margin-top: 24px;
+
+}
+
+
+.apology-actions input {
+
+  min-width: 160px;
+
+}
+
+
+/* ---------------------------------------------------------
+   STORY / APOLOGY BOX
+   --------------------------------------------------------- */
+
+.apology-box {
+
+  margin-top: 18px;
+
+  padding: 18px 20px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(255, 255, 255, 0.35);
+
+}
+
+
+/* ---------------------------------------------------------
+   STAGE TRANSITION
+   --------------------------------------------------------- */
+
+.stage-enter {
+
+  animation:
+    stageEnter
+    .48s
+    cubic-bezier(.16,.84,.26,1.08)
+    both;
+
+}
+
+
+@keyframes stageEnter {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(.97);
+
+  }
+
+  100% {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}
+
+
+/* ---------------------------------------------------------
+   ENDING SCREENS
+   --------------------------------------------------------- */
+
+.goodbye-screen {
+
+  text-align: center;
+
+}
+
+
+.goodbye-screen .icon {
+
+  margin-bottom: 8px;
+
+}
+
+
+/* ---------------------------------------------------------
+   FINAL QUESTION
+   --------------------------------------------------------- */
+
+.final-answer h2 {
+
+  margin-top: 18px;
+
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+  .game-buttons,
+  .choice-large,
+  .apology-actions {
+
+    flex-direction: column;
+
+  }
+
+
+  .game-buttons input,
+  .choice-large input,
+  .apology-actions input {
+
+    width: 100%;
+
+    min-width: 0;
+
+  }
+
+
+  .game-input,
+  .game-textarea {
+
+    font-size: 16px;
+
+  }
+
+}
   }
 }
